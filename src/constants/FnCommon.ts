@@ -27,7 +27,23 @@ export const doPostRequest = (url: string, data: any): any => {
         method: "post",
         url: url,
         data: data,
-    });
+        headers: {
+            Authorization: 'Bearer ' + getUserInfo()?.accessToken !== null ? getUserInfo()?.accessToken : ''
+        }
+    }).then(
+        (res) => {
+            return res;
+        },
+        (err) => {
+            if (err.response.status == '401') {
+                deleteUserInfo();
+                location.href = '/login';
+                // const router = useRouter();
+                // redirectUrl(router, '/login', null);
+            }
+            return err;
+        }
+    );
 }
 
 export const doFileRequest = (url: string, data: any): any => {
@@ -35,8 +51,22 @@ export const doFileRequest = (url: string, data: any): any => {
         method: "post",
         url: url,
         data: data,
-        headers: { "Content-Type": "multipart/form-data" },
-    });
+        headers: { "Content-Type": "multipart/form-data",
+            Authorization: 'Bearer ' + getUserInfo()?.accessToken !== null ? getUserInfo()?.accessToken : ''},
+    }).then(
+        (res) => {
+            return res;
+        },
+        (err) => {
+            if (err.response.status == '401') {
+                deleteUserInfo();
+                location.href = '/login';
+                // const router = useRouter();
+                // redirectUrl(router, '/login', null);
+            }
+            return err;
+        }
+    );
 }
 
 export const doGetRequest = (url: string, params: any): any => {
@@ -44,11 +74,20 @@ export const doGetRequest = (url: string, params: any): any => {
         method: "get",
         url: url,
         params: params,
+        headers: {
+            Authorization: 'Bearer ' + getUserInfo()?.accessToken !== null ? getUserInfo()?.accessToken : ''
+        },
     }).then(
         (res) => {
             return res;
         },
         (err) => {
+            if (err.response.status == '401') {
+                deleteUserInfo();
+                location.href = '/login';
+                // console.log('kk');
+                // redirectUrl(router, '/login', null);
+            }
             return err;
         }
     );

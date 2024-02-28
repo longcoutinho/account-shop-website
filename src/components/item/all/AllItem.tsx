@@ -7,23 +7,18 @@ import "@/constants/FnCommon"
 import React, {useEffect, useState} from "react";
 import {Item} from "@/interfaces/response";
 import {getAllItem} from "@/services/item";
-import {Backend, Frontend, HTTP_STATUS} from "@/constants";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPlus, faEdit} from "@fortawesome/free-solid-svg-icons";
-import {useRouter} from "next/router";
-import {redirectUrl} from "@/constants/FnCommon";
+import {Backend, HTTP_STATUS} from "@/constants";
 
 export default function AllItem(props: any) {
     const [listItems, setListItems] = useState<Item[]>([]);
-    const router = useRouter();
     useEffect(() => {
-        if (props.lv1Id !== undefined && props.lv2Id !== undefined) {
+        if (props.searchTypeId !== undefined && props.searchTypeName !== undefined) {
             renderListItem();
         }
-    }, [props.lv1Id, props.lv2Id])
+    }, [props.searchTypeId, props.searchTypeName])
 
     const renderListItem = () => {
-        getAllItem(props.lv1Id, props.lv2Id).then(
+        getAllItem(props.searchTypeId, props.searchTypeName).then(
             (res) => {
                 if (res.status == HTTP_STATUS.OK) {
                     setListItems(res.data);
@@ -33,13 +28,6 @@ export default function AllItem(props: any) {
         });
     }
 
-    const redirectAddPage = () => {
-        redirectUrl(router, Frontend.ADD_ITEM_PAGE, null);
-    }
-
-    const redirectEditPage = (itemId: number) => {
-        redirectUrl(router, Frontend.EDIT_ITEM_PAGE, {id: itemId});
-    }
 
     return (
         <Box className="flex flex-row flex-wrap gap-10 p-10 justify-items-center">
@@ -53,15 +41,9 @@ export default function AllItem(props: any) {
                             <p className="text-black">{item.name}</p>
                             <p className="text-black">{item.price}</p>
                         </Box>
-                        <FontAwesomeIcon className="text-black text-5xl cursor-pointer absolute top-0" icon={faEdit} onClick={() => redirectEditPage(item.id)}></FontAwesomeIcon>
                     </Box>
                 ))
             }
-            <Box className="w-2 min-w-40 cursor-pointer" onClick={redirectAddPage}>
-                <Box className="w-full h-full flex items-center justify-items-center">
-                    <FontAwesomeIcon className="text-black text-5xl" icon={faPlus}></FontAwesomeIcon>
-                </Box>
-            </Box>
         </Box>
     );
 }

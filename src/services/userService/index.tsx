@@ -8,6 +8,6 @@ export const signUp = async (request: any) : Promise<any> => {
 }
 
 export const signIn = async (request: any) : Promise<any> => {
-    const url = Backend.USER_SERVICE + '/login-admin';
+    const url = Backend.USER_SERVICE + '/login';
     return doPostRequest(url, request);
 }

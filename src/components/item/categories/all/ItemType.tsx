@@ -1,24 +1,23 @@
 import {HTTP_STATUS} from "@/constants";
-import {Box} from "@mui/material";
+import {Box, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "@/constants/FnCommon"
 import React, {useEffect, useState} from "react";
-import {faPlus, faEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {ItemType} from "@/interfaces/request";
 import {getItemTypeByLevelAndParentId} from "@/services/item";
-import AddItemType from "@/components/item/categories/add/AddItemType";
-import EditItemType from "@/components/item/categories/edit/EditItemType";
-import RemoveItemType from "@/components/item/categories/remove/RemoveItemType";
 
 export default function ItemTypeComponent(props: any) {
     const [listItem, setListItem] = useState<ItemType[]>([]);
 
+    useEffect(() => {
+        renderListItem();
+    }, []);
+
     const renderListItem = () => {
-        getItemTypeByLevelAndParentId(props.level, props.parentId).then(
+        getItemTypeByLevelAndParentId().then(
             (res) => {
                 if (res.status == HTTP_STATUS.OK) {
                     setListItem(res.data);
@@ -29,24 +28,22 @@ export default function ItemTypeComponent(props: any) {
     }
 
     return (
-        <Box>
             <Box className="item-type-page-content">
-                <p className="item-type-title">Type Level {props.level}</p>
-                    {
-                        (props.level == 2 && (props.parentId == undefined || null))
-                        ? <p className="py-2 px-5">Choose an item type level 1</p> :
-                            <Box className="item-type-content-wrapper py-2 px-5">
-                                {
-                                    listItem.map((itemType, index) => (
-                                        <Box className="item-type-level-container flex flex-row items-center"
-                                             key={index}>
-                                            <p style={{color: 'black'}}>{itemType.name}</p>
-                                        </Box>
-                                    ))
-                                }
-                            </Box>
-                    }
+                <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                    <InputLabel id="demo-simple-select-label">Loai san pham</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        label="Loai san pham"
+                        onChange={(e: any) => props.changeTypeId(e.target.value)}
+                    >
+                        {
+                            listItem.map((itemType) => (
+                                <MenuItem value={itemType.itemTypeId}>{itemType.name}</MenuItem>
+                            ))
+                        }
+                    </Select>
+                </FormControl>
             </Box>
-        </Box>
     );
 }

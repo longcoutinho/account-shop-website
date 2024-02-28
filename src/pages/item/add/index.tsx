@@ -11,27 +11,16 @@ import ItemTypeComponent from "@/components/item/categories/all/ItemType";
 import {createNewItem} from "@/services/item";
 
 export default function AddItemComponent() {
-    const [itemLevel1, setItemLevel1] = useState<number>();
-    const [itemLevel2, setItemLevel2] = useState<number>();
+    const [typeId, setTypeId] = useState<number>();
     const [itemName, setItemName] = useState('');
     const [itemPrice, setItemPrice] = useState('');
     const [itemListImages, setItemListImages] = useState<FileList>();
-
-    const changeParentChooseItemId = (itemId: number, level: number) => {
-        if (level == 1) {
-            setItemLevel1(itemId);
-        }
-        else if (level == 2) {
-            setItemLevel2(itemId);
-        }
-    }
 
     const createItem = () => {
         const request = new FormData();
         request.append('price', itemPrice);
         request.append('name', itemName);
-        if (itemLevel1 != undefined) request.append('lv1Id', itemLevel1.toString());
-        if (itemLevel2 != undefined) request.append('lv2Id', itemLevel2.toString());
+        if (typeId != undefined) request.append('typeId', typeId.toString());
         if (itemListImages != null) {
             Array.from(itemListImages).forEach((image) => {
                 request.append('listImages', image);
@@ -56,18 +45,7 @@ export default function AddItemComponent() {
                        onChange={(e) => setItemName(e.target.value)}/>
             </Box>
             <Box>
-                <ItemTypeComponent display={false}
-                                   level={1}
-                                   parentId={null}
-                                   changeParentChooseItemId={changeParentChooseItemId}>
-                </ItemTypeComponent>
-            </Box>
-            <Box>
-                <ItemTypeComponent display={false}
-                                   level={2}
-                                   parentId={itemLevel1}
-                                   changeParentChooseItemId={changeParentChooseItemId}>
-                </ItemTypeComponent>
+                <ItemTypeComponent></ItemTypeComponent>
             </Box>
             <Box>
                 <p className="label">Item Image</p>

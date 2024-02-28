@@ -21,13 +21,13 @@ export const deleteItemType = async (id: number) : Promise<any> => {
     return doPostRequest(url, null);
 }
 
-export const getItemTypeByLevelAndParentId = async (level: number, parentId: number | null) : Promise<any> => {
+export const getItemTypeByLevelAndParentId = async () : Promise<any> => {
     const url = Backend.ITEM_SERVICE + '/type';
-    const params = {
-        level: level,
-        parentId: parentId
-    }
-    return doGetRequest(url, params);
+    // const params = {
+    //     level: level,
+    //     parentId: parentId
+    // }
+    return doGetRequest(url, null);
 }
 
 export const getItemTypeById = async (id: number) : Promise<any> => {
@@ -48,11 +48,11 @@ export const getItemById = async (id: string | string[]) : Promise<any> => {
     return doGetRequest(url, null);
 }
 
-export const getAllItem = async (lv1Id: number, lv2Id: number | null) : Promise<any> => {
+export const getAllItem = async (searchTypeId: any, searchTypeName: any) : Promise<any> => {
     const url = Backend.ITEM_SERVICE;
     const params = {
-        lv1Id: lv1Id,
-        lv2Id: lv2Id
+        typeId: searchTypeId,
+        name: searchTypeName
     }
     return doGetRequest(url, params);
 }

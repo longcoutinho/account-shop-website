@@ -18,4 +18,5 @@ export interface User {
   fullName: string;
   email: string;
   phoneNumber: string;
+  accessToken: string;
 }

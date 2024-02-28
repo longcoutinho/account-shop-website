@@ -8,29 +8,33 @@ import "@/constants/FnCommon"
 import React, {useState} from "react";
 import ItemTypeComponent from "@/components/item/categories/all/ItemType";
 import AllItem from "@/components/item/all/AllItem";
-import {Input, Box} from "@mui/material";
+import {Input, Box, Button} from "@mui/material";
 
 export default function BuyComponent() {
-    const [itemLevel1, setItemLevel1] = useState<number | null>(null);
-    const [itemLevel2, setItemLevel2] = useState<number | null>(null);
+    const [typeId, setTypeId] = useState(null);
+    const [typeName, setTypeName] = useState('');
+    const [searchTypeId, setSearchTypeId] = useState(null);
+    const [searchTypeName, setSearchTypeName] = useState('');
 
-    const changeParentChooseItemId = (itemId: number, level: number) => {
-        if (level == 1) {
-            setItemLevel1(itemId);
-        }
-        else if (level == 2) {
-            setItemLevel2(itemId);
-        }
+    const changeTypeId = (typeId: any) => {
+        setTypeId(typeId);
+    }
+
+    const searchItem = () => {
+        setSearchTypeId(typeId);
+        setSearchTypeName(typeName);
     }
 
     return (
         <Page title={PAGE_TITLE.ALL_PRODUCTS} menuIndex={1}>
             <Box className="p-10">
-                <ItemTypeComponent display={false} level={1} parentId={null} changeParentChooseItemId={changeParentChooseItemId}></ItemTypeComponent>
+                <ItemTypeComponent changeTypeId={changeTypeId}></ItemTypeComponent>
                 <Box>
-                    <Input></Input>
+                    <p className="text-black">Ten san pham</p>
+                    <Input onChange={(e: any) => setTypeName(e.target.value)}></Input>
                 </Box>
-                <AllItem lv1Id={itemLevel1} lv2Id={itemLevel2}></AllItem>
+                <Button onClick={searchItem} >Tim kiem</Button>
+                <AllItem searchTypeId={searchTypeId} searchTypeName={searchTypeName}></AllItem>
             </Box>
         </Page>
     );
