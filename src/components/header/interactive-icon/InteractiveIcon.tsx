@@ -81,7 +81,6 @@ export default function InteractiveIcon() {
 
     return (
         <Box className="interactive-icon-wrapper">
-            <SearchIcon></SearchIcon>
             <CartIcon></CartIcon>
             <UserIcon></UserIcon>
         </Box>

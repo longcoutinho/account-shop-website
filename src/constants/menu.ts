@@ -6,35 +6,19 @@ export const menuBar =
             icon: faCartShopping,
             child: [
                 {
-                    title: "categories",
-                    url: "/item/categories"
+                    title: "Tài khoản",
+                    url: "/buy"
                 },
-                {
-                    title: "all products",
-                    url: "/item/all"
-                },
-                {
-                    title: "add product",
-                    url: "/item/add"
-                }
             ]
         },
         {
-            title: "Nap tien",
+            title: "Nạp tiền",
             icon: faCoins,
             child: [
                 {
-                    title: "categories",
-                    url: "/item/categories"
+                    title: "Nạp tiền",
+                    url: "/topup"
                 },
-                {
-                    title: "all products",
-                    url: "/item/all"
-                },
-                {
-                    title: "add product",
-                    url: "/item/add"
-                }
             ]
         },
 

@@ -3,11 +3,11 @@ $gray-color: rgb(160,167,179);
 @import '../responsive.scss';
 .header-container {
   width: 100%;
+  box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
   .header-wrapper {
-    margin: 20px 100px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     //logo
     .logo-wrapper:hover {
@@ -15,10 +15,12 @@ $gray-color: rgb(160,167,179);
     }
     //list interactive icon
     .interactive-icon-wrapper {
+      padding-right: 50px;
       width: 15%;
       display: flex;
       flex-direction: row;
       align-items: center;
+      justify-content: flex-end;
       gap: 20px;
       svg {
         color: $black-color;
