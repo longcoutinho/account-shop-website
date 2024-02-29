@@ -6,17 +6,37 @@ export const menuBar =
             icon: faCartShopping,
             child: [
                 {
-                    title: "Tài khoản",
+                    title: "Danh sach san pham",
                     url: "/buy"
                 },
             ]
         },
         {
-            title: "Nạp tiền",
+            title: "Tài khoản",
             icon: faCoins,
             child: [
                 {
                     title: "Nạp tiền",
+                    url: "/topup"
+                },
+            ]
+        },
+        {
+            title: "Lich su",
+            icon: faCoins,
+            child: [
+                {
+                    title: "Don hang da mua",
+                    url: "/topup"
+                },
+            ]
+        },
+        {
+            title: "Lien he",
+            icon: faCoins,
+            child: [
+                {
+                    title: "Thong tin lien he",
                     url: "/topup"
                 },
             ]

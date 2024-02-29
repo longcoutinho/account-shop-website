@@ -29,8 +29,8 @@ export default function ItemTypeComponent(props: any) {
 
     return (
             <Box className="item-type-page-content">
-                <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-                    <InputLabel id="demo-simple-select-label">Loai san pham</InputLabel>
+                <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
+                    <InputLabel id="demo-simple-select-label">Loại sản phẩm</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"

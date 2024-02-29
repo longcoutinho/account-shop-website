@@ -30,7 +30,7 @@ export default function AllItem(props: any) {
 
 
     return (
-        <Box className="flex flex-row flex-wrap gap-10 p-10 justify-items-center">
+        <Box className="flex flex-row flex-wrap gap-10 justify-items-center bg-white rounded-2xl p-5 box-shadow">
             {
                 listItems.map((item, index) => (
                     <Box className="w-1/5 min-w-40 relative" key={index}>

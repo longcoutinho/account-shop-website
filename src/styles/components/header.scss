@@ -2,6 +2,7 @@ $black-color: #141517;
 $gray-color: rgb(160,167,179);
 @import '../responsive.scss';
 .header-container {
+  background-color: white;
   width: 100%;
   box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
   .header-wrapper {
