@@ -19,7 +19,7 @@ export default function Profile() {
     }, [])
     return (
         <Page title={PAGE_TITLE.HOME} menuIndex={1}>
-            <Box className="profile-page-container" sx={{ width: "100vw" }}>
+            <Box className="profile-page-container">
                 <Box className="profile-page-wrapper">
                     <Box className="name-and-email-container">
                         <p>{user?.fullName}</p>
@@ -43,9 +43,9 @@ export default function Profile() {
                             <p>2/11/2000</p>
                         </Box>
                     </Box>
-                    <Box>
-                        <Button>Edit profile</Button>
-                    </Box>
+                    {/*<Box>*/}
+                    {/*    <Button>Edit profile</Button>*/}
+                    {/*</Box>*/}
                 </Box>
             </Box>
         </Page>

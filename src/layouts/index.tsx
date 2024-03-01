@@ -19,7 +19,7 @@ const Page = (props: any) => {
                   <title>{PAGE_TITLE.PREFIX + title}</title>
               </Head>
               <HorizonHeader></HorizonHeader>
-              <Box className="w-full">
+              <Box className="w-full flex flex-col gap-5">
                   <Header></Header>
                   {children}
               </Box>

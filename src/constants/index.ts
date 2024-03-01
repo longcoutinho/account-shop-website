@@ -12,6 +12,7 @@ export enum Frontend {
   BASE_URL = 'http://localhost:3000',
   ADD_ITEM_PAGE = BASE_URL + '/item/add',
   EDIT_ITEM_PAGE = BASE_URL + '/item/edit',
+  DETAIL_ITEM_PAGE = BASE_URL + '/buy/item',
 }
 export enum HTTP_STATUS {
   OK = 200,
@@ -174,7 +175,7 @@ export enum PageURL {
   HOME = "/home",
   LOGIN = "/login",
   SIGNUP = "/signup",
-  ITEM = "/item",
+  BUY = "/buy",
   POST = "/post",
 }
 

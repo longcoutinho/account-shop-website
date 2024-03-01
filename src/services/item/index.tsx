@@ -43,7 +43,7 @@ export const createNewItem = async (request: FormData) : Promise<any> => {
     return doFileRequest(url, request);
 }
 
-export const getItemById = async (id: string | string[]) : Promise<any> => {
+export const getItemById = async (id: string | string[] | undefined) : Promise<any> => {
     const url = Backend.ITEM_SERVICE + '/' + id;
     return doGetRequest(url, null);
 }

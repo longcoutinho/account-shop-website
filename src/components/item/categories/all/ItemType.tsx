@@ -1,5 +1,5 @@
 import {HTTP_STATUS} from "@/constants";
-import {Box, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
+import {Box, FormControl, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -28,21 +28,20 @@ export default function ItemTypeComponent(props: any) {
     }
 
     return (
-            <Box className="item-type-page-content">
+            <Box className="item-type-page-content w-full">
                 <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
-                    <InputLabel id="demo-simple-select-label">Loại sản phẩm</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        label="Loai san pham"
-                        onChange={(e: any) => props.changeTypeId(e.target.value)}
+                    <TextField
+                        id="outlined-select-currency"
+                        select
+                        label="Loại sản phẩm"
+                        defaultValue="EUR"
                     >
                         {
                             listItem.map((itemType) => (
                                 <MenuItem value={itemType.itemTypeId}>{itemType.name}</MenuItem>
                             ))
                         }
-                    </Select>
+                    </TextField>
                 </FormControl>
             </Box>
     );

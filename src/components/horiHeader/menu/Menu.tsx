@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Box, Link} from "@mui/material";
 import {menuBar} from "@/constants/menu";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faAngleDown} from "@fortawesome/free-solid-svg-icons";
+import {faAngleDown, faAngleUp} from "@fortawesome/free-solid-svg-icons";
 import {getDisplayMenu, saveDisplayMenuToSessionStorage} from "@/constants/FnCommon";
 
 export default function Menu() {
@@ -40,7 +40,11 @@ export default function Menu() {
                     <Box>
                         <p>{menuElement.title}</p>
                     </Box>
-                    <FontAwesomeIcon style={{display: menuElement.child?.length ? "block" : "none"}} className="angle-down-icon" icon={faAngleDown}></FontAwesomeIcon>
+                    {
+                        displayMatrix[index] ?
+                            <FontAwesomeIcon style={{display: menuElement.child?.length ? "block" : "none"}} className="angle-down-icon" icon={faAngleDown}></FontAwesomeIcon> :
+                                <FontAwesomeIcon style={{display: menuElement.child?.length ? "block" : "none"}} className="angle-down-icon" icon={faAngleUp}></FontAwesomeIcon>
+                    }
                 </Box>
             {menuElement.child?.map((menuChild, index2) => (
                 <Box className="menu-element-child-container" key={index2} sx={{display: displayMatrix[index] == 1 ? "flex" : "none" }}>

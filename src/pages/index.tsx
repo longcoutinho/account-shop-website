@@ -7,10 +7,10 @@ export default function Home() {
     const router = useRouter();
     useEffect(() => {
         if (getUserInfo() == null) {
-            redirectUrl(router, PageURL.LOGIN);
+            redirectUrl(router, PageURL.LOGIN, null);
         }
         else {
-            redirectUrl(router, PageURL.HOME);
+            redirectUrl(router, PageURL.BUY, null);
         }
     }, [])
 }

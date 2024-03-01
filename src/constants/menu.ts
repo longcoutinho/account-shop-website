@@ -1,4 +1,4 @@
-import {faCartShopping, faCoins} from "@fortawesome/free-solid-svg-icons";
+import {faCartShopping, faCoins, faHistory, faContactBook} from "@fortawesome/free-solid-svg-icons";
 export const menuBar =
     [
         {
@@ -6,7 +6,7 @@ export const menuBar =
             icon: faCartShopping,
             child: [
                 {
-                    title: "Danh sach san pham",
+                    title: "Danh sách sản phẩm",
                     url: "/buy"
                 },
             ]
@@ -22,21 +22,25 @@ export const menuBar =
             ]
         },
         {
-            title: "Lich su",
-            icon: faCoins,
+            title: "Lịch sử",
+            icon: faHistory,
             child: [
                 {
-                    title: "Don hang da mua",
+                    title: "Đơn hàng đã mua",
+                    url: "/topup"
+                },
+                {
+                    title: "Yêu cầu nạp tiền",
                     url: "/topup"
                 },
             ]
         },
         {
-            title: "Lien he",
-            icon: faCoins,
+            title: "Liên hệ",
+            icon: faContactBook,
             child: [
                 {
-                    title: "Thong tin lien he",
+                    title: "Thông tin liên hệ",
                     url: "/topup"
                 },
             ]
