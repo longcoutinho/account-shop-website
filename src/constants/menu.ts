@@ -31,7 +31,7 @@ export const menuBar =
                 },
                 {
                     title: "Yêu cầu nạp tiền",
-                    url: "/topup"
+                    url: "/topup/list"
                 },
             ]
         },

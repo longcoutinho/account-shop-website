@@ -20,6 +20,12 @@ export interface Item {
   listImageIds: number[];
 }
 
+export interface TopUpRequest {
+  id: number;
+  date: string;
+  status: number;
+}
+
 export interface Course {
   title: string,
   teacher: string,
