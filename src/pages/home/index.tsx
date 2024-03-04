@@ -640,7 +640,7 @@ export default function Home() {
 
     return (
         <Page title={PAGE.TITLE} menuIndex={0}>
-            <Box className='home-page-content'  sx={{ width: "100vw"}}>
+            <Box className='home-page-content'>
                 {/*<ListItem></ListItem>*/}
             </Box>
         </Page>
