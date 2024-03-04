@@ -22,8 +22,9 @@ export interface Item {
 
 export interface TopUpRequest {
   id: number;
-  date: string;
+  createDate: string;
   status: number;
+  amount: number;
 }
 
 export interface Course {

@@ -1,4 +1,4 @@
-import {PAGE_TITLE} from "@/constants";
+import {Frontend, HTTP_STATUS, PAGE_TITLE} from "@/constants";
 import Page from "@/layouts";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -9,18 +9,24 @@ import React, {useState} from "react";
 import ItemTypeComponent from "@/components/item/categories/all/ItemType";
 import AllItem from "@/components/item/all/AllItem";
 import {Box, Button, FormControl, MenuItem, TextField} from "@mui/material";
+import {useRouter} from "next/router";
+import {createTopUpRequest, getAllTopUpRequest} from "@/services/topup";
+import {redirectUrl} from "@/constants/FnCommon";
 
 export default function TopUpComponent() {
-    const [itemLevel1, setItemLevel1] = useState<number | null>(null);
-    const [itemLevel2, setItemLevel2] = useState<number | null>(null);
+    const [amount, setAmount] = useState<string | undefined>();
+    const [method, setMethod] = useState<string | undefined>();
+    const router = useRouter();
 
-    const changeParentChooseItemId = (itemId: number, level: number) => {
-        if (level == 1) {
-            setItemLevel1(itemId);
-        }
-        else if (level == 2) {
-            setItemLevel2(itemId);
-        }
+    const createRequest = () => {
+        createTopUpRequest(amount, method).then(
+            (res) => {
+                if (res.status == HTTP_STATUS.OK) {
+                    redirectUrl(router, Frontend.LIST_TOP_UP_PAGE, null);
+                }
+            }).catch((err) => {
+            console.log(err);
+        });
     }
 
     return (
@@ -31,7 +37,8 @@ export default function TopUpComponent() {
                         id="outlined-select-currency"
                         select
                         label="Phương thức nạp"
-                        defaultValue="EUR"
+                        defaultValue=""
+                        onChange={e => setMethod(e.target.value)}
                     >
                         <MenuItem value={1}>Internet Banking</MenuItem>
                         <MenuItem value={2}>MoMo</MenuItem>
@@ -40,10 +47,11 @@ export default function TopUpComponent() {
                     className="w-full"
                     id="outlined-select-currency"
                     label="Số tiền nạp"
-                    defaultValue="EUR"
+                    defaultValue=""
+                    onChange={e => setAmount(e.target.value)}
                 >
                 </TextField>
-                <Button>Tạo yêu cầu nạp tiền</Button>
+                <Button onClick={createRequest}>Tạo yêu cầu nạp tiền</Button>
             </Box>
         </Page>
     );

@@ -14,6 +14,7 @@ export enum Frontend {
   ADD_ITEM_PAGE = BASE_URL + '/item/add',
   EDIT_ITEM_PAGE = BASE_URL + '/item/edit',
   DETAIL_ITEM_PAGE = BASE_URL + '/buy/item',
+  LIST_TOP_UP_PAGE = BASE_URL + '/topup/list'
 }
 export enum HTTP_STATUS {
   OK = 200,
