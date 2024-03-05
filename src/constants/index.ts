@@ -7,10 +7,11 @@ export enum Backend {
   ITEM_SERVICE = BASE_URL + '/item',
   IMAGE_SERVICE = BASE_URL + '/image',
   TOPUP_SERVICE = BASE_URL + '/top-up',
+  SALE_ORDER_SERVICE = BASE_URL + '/sale-order',
 }
 
 export enum Frontend {
-  BASE_URL = 'http://localhost:3000',
+  BASE_URL = 'http://58.187.168.147:3000',
   ADD_ITEM_PAGE = BASE_URL + '/item/add',
   EDIT_ITEM_PAGE = BASE_URL + '/item/edit',
   DETAIL_ITEM_PAGE = BASE_URL + '/buy/item',

@@ -14,3 +14,9 @@ export interface Item {
   listImages: File;
 }
 
+export interface Order {
+  userId: string;
+  itemId : string;
+  amount: number;
+}
+

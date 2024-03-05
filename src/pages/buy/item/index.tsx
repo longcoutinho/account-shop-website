@@ -6,7 +6,7 @@ import "swiper/css/scrollbar";
 import "@/constants/FnCommon"
 import React, {useEffect, useState} from "react";
 import {getItemById} from "@/services/item";
-import {Backend, HTTP_STATUS, PAGE_TITLE} from "@/constants";
+import {Backend, Frontend, HTTP_STATUS, PAGE_TITLE} from "@/constants";
 import Page from "@/layouts";
 import {useRouter} from "next/router";
 import { Unstable_NumberInput as NumberInput } from '@mui/base/Unstable_NumberInput';
@@ -18,6 +18,10 @@ import {styled} from "@mui/material/styles";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus, faMinus} from "@fortawesome/free-solid-svg-icons";
 import BuyItemComponent from "@/components/buy/BuyItemComponent";
+import {createOrder} from "@/services/sale-order";
+import {createTopUpRequest} from "@/services/topup";
+import {getUserInfo, redirectUrl} from "@/constants/FnCommon";
+import {Order} from "@/interfaces/request";
 
 function AddIcon(props: { fontSize: string }) {
     return <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>;
@@ -33,11 +37,16 @@ export default function DetailItem(props: any) {
     const [amount, setAmount] = useState<number | null>(1);
     const [listImageIds, setListImageIds] = useState<string[]>([]);
     const [openBuyComponent, setOpenBuyComponent] = useState(false);
+    const [userId, setUserId] = useState('');
     const router = useRouter();
 
     useEffect(() => {
         if (router.query.id !== undefined) {
             renderListItem();
+        }
+        const user = getUserInfo();
+        if (user !== null) {
+            setUserId(user.id);
         }
     }, [router.query.id])
 
@@ -193,7 +202,6 @@ export default function DetailItem(props: any) {
     order: 1;
   }
   `);
-
     
     return (
         <Page title={PAGE_TITLE.ALL_PRODUCTS} menuIndex={1}>
@@ -215,7 +223,7 @@ export default function DetailItem(props: any) {
                         </Box>
                     </Box>
                 </Box>
-                <BuyItemComponent open={openBuyComponent} name={name} amount={amount} price={amount * price} closeBuyComponent={closeBuyComponent}></BuyItemComponent>
+                <BuyItemComponent itemId={router.query.id} open={openBuyComponent} name={name} amount={amount} price={price} closeBuyComponent={closeBuyComponent}></BuyItemComponent>
             </Box>
         </Page>
     );

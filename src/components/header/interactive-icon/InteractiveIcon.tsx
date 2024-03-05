@@ -4,16 +4,26 @@ import {faUser, faCoins} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useRouter} from "next/router";
 import {deleteUserInfo, getUserInfo, redirectUrl} from "@/constants/FnCommon";
-import {PageURL} from "@/constants";
+import {HTTP_STATUS, PageURL} from "@/constants";
 import {COMMON_TEXT} from "@/constants/message";
 import {User} from "@/interfaces";
+import {getUserBalance} from "@/services/userService";
+import {getAllItem} from "@/services/item";
 
 export default function InteractiveIcon() {
     const [balance, setBalance] = useState('0');
     useEffect(() => {
+        console.log('haha');
         const user = getUserInfo();
         if (user !== null) {
-            setBalance(user.balance);
+            getUserBalance(user.id).then(
+                (res) => {
+                    if (res.status == HTTP_STATUS.OK) {
+                        setBalance(res.data.balance);
+                    }
+                }).catch((err) => {
+                console.log(err);
+            });
         }
     }, [])
 

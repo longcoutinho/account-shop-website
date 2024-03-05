@@ -27,7 +27,7 @@ export const menuBar =
             child: [
                 {
                     title: "Đơn hàng đã mua",
-                    url: "/topup"
+                    url: "/sale-order/list"
                 },
                 {
                     title: "Yêu cầu nạp tiền",

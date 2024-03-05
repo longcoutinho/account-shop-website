@@ -11,8 +11,9 @@ import AllItem from "@/components/item/all/AllItem";
 import {Box, Button, TextField} from "@mui/material";
 import TopUpRequest from "@/components/topup/all/TopUpRequest";
 import AllTopUpRequest from "@/components/topup/all/TopUpRequest";
+import AllSaleOrder from "@/components/sale-order/SaleOrder";
 
-export default function ListTopUpComponent() {
+export default function ListSaleOrder() {
     const [typeId, setTypeId] = useState(null);
     const [typeName, setTypeName] = useState('');
     const [searchTypeId, setSearchTypeId] = useState(null);
@@ -41,7 +42,7 @@ export default function ListTopUpComponent() {
                 {/*        <Button variant="outlined" className="w-1/10" onClick={searchItem}>Tìm kiếm</Button>*/}
                 {/*    </Box>*/}
                 {/*</Box>*/}
-                <AllTopUpRequest></AllTopUpRequest>
+                <AllSaleOrder></AllSaleOrder>
             </Box>
         </Page>
     );

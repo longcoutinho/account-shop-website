@@ -25,6 +25,8 @@ export interface TopUpRequest {
   createDate: string;
   status: number;
   amount: number;
+  username: string;
+  password: string;
 }
 
 export interface Course {
