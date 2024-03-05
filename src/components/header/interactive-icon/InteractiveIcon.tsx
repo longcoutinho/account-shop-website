@@ -1,8 +1,6 @@
 import {Box, Divider, Link} from "@mui/material";
 import React, {useEffect, useState} from "react";
-import {faCartShopping} from "@fortawesome/free-solid-svg-icons";
-import {faSearch} from "@fortawesome/free-solid-svg-icons";
-import {faUser} from "@fortawesome/free-solid-svg-icons";
+import {faUser, faCoins} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useRouter} from "next/router";
 import {deleteUserInfo, getUserInfo, redirectUrl} from "@/constants/FnCommon";
@@ -11,23 +9,28 @@ import {COMMON_TEXT} from "@/constants/message";
 import {User} from "@/interfaces";
 
 export default function InteractiveIcon() {
+    const [balance, setBalance] = useState('0');
+    useEffect(() => {
+        const user = getUserInfo();
+        if (user !== null) {
+            setBalance(user.balance);
+        }
+    }, [])
+
     const router = useRouter();
     //cart
-    const CartIcon = () => {
+    const AmountUser = () => {
         return (
-            <FontAwesomeIcon id="cart-shopping-iconn" icon={faCartShopping}></FontAwesomeIcon>
-        )
-    }
-    //search
-    const SearchIcon = () => {
-        return (
-            <FontAwesomeIcon id="cart-shopping-iconn" icon={faSearch}></FontAwesomeIcon>
+            <Box className="flex flex-row items-center">
+                <FontAwesomeIcon id="cart-shopping-iconn" icon={faCoins}></FontAwesomeIcon>
+                <p className="ml-2">{balance}đ</p>
+            </Box>
         )
     }
 
     const UserIcon = () => {
         const goToLoginPage = () => {
-            redirectUrl(router, PageURL.LOGIN);
+            redirectUrl(router, PageURL.LOGIN, null);
         }
 
         const DropDownUser = () => {
@@ -81,7 +84,7 @@ export default function InteractiveIcon() {
 
     return (
         <Box className="interactive-icon-wrapper">
-            <CartIcon></CartIcon>
+            <AmountUser></AmountUser>
             <UserIcon></UserIcon>
         </Box>
     );

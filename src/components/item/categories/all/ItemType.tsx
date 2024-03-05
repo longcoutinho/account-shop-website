@@ -29,12 +29,13 @@ export default function ItemTypeComponent(props: any) {
 
     return (
             <Box className="item-type-page-content w-full">
-                <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
                     <TextField
+                        className="w-full"
                         id="outlined-select-currency"
                         select
                         label="Loại sản phẩm"
-                        defaultValue="EUR"
+                        size="small"
+                        onChange={e => props.changeTypeId(e.target.value)}
                     >
                         {
                             listItem.map((itemType) => (
@@ -42,7 +43,6 @@ export default function ItemTypeComponent(props: any) {
                             ))
                         }
                     </TextField>
-                </FormControl>
             </Box>
     );
 }

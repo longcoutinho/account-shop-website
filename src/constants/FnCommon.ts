@@ -149,7 +149,7 @@ export const isValidLength = (str: string, num_start: number, num_finish: number
 
 export const getUserInfo = (): User | null => {
     if (typeof window !== 'undefined') {
-        const userInfoStr = sessionStorage.getItem("user-info");
+        const userInfoStr = localStorage.getItem("user-info");
         if (userInfoStr == null) return null;
         return JSON.parse(userInfoStr);
     }
@@ -159,14 +159,14 @@ export const getUserInfo = (): User | null => {
 export const deleteUserInfo = () => {
     if (typeof window !== 'undefined') {
         // Perform localStorage action
-        sessionStorage.removeItem("user-info");
+        localStorage.removeItem("user-info");
     }
 }
 
 export const saveUserToSessionStorage = (userInfo: User) => {
     if (typeof window !== 'undefined') {
         // Perform localStorage action
-        sessionStorage.setItem("user-info", JSON.stringify(userInfo));
+        localStorage.setItem("user-info", JSON.stringify(userInfo));
     }
 }
 

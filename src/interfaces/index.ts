@@ -20,4 +20,5 @@ export interface User {
   phoneNumber: string;
   accessToken: string;
   id: string;
+  balance: string;
 }

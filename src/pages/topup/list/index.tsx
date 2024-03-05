@@ -35,7 +35,7 @@ export default function ListTopUpComponent() {
                         <ItemTypeComponent changeTypeId={changeTypeId}></ItemTypeComponent>
                     </Box>
                     <Box className="w-2/5">
-                        <TextField type="small" className="w-full" label="Tên sản phẩm" onChange={(e: any) => setTypeName(e.target.value)}></TextField>
+                        <TextField size="small" className="w-full" label="Tên sản phẩm" onChange={(e: any) => setTypeName(e.target.value)}></TextField>
                     </Box>
                     <Box className="w-full flex flex-row items-center mx-2">
                         <Button variant="outlined" className="w-1/10" onClick={searchItem}>Tìm kiếm</Button>
