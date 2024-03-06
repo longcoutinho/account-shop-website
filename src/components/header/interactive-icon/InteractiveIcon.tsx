@@ -33,7 +33,7 @@ export default function InteractiveIcon() {
         return (
             <Box className="flex flex-row items-center">
                 <FontAwesomeIcon id="cart-shopping-iconn" icon={faCoins}></FontAwesomeIcon>
-                <p className="ml-2">{balance}đ</p>
+                <p className="ml-2 text-blue-500">{balance}đ</p>
             </Box>
         )
     }

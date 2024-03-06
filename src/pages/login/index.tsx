@@ -37,7 +37,13 @@ export default function Login() {
                             saveUserToSessionStorage(res.data);
                             redirectUrl(route, PageURL.BUY, null);
                         }
+                        else {
+                            setNotify(res.response.data);
+                            setNotifyColor('red');
+                            console.log(res);
+                        }
                     }).catch((err) => {
+                        console.log(err);
                     setNotify(err.response.data);
                     setNotifyColor('red');
                 });
