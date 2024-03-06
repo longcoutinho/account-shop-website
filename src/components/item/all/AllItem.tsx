@@ -48,7 +48,7 @@ export default function AllItem(props: any) {
             "linear-gradient(135deg, rgb(210, 98, 227) 0px, rgb(6, 101, 208) 100%) rgb(210, 98, 227)",
         }}
       >
-        <p className="text-white font-bold text-2xl">Danh sách Via Viet Nam</p>
+        <p className="text-white font-bold text-2xl">Danh sách Via </p>
       </Box>
       <Box className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
         {listItems.map((item, index) => (
@@ -66,7 +66,7 @@ export default function AllItem(props: any) {
               />
             </Box>
             <Box className="w-2/3 h-full p-2 flex flex-col items-center justify-between">
-              <p className="text-blue-500 font-bold text-center text-xl">
+              <p className="text-blue-500 font-bold text-center text-lg">
                 {item.name}
               </p>
               <p className="text-black text-center text-bold mt-2">
