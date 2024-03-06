@@ -2,7 +2,7 @@ import { Frontend, HTTP_STATUS, PAGE_TITLE } from "@/constants";
 import Page from "@/layouts";
 import "@/constants/FnCommon";
 import React, { useState } from "react";
-import { Box, Button } from "@mui/material";
+import { Box, Button, MenuItem, TextField } from "@mui/material";
 import { useRouter } from "next/router";
 import { createTopUpRequest } from "@/services/topup";
 import { redirectUrl } from "@/constants/FnCommon";
@@ -27,8 +27,39 @@ export default function TopUpComponent() {
 
   return (
     <Page title={PAGE_TITLE.ALL_PRODUCTS} menuIndex={1}>
-      <Box className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <Box className="flex justify-center flex-col items-center gap-3 bg-white rounded-2xl box-shadow pt-4">
+      <Box className="bg-white rounded-2xl box-shadow p-5">
+        <Box className=" flex gap-4 justify-center">
+          <TextField
+            className="w-1/4"
+            id="outlined-select-currency"
+            select
+            label="Phương thức nạp"
+            defaultValue=""
+            onChange={(e) => setMethod(e.target.value)}
+          >
+            <MenuItem value={1}>Internet Banking</MenuItem>
+            <MenuItem value={2}>MoMo</MenuItem>
+          </TextField>
+          <TextField
+            className="w-2/3"
+            id="outlined-select-currency"
+            label="Số tiền nạp"
+            defaultValue=""
+            onChange={(e) => setAmount(e.target.value)}
+          ></TextField>
+        </Box>
+        <Box className="w-full flex justify-center mt-4">
+          <Button
+            onClick={createRequest}
+            variant="contained"
+            className="bg-blue-500 text-white "
+          >
+            Tạo yêu cầu nạp tiền
+          </Button>
+        </Box>
+      </Box>
+      {Number(method) === 1 && amount ? (
+        <Box className="flex justify-center flex-col items-center gap-3 bg-white rounded-2xl box-shadow pt-4 max-w-[650px] mx-auto mb-6">
           <Image
             src={"https://muaviaxmdt.com/img/vcb_logo.90c917e1.png"}
             alt="logo-ib"
@@ -76,7 +107,8 @@ export default function TopUpComponent() {
             Facebook: Shop Seeding hoặc gọi 081.345.9999 để được hỗ trợ.
           </p>
         </Box>
-        <Box className="flex justify-center flex-col items-center gap-3 bg-white rounded-2xl box-shadow">
+      ) : Number(method) === 2 && amount ? (
+        <Box className="flex justify-center flex-col items-center gap-3 bg-white rounded-2xl box-shadow pt-4 max-w-[650px] mx-auto mb-6">
           <Image
             src={"https://muaviaxmdt.com/img/MoMo_Logo.f82d519e.png"}
             alt="logo-ib"
@@ -112,16 +144,9 @@ export default function TopUpComponent() {
             Facebook: Shop Seeding hoặc gọi 081.345.9999 để được hỗ trợ.
           </p>
         </Box>
-      </Box>
-      <Box className="w-full flex justify-end mb-4">
-        <Button
-          onClick={createRequest}
-          variant="contained"
-          className="bg-blue-500 text-white "
-        >
-          <p className="mx-6 my-3">Đã thanh toán</p>
-        </Button>
-      </Box>
+      ) : (
+        ""
+      )}
     </Page>
   );
 }
