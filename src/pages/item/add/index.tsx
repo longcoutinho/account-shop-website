@@ -48,7 +48,7 @@ export default function AddItemComponent() {
                 <ItemTypeComponent></ItemTypeComponent>
             </Box>
             <Box>
-                <p className="label">Item Image</p>
+                <p className="label text-black">Item Image</p>
                 <Input type="file" inputProps={{ multiple: true }} onChange={(e :React.ChangeEvent<HTMLInputElement>) => {
                     if (e.target.files != null) setItemListImages(e.target.files);
                 }}></Input>
