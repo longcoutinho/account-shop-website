@@ -13,7 +13,7 @@ export enum Backend {
 }
 
 export enum Frontend {
-  BASE_URL = 'http://58.187.168.147:3000',
+  BASE_URL = "http://58.187.168.147:3000",
   // BASE_URL = "http://localhost:3000",
   ADD_ITEM_PAGE = BASE_URL + "/item/add",
   EDIT_ITEM_PAGE = BASE_URL + "/item/edit",

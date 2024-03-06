@@ -212,10 +212,10 @@ export default function DetailItem(props: any) {
     };
     createOrder(request)
       .then((res) => {
-        if (res.status == HTTP_STATUS.OK) {
+        if (res.status === HTTP_STATUS.OK) {
           setLoading(false);
-          toast.success("Mua thành công");
-          props.closeBuyComponent();
+          closeBuyComponent();
+          router.push("/sale-order/list/");
         } else {
           toast.error("Mua không thành công");
           setLoading(false);
