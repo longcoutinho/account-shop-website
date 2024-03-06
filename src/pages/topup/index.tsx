@@ -7,17 +7,30 @@ import { useRouter } from "next/router";
 import { createTopUpRequest } from "@/services/topup";
 import { redirectUrl } from "@/constants/FnCommon";
 import Image from "next/image";
-
+interface IContent {
+  text?: string;
+  method?: string;
+}
 export default function TopUpComponent() {
-  const [amount, setAmount] = useState<string | undefined>();
-  const [method, setMethod] = useState<string | undefined>();
+  const [amount, setAmount] = useState<string | undefined>("");
+  const [method, setMethod] = useState<string | undefined>("");
+  const [content, setContent] = useState<IContent>({
+    text: "",
+    method: "",
+  });
+
   const router = useRouter();
 
   const createRequest = () => {
     createTopUpRequest(amount, method)
       .then((res) => {
         if (res.status == HTTP_STATUS.OK) {
-          redirectUrl(router, Frontend.LIST_TOP_UP_PAGE, null);
+          setContent({
+            text: res?.data?.username + " " + res?.data?.id,
+            method: method,
+          });
+          setAmount("");
+          setMethod("");
         }
       })
       .catch((err) => {
@@ -35,6 +48,7 @@ export default function TopUpComponent() {
             select
             label="Phương thức nạp"
             defaultValue=""
+            value={Number(method)}
             onChange={(e) => setMethod(e.target.value)}
           >
             <MenuItem value={1}>Internet Banking</MenuItem>
@@ -45,6 +59,7 @@ export default function TopUpComponent() {
             id="outlined-select-currency"
             label="Số tiền nạp"
             defaultValue=""
+            value={amount}
             onChange={(e) => setAmount(e.target.value)}
           ></TextField>
         </Box>
@@ -53,12 +68,13 @@ export default function TopUpComponent() {
             onClick={createRequest}
             variant="contained"
             className="bg-blue-500 text-white "
+            disabled={method === "" || amount === "" ? true : false}
           >
             Tạo yêu cầu nạp tiền
           </Button>
         </Box>
       </Box>
-      {Number(method) === 1 && amount ? (
+      {Number(content?.method) === 1 && content.text !== "" ? (
         <Box className="flex justify-center flex-col items-center gap-3 bg-white rounded-2xl box-shadow pt-4 max-w-[650px] mx-auto mb-6">
           <Image
             src={"https://muaviaxmdt.com/img/vcb_logo.90c917e1.png"}
@@ -80,7 +96,7 @@ export default function TopUpComponent() {
             </p>
             <p>
               Nội dung chuyển:{" "}
-              <span className="text-[#0d6efd]"> Pay mai123 1006827</span>
+              <span className="text-[#0d6efd]"> {content?.text}</span>
             </p>
           </Box>
           <Image
@@ -107,7 +123,7 @@ export default function TopUpComponent() {
             Facebook: Shop Seeding hoặc gọi 081.345.9999 để được hỗ trợ.
           </p>
         </Box>
-      ) : Number(method) === 2 && amount ? (
+      ) : Number(content.method) === 2 && content?.text !== "" ? (
         <Box className="flex justify-center flex-col items-center gap-3 bg-white rounded-2xl box-shadow pt-4 max-w-[650px] mx-auto mb-6">
           <Image
             src={"https://muaviaxmdt.com/img/MoMo_Logo.f82d519e.png"}
@@ -124,7 +140,7 @@ export default function TopUpComponent() {
               SĐT: <span className="text-[#0d6efd]">0813459999</span>{" "}
             </p>
             <p>
-              Nội dung: <span className="text-[#0d6efd]"> mai123 1006827</span>
+              Nội dung: <span className="text-[#0d6efd]"> {content?.text}</span>
             </p>
           </Box>
           <Image
