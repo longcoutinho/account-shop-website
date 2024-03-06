@@ -174,11 +174,11 @@ $gray-color: rgb(160, 167, 179);
       -webkit-user-select: none; /* Safari */
       -ms-user-select: none; /* IE 10 and IE 11 */
       user-select: none; /* Standard syntax */
-      padding: 5px 15px;
+      padding: 0px 15px;
       display: flex;
+      margin-top: 15px;
       flex-direction: row;
       align-items: center;
-      justify-content: space-between;
       svg:first-child {
         font-size: 17px;
         color: #ffffff80;
@@ -189,7 +189,7 @@ $gray-color: rgb(160, 167, 179);
         p {
           text-transform: capitalize;
           color: #ffffff80;
-          font-size: 14px;
+          font-size: 17px;
         }
       }
       svg:last-child {
@@ -227,7 +227,7 @@ $gray-color: rgb(160, 167, 179);
         text-decoration: none;
         text-transform: capitalize;
         color: $gray-color;
-        font-size: 15px;
+        font-size: 14px;
       }
     }
     .menu-element-child-container:hover {

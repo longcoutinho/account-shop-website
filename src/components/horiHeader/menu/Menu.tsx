@@ -12,21 +12,6 @@ import { useRouter } from "next/router";
 export default function Menu() {
   const [displayMatrix, setDisplayMatrix] = useState<number[]>([]);
   const routes = useRouter();
-  useEffect(() => {
-    let initMatrix = getDisplayMenu();
-    if (initMatrix?.length) {
-      setDisplayMatrix(initMatrix);
-    } else {
-      for (let i = 0; i < menuBar.length; i++) {
-        if (menuBar[i].child == null) {
-          initMatrix[i] = 0;
-        } else {
-          initMatrix[i] = 0;
-        }
-      }
-      setDisplayMatrix(initMatrix);
-    }
-  }, []);
 
   const switchDisplayComponent = (ind: number) => {
     let newMatrix = displayMatrix;
@@ -48,19 +33,6 @@ export default function Menu() {
         <Box>
           <p>{menuElement.title}</p>
         </Box>
-        {displayMatrix[index] ? (
-          <FontAwesomeIcon
-            style={{ display: menuElement.child?.length ? "block" : "none" }}
-            className="angle-down-icon"
-            icon={faAngleDown}
-          ></FontAwesomeIcon>
-        ) : (
-          <FontAwesomeIcon
-            style={{ display: menuElement.child?.length ? "block" : "none" }}
-            className="angle-down-icon"
-            icon={faAngleUp}
-          ></FontAwesomeIcon>
-        )}
       </Box>
       {menuElement.child?.map((menuChild, index2) => (
         <Box
@@ -68,7 +40,7 @@ export default function Menu() {
             menuChild.url === routes.pathname ? "bg-[#2e343b]" : ""
           }`}
           key={index2}
-          sx={{ display: displayMatrix[index] == 1 ? "flex" : "none" }}
+          sx={{ display: "flex"}}
         >
           <Link href={menuChild.url}>{menuChild.title}</Link>
         </Box>
