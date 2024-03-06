@@ -16,3 +16,12 @@ export const getUserBalance = async (id: string) : Promise<any> => {
     const url = Backend.USER_SERVICE + '/' + id;
     return doGetRequest(url, null);
 }
+
+export const adjustBalance = async (username: string, amount: number) : Promise<any> => {
+    const params = {
+        username: username,
+        amount: amount
+    }
+    const url = Backend.USER_SERVICE + '/adjust-balance';
+    return doPostRequest(url, params);
+}
