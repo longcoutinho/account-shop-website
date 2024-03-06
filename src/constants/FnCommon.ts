@@ -2,6 +2,7 @@ import axios from "axios";
 import { ItemToCart } from "@/interfaces/response";
 import { NextRouter } from "next/router";
 import { User } from "@/interfaces";
+import dayjs from "dayjs";
 
 const insertStringAtIndex = (ind: number, str1: string, str2: string) => {
   let stringResult = "";
@@ -201,3 +202,8 @@ export const getDisplayMenu = (): number[] => {
   }
   return [];
 };
+
+export const formatDateTime = (date: string): string => {
+  const DATE_TIME_FORMAT = "HH:mm:ss DD-MM-YYYY"
+  return dayjs(date).format(DATE_TIME_FORMAT);
+}

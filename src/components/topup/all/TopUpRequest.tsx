@@ -8,7 +8,7 @@ import React, {useEffect, useState} from "react";
 import {TopUpRequest} from "@/interfaces/response";
 import {getAllItem} from "@/services/item";
 import {Backend, Frontend, HTTP_STATUS} from "@/constants";
-import {redirectUrl} from "@/constants/FnCommon";
+import {formatDateTime, redirectUrl} from "@/constants/FnCommon";
 import {useRouter} from "next/router";
 import {getAllTopUpRequest} from "@/services/topup";
 import TableContainer from "@mui/material/TableContainer";
@@ -29,7 +29,7 @@ export default function AllTopUpRequest(props: any) {
         getAllTopUpRequest().then(
             (res) => {
                 if (res.status == HTTP_STATUS.OK) {
-                    setListRequestTopUp(res.data);
+                    setListRequestTopUp(res.data.listTopUp);
                 }
             }).catch((err) => {
             console.log(err);
@@ -58,7 +58,7 @@ export default function AllTopUpRequest(props: any) {
                                     <TableCell>{request.id}</TableCell>
                                     <TableCell>{request.amount}</TableCell>
                                     <TableCell>{request.method == 1 ? "Interner Banking" : "MoMo"}</TableCell>
-                                    <TableCell>{request.createDate}</TableCell>
+                                    <TableCell>{formatDateTime(request.createDate)}</TableCell>
                                     <TableCell>{
                                         request.status == 0 ? "Đang xử lý" : (request.status == 1 ? "Thành công" : "Thất bại")
                                     }</TableCell>
