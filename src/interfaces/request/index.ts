@@ -19,4 +19,3 @@ export interface Order {
   itemId : string;
   amount: number;
 }
-

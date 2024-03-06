@@ -45,7 +45,8 @@ export default function AllTopUpRequest(props: any) {
                             <TableCell>STT</TableCell>
                             <TableCell>Mã giao dịch</TableCell>
                             <TableCell>Số tiền</TableCell>
-                            <TableCell>Thời gian giao dịch</TableCell>
+                            <TableCell>Phương thức nạp</TableCell>
+                            <TableCell>Thời gian</TableCell>
                             <TableCell>Trạng thái</TableCell>
                         </TableRow>
                     </TableHead>
@@ -56,6 +57,7 @@ export default function AllTopUpRequest(props: any) {
                                     <TableCell>{index + 1}</TableCell>
                                     <TableCell>{request.id}</TableCell>
                                     <TableCell>{request.amount}</TableCell>
+                                    <TableCell>{request.method == 1 ? "Interner Banking" : "MoMo"}</TableCell>
                                     <TableCell>{request.createDate}</TableCell>
                                     <TableCell>{
                                         request.status == 0 ? "Đang xử lý" : (request.status == 1 ? "Thành công" : "Thất bại")

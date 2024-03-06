@@ -16,22 +16,16 @@ export default function SignUp() {
     // const route = useRouter();
     const SignUpForm = () => {
         const [username, setUsername] = useState('');
-        const [email, setEmail] = useState('');
         const [password, setPassword] = useState('');
         const [confirmPassword, setConfirmPassword] = useState('');
         const [notify, setNotify] = useState('');
         const [notifyColor, setNotifyColor] = useState('');
-        const [fullName, setFullName] = useState('');
-        const [phoneNumber, setPhoneNumber] = useState('');
 
         useEffect(() => {
-            setUsername('');
-            setEmail('');
+            setUsername('');;
             setPassword('');
             setConfirmPassword('');
             setNotify('');
-            setFullName('');
-            setPhoneNumber('');
         }, [])
 
         const Notify = (props: any) => {
@@ -45,7 +39,6 @@ export default function SignUp() {
          const doSignUp = async () => {
             if (isNullOrEmpty(username)) setNotify(SIGNUP_PAGE.EMPTY_USERNAME);
             else if (!isValidLength(username, 6, 12)) setNotify(SIGNUP_PAGE.INVALID_LENGTH_USERNAME);
-            else if (isNullOrEmpty(email)) setNotify(SIGNUP_PAGE.EMPTY_EMAIL);
             else if (isNullOrEmpty(password)) setNotify(SIGNUP_PAGE.EMPTY_PASSWORD);
             else if (!isValidLength(password, 6, 24)) setNotify(SIGNUP_PAGE.INVALID_LENGTH_PASSWORD);
             else if (isNullOrEmpty(confirmPassword)) setNotify(SIGNUP_PAGE.EMPTY_CONFIRM_PASSWORD);
@@ -54,9 +47,6 @@ export default function SignUp() {
                 const request = {
                     username: username,
                     password: password,
-                    email: email,
-                    fullName: fullName,
-                    phoneNumber: phoneNumber
                 }
                 signUp(request).then(
                     (res) => {
@@ -78,25 +68,6 @@ export default function SignUp() {
                     <p>{SIGNUP_PAGE.TITLE}</p>
                 </Box>
                 <Box className="form-container">
-                    <Box className="input-container">
-                        <label>{COMMON_TEXT.FULL_NAME}</label>
-                        <input type="text" value={fullName}
-                               onChange={e => { setFullName(e.currentTarget.value); }}
-                               placeholder="Enter full name"></input>
-                    </Box>
-                    <Box className="input-container">
-                        <label>{COMMON_TEXT.PHONE_NUMBER}</label>
-                        <input type="text" value={phoneNumber}
-                               onChange={e => { setPhoneNumber(e.currentTarget.value); }}
-                               placeholder="Enter phone number"></input>
-                    </Box>
-                    <Box className="input-container">
-                        <label>{COMMON_TEXT.EMAIL_ADDRESS}</label>
-                        <input type="text"
-                               value={email}
-                               onChange={e => { setEmail(e.currentTarget.value); }}
-                               placeholder="Enter Email Address"></input>
-                    </Box>
                     <Box className="input-container">
                         <label>{COMMON_TEXT.USERNAME}</label>
                         <input type="text" value={username}

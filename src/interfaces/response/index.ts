@@ -27,6 +27,7 @@ export interface TopUpRequest {
   amount: number;
   username: string;
   password: string;
+  method: number;
 }
 
 export interface Course {
