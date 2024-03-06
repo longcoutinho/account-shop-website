@@ -60,8 +60,11 @@ export default function AllItem(props: any) {
               <img
                 className=" w-20 h-20 object-cover"
                 src={
-                  //   Backend.IMAGE_SERVICE + "/" + item.listImageIds[0].toString()
-                  "https://muaviaxmdt.com/img/soldout.87a5d65d.png"
+                  item?.amount > 0
+                    ? Backend.IMAGE_SERVICE +
+                      "/" +
+                      item.listImageIds[0].toString()
+                    : "https://muaviaxmdt.com/img/soldout.87a5d65d.png"
                 }
               />
             </Box>
@@ -69,9 +72,9 @@ export default function AllItem(props: any) {
               <p className="text-blue-500 font-bold text-center text-lg">
                 {item.name}
               </p>
-                <p className="text-black text-center text-bold mt-2">
-                    Số lượng còn lại: {item.amount}
-                </p>
+              <p className="text-black text-center text-bold mt-2">
+                Số lượng còn lại: {item.amount}
+              </p>
               <p className="text-black text-center text-bold mt-2">
                 Đơn giá: {item.price.toLocaleString("en-US")} đ
               </p>

@@ -316,6 +316,12 @@ body {
   cursor: pointer;
 }
 
+.custom-pagination {
+  @apply mx-auto my-3;
+  button {
+    border: none !important;
+  }
+}
 #image-post_tintuc:hover {
   transform: scale(1.2);
   transition-duration: 1s;
