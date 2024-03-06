@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Box, Pagination } from "@mui/material";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -6,11 +6,8 @@ import "swiper/css/scrollbar";
 import "@/constants/FnCommon";
 import React, { useEffect, useState } from "react";
 import { TopUpRequest } from "@/interfaces/response";
-import { getAllItem } from "@/services/item";
-import { Backend, Frontend, HTTP_STATUS } from "@/constants";
-import { formatDateTime, redirectUrl } from "@/constants/FnCommon";
-import { useRouter } from "next/router";
-import { getAllTopUpRequest } from "@/services/topup";
+import { HTTP_STATUS } from "@/constants";
+import { formatDateTime } from "@/constants/FnCommon";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import Table from "@mui/material/Table";
@@ -21,7 +18,11 @@ import { getAllSaleOrders } from "@/services/sale-order";
 
 export default function AllSaleOrder(props: any) {
   const [listRequestTopUp, setListRequestTopUp] = useState<TopUpRequest[]>([]);
-  const router = useRouter();
+  const [page, setPage] = React.useState(1);
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+  };
+
   useEffect(() => {
     renderListTopUpRequest();
   }, []);
@@ -72,6 +73,12 @@ export default function AllSaleOrder(props: any) {
           </TableBody>
         </Table>
       </TableContainer>
+      <Pagination
+        count={10}
+        page={page}
+        onChange={handleChange}
+        className="custom-pagination"
+      />
     </Box>
   );
 }

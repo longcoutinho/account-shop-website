@@ -124,7 +124,7 @@ export default function TopUpComponent() {
           </p>
         </Box>
       ) : Number(content.method) === 2 && content?.text !== "" ? (
-        <Box className="flex justify-center flex-col items-center gap-3 bg-white rounded-2xl box-shadow pt-4 max-w-[650px] mx-auto mb-6">
+        <Box className="flex justify-center flex-col items-center gap-3 bg-white rounded-2xl box-shadow pt-4 max-w-[650px] mx-auto mb-4">
           <Image
             src={"https://muaviaxmdt.com/img/MoMo_Logo.f82d519e.png"}
             alt="logo-ib"
@@ -163,6 +163,15 @@ export default function TopUpComponent() {
       ) : (
         ""
       )}
+      <Box className="w-full flex justify-center mb-6">
+        <Button
+          onClick={() => redirectUrl(router, Frontend.LIST_TOP_UP_PAGE, null)}
+          variant="contained"
+          className="bg-blue-500 text-white "
+        >
+          Hoàn thành
+        </Button>
+      </Box>
     </Page>
   );
 }

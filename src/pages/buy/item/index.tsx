@@ -35,6 +35,7 @@ export default function DetailItem(props: any) {
   const [openBuyComponent, setOpenBuyComponent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [userId, setUserId] = useState("");
+  const [remaining, setRemaining] = useState(0);
   const router = useRouter();
 
   useEffect(() => {
@@ -58,6 +59,7 @@ export default function DetailItem(props: any) {
           setName(res.data.name);
           setPrice(res.data.price);
           setListImageIds(res.data.listImageIds);
+          setRemaining(res?.data?.amount);
         }
       })
       .catch((err) => {
@@ -204,28 +206,30 @@ export default function DetailItem(props: any) {
   );
 
   const buyItem = () => {
-    setLoading(true);
-    const request: Order = {
-      amount: amount || 0,
-      userId: userId,
-      itemId: router.query.id as string,
-    };
-    createOrder(request)
-      .then((res) => {
-        if (res.status === HTTP_STATUS.OK) {
-          setLoading(false);
-          closeBuyComponent();
-          router.push("/sale-order/list/");
-        } else {
+    if (remaining > 0) {
+      setLoading(true);
+      const request: Order = {
+        amount: amount || 0,
+        userId: userId,
+        itemId: router.query.id as string,
+      };
+      createOrder(request)
+        .then((res) => {
+          if (res.status === HTTP_STATUS.OK) {
+            setLoading(false);
+            closeBuyComponent();
+            router.push("/sale-order/list/");
+          } else {
+            toast.error("Mua không thành công");
+            setLoading(false);
+          }
+        })
+        .catch((err) => {
           toast.error("Mua không thành công");
           setLoading(false);
-        }
-      })
-      .catch((err) => {
-        toast.error("Mua không thành công");
-        setLoading(false);
-        console.log(err);
-      });
+          console.log(err);
+        });
+    }
   };
   return (
     <Page title={PAGE_TITLE.ALL_PRODUCTS} menuIndex={1}>
@@ -254,6 +258,11 @@ export default function DetailItem(props: any) {
                 aria-label="Quantity Input"
                 onChange={(event, newValue) => setAmount(newValue)}
               />
+              {remaining <= 0 && (
+                <p className="text-red-500 font-semibold text-lg">
+                  Sản phẩm hết hàng
+                </p>
+              )}
               <p className="text-black text-center text-bold mt-2">
                 Đơn giá:{" "}
                 {amount && price
@@ -264,8 +273,13 @@ export default function DetailItem(props: any) {
               <Box className="flex gap-28">
                 <Button
                   variant="outlined"
-                  className="min-w-28 mt-2  hover:bg-blue-400 bg-blue-600 text-white"
+                  className={`min-w-28 mt-2 !text-white ${
+                    remaining <= 0
+                      ? "!cursor-not-allowed !pointer-events-auto bg-blue-400 hover:bg-blue-400"
+                      : "hover:bg-blue-400 bg-blue-600"
+                  }`}
                   onClick={buyItem}
+                  disabled={remaining <= 0}
                 >
                   {loading && (
                     <CircularProgress
