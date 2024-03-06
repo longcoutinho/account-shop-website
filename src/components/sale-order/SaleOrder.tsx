@@ -30,7 +30,7 @@ export default function AllSaleOrder(props: any) {
     getAllSaleOrders()
       .then((res) => {
         if (res.status == HTTP_STATUS.OK) {
-          setListRequestTopUp(res.data);
+          setListRequestTopUp(res.data.listSaleOrder);
         }
       })
       .catch((err) => {

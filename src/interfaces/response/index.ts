@@ -18,6 +18,7 @@ export interface Item {
   lv1Id: number;
   lv2Id: number | null;
   listImageIds: number[];
+  amount: number;
 }
 
 export interface TopUpRequest {
