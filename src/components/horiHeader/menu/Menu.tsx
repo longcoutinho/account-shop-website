@@ -37,10 +37,10 @@ export default function Menu() {
       {menuElement.child?.map((menuChild, index2) => (
         <Box
           className={`menu-element-child-container ${
-            menuChild.url === routes.pathname ? "bg-[#2e343b]" : ""
+            menuChild.url === routes.pathname ? "bg-[#52bed6]" : ""
           }`}
           key={index2}
-          sx={{ display: "flex"}}
+          sx={{ display: "flex" }}
         >
           <Link href={menuChild.url}>{menuChild.title}</Link>
         </Box>
