@@ -33,21 +33,25 @@ $gray-color: rgb(160, 167, 179);
       .user-icon-wrapper {
         position: relative;
         display: inline-block;
+        cursor: pointer;
         .user-info-hover-container {
           overflow: hidden;
-          display: none;
+          // display: none;
+          // // display: block;
           position: absolute;
           background-color: #f9f9f9;
           min-width: 120px;
+          width: fit-content;
           box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-          padding: 0;
+          padding: 10px 20px;
           z-index: 100;
           border-radius: 15px;
-          margin-left: -50px;
-          margin-top: 1px;
+          margin-left: -130px;
+          margin-top: 10px;
           font-size: 30px;
           flex-direction: column;
           align-items: center;
+
           .user-info-element {
             width: 100%;
             display: flex;
@@ -56,6 +60,7 @@ $gray-color: rgb(160, 167, 179);
             justify-content: center;
             padding: 4px 0;
             a {
+              white-space: nowrap;
               text-transform: capitalize;
               color: black;
               text-decoration: none;
@@ -79,14 +84,29 @@ $gray-color: rgb(160, 167, 179);
             color: red;
           }
         }
-      }
-      .user-icon-wrapper:hover .user-info-hover-container {
-        display: flex;
+        .show-drop {
+          display: block;
+          animation: rotateMenu 400ms ease-in-out forwards;
+          transform-origin: top center;
+        }
+        .hidden-drop {
+          display: none;
+        }
       }
     }
   }
 }
-
+@keyframes rotateMenu {
+  0% {
+    transform: rotateX(-90deg);
+  }
+  70% {
+    transform: rotateX(20deg);
+  }
+  100% {
+    transform: rotateX(0deg);
+  }
+}
 .name-container {
   margin-top: 7px;
   width: 100%;

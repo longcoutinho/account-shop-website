@@ -43,42 +43,38 @@ export default function InteractiveIcon() {
   };
 
   const UserIcon = () => {
+    const [show, setShow] = useState(false);
     const goToLoginPage = () => {
       redirectUrl(router, PageURL.LOGIN, null);
     };
-
+    const handleClickAvatar = () => {
+      setShow(!show);
+    };
+    const [user, setUser] = useState<User | null>(null);
+    useEffect(() => {
+      setUser(getUserInfo());
+    }, []);
     const DropDownUser = () => {
-      const [user, setUser] = useState<User | null>(null);
-      useEffect(() => {
-        setUser(getUserInfo());
-      }, []);
-
       const signOut = () => {
         setUser(null);
         deleteUserInfo();
       };
 
       if (user == null) {
-        return (
-          <Box className="user-info-hover-container">
-            <Box className="user-info-element">
-              <Link href={PageURL.LOGIN}>{COMMON_TEXT.LOGIN}</Link>
-              <p> &nbsp;/&nbsp;</p>
-              <Link href={PageURL.SIGNUP}>{COMMON_TEXT.SIGNUP}</Link>
-            </Box>
-          </Box>
-        );
+        return <></>;
       } else {
         return (
-          <Box className="user-info-hover-container">
+          <Box
+            className={`user-info-hover-container ${
+              show ? "show-drop" : "hidden-drop"
+            }`}
+          >
             <Box className="user-info-element">
-              <Link href={"/profile"}>My profile</Link>
+              <Link href={"/profile"}>Thông tin cá nhân </Link>
             </Box>
-            <Box className="user-info-element">
-              <p>Edit profile</p>
-            </Box>
+
             <Box className="user-info-element" onClick={signOut}>
-              <p>Sign out</p>
+              <p>Đăng xuất</p>
             </Box>
           </Box>
         );
@@ -87,14 +83,25 @@ export default function InteractiveIcon() {
 
     return (
       <Box className="user-icon-wrapper">
-        <Image
-          src={"/img/avatar.png"}
-          alt="ava"
-          width={40}
-          height={40}
-          onClick={() => goToLoginPage()}
-        />
-        <DropDownUser></DropDownUser>
+        {user === null ? (
+          <Box className="user-info-element">
+            <Link href={PageURL.LOGIN}>{COMMON_TEXT.LOGIN}</Link>
+            <p> &nbsp;/&nbsp;</p>
+            <Link href={PageURL.SIGNUP}>{COMMON_TEXT.SIGNUP}</Link>
+          </Box>
+        ) : (
+          <>
+            <Image
+              src={"/img/avatar.png"}
+              alt="ava"
+              width={40}
+              height={40}
+              onClick={() => handleClickAvatar()}
+            />
+
+            <DropDownUser></DropDownUser>
+          </>
+        )}
       </Box>
     );
   };
