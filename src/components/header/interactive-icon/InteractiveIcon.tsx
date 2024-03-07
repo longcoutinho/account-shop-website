@@ -9,6 +9,7 @@ import { COMMON_TEXT } from "@/constants/message";
 import { User } from "@/interfaces";
 import { getUserBalance } from "@/services/userService";
 import { getAllItem } from "@/services/item";
+import Image from "next/image";
 
 export default function InteractiveIcon() {
   const [balance, setBalance] = useState("0");
@@ -86,12 +87,13 @@ export default function InteractiveIcon() {
 
     return (
       <Box className="user-icon-wrapper">
-        <FontAwesomeIcon
-          className="user-icon"
+        <Image
+          src={"/img/avatar.png"}
+          alt="ava"
+          width={40}
+          height={40}
           onClick={() => goToLoginPage()}
-          id="cart-shopping-iconn"
-          icon={faUser}
-        ></FontAwesomeIcon>
+        />
         <DropDownUser></DropDownUser>
       </Box>
     );

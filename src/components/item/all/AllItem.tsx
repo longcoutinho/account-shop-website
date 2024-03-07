@@ -1,4 +1,4 @@
-import {Box, Button, Pagination} from "@mui/material";
+import { Box, Button, Pagination } from "@mui/material";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -8,7 +8,7 @@ import React, { useEffect, useState } from "react";
 import { Item } from "@/interfaces/response";
 import { getAllItem } from "@/services/item";
 import { Backend, Frontend, HTTP_STATUS } from "@/constants";
-import {getTotalPage, redirectUrl} from "@/constants/FnCommon";
+import { getTotalPage, redirectUrl } from "@/constants/FnCommon";
 import { useRouter } from "next/router";
 
 export default function AllItem(props: any) {
@@ -28,9 +28,9 @@ export default function AllItem(props: any) {
   }, [props.searchTypeId, props.searchTypeName]);
 
   const handleChange = (page: number) => {
-      setPage(page);
-      renderListItem(page);
-  }
+    setPage(page);
+    renderListItem(page);
+  };
 
   const renderListItem = (page: number) => {
     getAllItem(props.searchTypeId, props.searchTypeName, page - 1, 8)
@@ -64,7 +64,7 @@ export default function AllItem(props: any) {
       <Box className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
         {listItems.map((item, index) => (
           <Box
-            className=" flex flex-row items-center border-2 border-blue-500 p-2 rounded-sm"
+            className=" flex flex-row items-center border-2 border-blue-500 p-2 rounded-md hover:scale-105 transition-all ease-in-out delay-75"
             key={index}
           >
             <Box className="w-1/3 h-full flex justify-center items-center">
@@ -100,12 +100,12 @@ export default function AllItem(props: any) {
           </Box>
         ))}
       </Box>
-        <Pagination
-            count={count}
-            page={page}
-            onChange={(e, value) => handleChange(value)}
-            className="custom-pagination"
-        />
+      <Pagination
+        count={count}
+        page={page}
+        onChange={(e, value) => handleChange(value)}
+        className="custom-pagination"
+      />
     </Box>
   );
 }
