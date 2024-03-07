@@ -35,8 +35,10 @@ export default function ItemTypeComponent(props: any) {
                         select
                         label="Loại sản phẩm"
                         size="small"
+                        defaultValue={-1}
                         onChange={e => props.changeTypeId(e.target.value)}
                     >
+                        <MenuItem value={-1}>Tất cả</MenuItem>
                         {
                             listItem.map((itemType) => (
                                 <MenuItem value={itemType.itemTypeId}>{itemType.name}</MenuItem>

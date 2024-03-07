@@ -13,9 +13,13 @@ import Image from "next/image";
 
 export default function InteractiveIcon() {
   const [balance, setBalance] = useState("0");
+  const [username, setUsername] = useState("");
+
   useEffect(() => {
     const user = getUserInfo();
     if (user !== null) {
+      setUsername(user.username);
+      console.log(user.username);
       getUserBalance(user.id)
         .then((res) => {
           if (res.status == HTTP_STATUS.OK) {

@@ -8,11 +8,12 @@ import "@/constants/FnCommon";
 import React, { useState } from "react";
 import ItemTypeComponent from "@/components/item/categories/all/ItemType";
 import AllItem from "@/components/item/all/AllItem";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, MenuItem } from "@mui/material";
 
 export default function BuyComponent() {
   const [typeId, setTypeId] = useState(null);
   const [typeName, setTypeName] = useState("");
+
   const [searchTypeId, setSearchTypeId] = useState(null);
   const [searchTypeName, setSearchTypeName] = useState("");
 
@@ -28,7 +29,7 @@ export default function BuyComponent() {
   return (
     <Page title={PAGE_TITLE.ALL_PRODUCTS} menuIndex={1}>
       <Box className="p-5 flex flex-col gap-5">
-        <Box className="flex flex-row items-center bg-white rounded-2xl p-5 box-shadow flex-wrap gap-3">
+        <Box className="flex flex-row items-center bg-white rounded-2xl p-5 box-shadow flex-wrap justify-between">
           <Box className="w-[calc(50%-2rem)]">
             <ItemTypeComponent changeTypeId={changeTypeId}></ItemTypeComponent>
           </Box>
@@ -41,10 +42,9 @@ export default function BuyComponent() {
               onChange={(e: any) => setTypeName(e.target.value)}
             ></TextField>
           </Box>
-          <Box className="w-full flex flex-row items-center">
+          <Box className="">
             <Button
               variant="outlined"
-              className="w-1/10"
               onClick={() => searchItem()}
             >
               Tìm kiếm
