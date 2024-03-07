@@ -34,6 +34,9 @@ $gray-color: rgb(160, 167, 179);
         position: relative;
         display: inline-block;
         cursor: pointer;
+        img {
+          margin: 0 auto;
+        }
         .user-info-hover-container {
           overflow: hidden;
           // display: none;
@@ -46,7 +49,7 @@ $gray-color: rgb(160, 167, 179);
           padding: 10px 20px;
           z-index: 100;
           border-radius: 15px;
-          margin-left: -130px;
+          margin-left: -46px;
           margin-top: 10px;
           font-size: 30px;
           flex-direction: column;

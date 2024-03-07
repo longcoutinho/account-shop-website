@@ -102,7 +102,7 @@ export default function InteractiveIcon() {
               height={40}
               onClick={() => handleClickAvatar()}
             />
-
+            <p>{username}</p>
             <DropDownUser></DropDownUser>
           </>
         )}
