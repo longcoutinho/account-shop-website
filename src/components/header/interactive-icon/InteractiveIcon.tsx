@@ -12,9 +12,13 @@ import { getAllItem } from "@/services/item";
 
 export default function InteractiveIcon() {
   const [balance, setBalance] = useState("0");
+  const [username, setUsername] = useState('');
+
   useEffect(() => {
     const user = getUserInfo();
     if (user !== null) {
+        setUsername(user.username);
+        console.log(user.username);
       getUserBalance(user.id)
         .then((res) => {
           if (res.status == HTTP_STATUS.OK) {
@@ -86,12 +90,15 @@ export default function InteractiveIcon() {
 
     return (
       <Box className="user-icon-wrapper">
-        <FontAwesomeIcon
-          className="user-icon"
-          onClick={() => goToLoginPage()}
-          id="cart-shopping-iconn"
-          icon={faUser}
-        ></FontAwesomeIcon>
+          <Box>
+              <FontAwesomeIcon
+                  className="user-icon"
+                  onClick={() => goToLoginPage()}
+                  id="cart-shopping-iconn"
+                  icon={faUser}
+              ></FontAwesomeIcon>
+              <p>{username}</p>
+          </Box>
         <DropDownUser></DropDownUser>
       </Box>
     );
