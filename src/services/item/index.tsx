@@ -48,11 +48,13 @@ export const getItemById = async (id: string | string[] | undefined) : Promise<a
     return doGetRequest(url, null);
 }
 
-export const getAllItem = async (searchTypeId: any, searchTypeName: any) : Promise<any> => {
+export const getAllItem = async (searchTypeId: any, searchTypeName: any, page: number, pageSize: number) : Promise<any> => {
     const url = Backend.ITEM_SERVICE;
     const params = {
         typeId: searchTypeId,
-        name: searchTypeName
+        name: searchTypeName,
+        page: page,
+        pageSize: pageSize
     }
     return doGetRequest(url, params);
 }

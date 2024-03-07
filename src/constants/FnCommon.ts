@@ -207,3 +207,7 @@ export const formatDateTime = (date: string): string => {
   const DATE_TIME_FORMAT = "HH:mm:ss DD-MM-YYYY"
   return dayjs(date).format(DATE_TIME_FORMAT);
 }
+
+export const getTotalPage = (pagesize: number, totalCount: number) => {
+  return Math.floor(totalCount / pagesize) + (totalCount % pagesize ? 1 : 0);
+}

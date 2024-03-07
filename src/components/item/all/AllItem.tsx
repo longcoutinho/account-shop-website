@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import {Box, Button, Pagination} from "@mui/material";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -8,26 +8,37 @@ import React, { useEffect, useState } from "react";
 import { Item } from "@/interfaces/response";
 import { getAllItem } from "@/services/item";
 import { Backend, Frontend, HTTP_STATUS } from "@/constants";
-import { redirectUrl } from "@/constants/FnCommon";
+import {getTotalPage, redirectUrl} from "@/constants/FnCommon";
 import { useRouter } from "next/router";
 
 export default function AllItem(props: any) {
   const [listItems, setListItems] = useState<Item[]>([]);
+  const [page, setPage] = useState(1);
+  const [count, setCount] = useState(10);
   const router = useRouter();
+
   useEffect(() => {
     if (
       props.searchTypeId !== undefined &&
       props.searchTypeName !== undefined
     ) {
-      renderListItem();
+      renderListItem(1);
+      setPage(1);
     }
   }, [props.searchTypeId, props.searchTypeName]);
 
-  const renderListItem = () => {
-    getAllItem(props.searchTypeId, props.searchTypeName)
+  const handleChange = (page: number) => {
+      setPage(page);
+      renderListItem(page);
+  }
+
+  const renderListItem = (page: number) => {
+    getAllItem(props.searchTypeId, props.searchTypeName, page - 1, 8)
       .then((res) => {
         if (res.status == HTTP_STATUS.OK) {
-          setListItems(res.data);
+          setListItems(res.data.listData);
+          // console.log(getTotalPage(8, res.data.count));
+          setCount(getTotalPage(8, res.data.count));
         }
       })
       .catch((err) => {
@@ -89,6 +100,12 @@ export default function AllItem(props: any) {
           </Box>
         ))}
       </Box>
+        <Pagination
+            count={count}
+            page={page}
+            onChange={(e, value) => handleChange(value)}
+            className="custom-pagination"
+        />
     </Box>
   );
 }
