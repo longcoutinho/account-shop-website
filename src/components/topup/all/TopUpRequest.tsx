@@ -65,10 +65,10 @@ export default function AllTopUpRequest(props: any) {
                 <TableCell>{formatDateTime(request.createDate)}</TableCell>
                 <TableCell>
                   {request.status == 0
-                    ? "Đang xử lý"
+                    ? "Thất bại"
                     : request.status == 1
                     ? "Thành công"
-                    : "Thất bại"}
+                    : "Đang xử lý"}
                 </TableCell>
               </TableRow>
             ))}

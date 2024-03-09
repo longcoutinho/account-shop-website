@@ -12,13 +12,16 @@ export const getAllTopUpRequest = async (): Promise<any> => {
 
 export const createTopUpRequest = async (
   amount: any,
-  method: any
 ): Promise<any> => {
   const url = Backend.TOPUP_SERVICE + "/request";
   const request = {
     amount: amount,
-    method: method,
-    userId: getUserInfo()?.id,
+    method: null
   };
   return doPostRequest(url, request);
+};
+
+export const getTopUpStatus = async (params: any) => {
+  const url = Backend.TOPUP_SERVICE + "";
+  return doGetRequest(url, params);
 };
