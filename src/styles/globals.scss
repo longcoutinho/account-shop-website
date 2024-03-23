@@ -1,6 +1,10 @@
 @import "tailwindcss/base";
 
 @import "tailwindcss/components";
+@import "swiper/css";
+@import "swiper/css/navigation";
+@import "swiper/css/pagination";
+@import "swiper/css/scrollbar";
 
 @import "tailwindcss/utilities";
 @import url("https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap");
@@ -603,9 +607,10 @@ h1 {
     font-weight: normal;
   }
 }
-
-.swiper-pagination-bullet {
-  color: black !important;
+.swiper-pagination {
+  span {
+    @apply text-xl w-5 h-5 bg-white;
+  }
 }
 
 .mobile-view {

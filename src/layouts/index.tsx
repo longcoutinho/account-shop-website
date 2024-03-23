@@ -2,7 +2,6 @@ import React from "react";
 import Head from "next/head";
 import { PAGE_TITLE } from "@/constants";
 import Header from "@/components/header/Header";
-import HorizonHeader from "@/components/horiHeader/HorizonHeader";
 import { Box } from "@mui/material";
 import NotificationWrapper from "@/components/NotificationWrapper";
 
@@ -15,8 +14,7 @@ const Page = (props: any) => {
         <title>{PAGE_TITLE.PREFIX + title}</title>
       </Head>
       <NotificationWrapper />
-      <HorizonHeader></HorizonHeader>
-      <Box className="w-full flex flex-col gap-5 h-screen overflow-auto">
+      <Box className="w-full flex flex-col h-screen overflow-auto">
         <Header></Header>
         {children}
       </Box>

@@ -8,7 +8,7 @@ $gray-color: rgb(160, 167, 179);
   .header-wrapper {
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     //logo
     .logo-wrapper:hover {
@@ -16,12 +16,11 @@ $gray-color: rgb(160, 167, 179);
     }
     //list interactive icon
     .interactive-icon-wrapper {
-      padding-right: 50px;
-      width: 15%;
+      width: fit-content;
       display: flex;
       flex-direction: row;
       align-items: center;
-      justify-content: flex-end;
+      justify-content: flex-start;
       gap: 20px;
       svg {
         color: $black-color;
@@ -87,17 +86,17 @@ $gray-color: rgb(160, 167, 179);
             color: red;
           }
         }
-        .show-drop {
-          display: block;
-          animation: rotateMenu 400ms ease-in-out forwards;
-          transform-origin: top center;
-        }
-        .hidden-drop {
-          display: none;
-        }
       }
     }
   }
+}
+.show-drop {
+  display: block;
+  animation: rotateMenu 400ms ease-in-out forwards;
+  transform-origin: top center;
+}
+.hidden-drop {
+  display: none;
 }
 @keyframes rotateMenu {
   0% {
@@ -194,14 +193,12 @@ $gray-color: rgb(160, 167, 179);
       font-weight: 700;
     }
     .menu-element-content {
-      -webkit-user-select: none; /* Safari */
-      -ms-user-select: none; /* IE 10 and IE 11 */
-      user-select: none; /* Standard syntax */
       padding: 0px 15px;
       display: flex;
       margin-top: 15px;
       flex-direction: row;
       align-items: center;
+      text-decoration: none;
       svg:first-child {
         font-size: 17px;
         color: #000;
