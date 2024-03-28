@@ -12,14 +12,14 @@ export const menuBar = [
     url: PageURL.HOME,
   },
   {
-    title: "Mua thẻ game",
+    title: "Mua thẻ",
     icon: faCartShopping,
-    url: "",
+    url: PageURL.BUY_CARD,
   },
   {
-    title: "Nạp thẻ game",
+    title: "Nạp thẻ",
     icon: faGamepad,
-    url: "",
+    url: PageURL.RECHARGE,
   },
   // {
   //   title: "Lịch sử giao dịch",

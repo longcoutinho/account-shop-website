@@ -6,6 +6,8 @@ export enum Backend {
   // BASE_URL = "http://10.248.158.39:8989",
   // BASE_URL = 'http://localhost:8989',
   USER_SERVICE = BASE_URL + "/user",
+  GAME_SERVICE = BASE_URL + "/game",
+  CARD_SERVICE = BASE_URL + "/card",
   ITEM_SERVICE = BASE_URL + "/item",
   IMAGE_SERVICE = BASE_URL + "/image",
   TOPUP_SERVICE = BASE_URL + "/top-up",
@@ -29,6 +31,8 @@ export enum PAGE_TITLE {
   LAPLA = "Lap la so phong thuy",
   ALL_PRODUCTS = "All Products",
   EDIT_ITEM = "Edit Item",
+  RECHARGE = "Recharge card",
+  BUY_CARD = "Buy card",
 }
 
 export const HomePage = {
@@ -187,6 +191,8 @@ export enum PageURL {
   SIGNUP = "/signup",
   BUY = "/buy",
   POST = "/post",
+  RECHARGE = "/recharge",
+  BUY_CARD = "/buy-card",
 }
 
 export const MenuTitle: any = [

@@ -72,7 +72,7 @@ export default function InteractiveIcon() {
             className="flex gap-2"
           >
             <Image src={"/img/avatar.png"} alt="ava" width={40} height={40} />
-            <p>{user?.username}</p>
+            <p className="text-white">{user?.username}</p>
           </Button>
           {open && (
             <DropDownUser
