@@ -1,8 +1,8 @@
-import { deleteUserInfo } from "@/constants/FnCommon";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, Menu, MenuItem } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Menu, MenuItem } from "@mui/material";
+import React from "react";
 import { Logout, Person } from "@mui/icons-material";
+import { useRouter } from "next/router";
+import { PageURL } from "@/constants";
 
 interface IProps {
   open: boolean;
@@ -17,6 +17,7 @@ export default function DropDownUser({
   handleClose,
   handleLogout,
 }: IProps) {
+  const router = useRouter();
   return (
     <div>
       <Menu
@@ -28,7 +29,7 @@ export default function DropDownUser({
           "aria-labelledby": "basic-button",
         }}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={() => router.push(PageURL.PROFILE)}>
           <Person fontSize="small" className="mr-2" />
           Thông tin tài khoản
         </MenuItem>

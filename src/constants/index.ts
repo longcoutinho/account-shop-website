@@ -189,6 +189,7 @@ export enum PageURL {
   HOME = "/",
   LOGIN = "/login",
   SIGNUP = "/signup",
+  PROFILE = "/profile",
   BUY = "/buy",
   POST = "/post",
   RECHARGE = "/recharge",
