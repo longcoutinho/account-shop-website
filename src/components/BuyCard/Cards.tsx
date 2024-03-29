@@ -10,14 +10,17 @@ import {
 import { useEffect, useState } from "react";
 import ReSultSelectCard from "./Result";
 import { NumberInput } from "../NumberInput";
+import Image from "next/image";
+
 export interface ICardValue {
   value: number;
   id: number;
 }
+
 const SelectCard = () => {
   const [listCards, setListCards] = useState<ICardsRes[]>([]);
   const [listItems, setListItems] = useState<IItemCardRes[]>([]);
-  const [cardName, setCardName] = useState<string>("");
+  const [card, setCard] = useState<ICardsRes>();
   const [cardValue, setCardValue] = useState<ICardValue>({ value: 0, id: 0 });
   const [amount, setAmount] = useState<number | null>(0);
 
@@ -48,27 +51,35 @@ const SelectCard = () => {
   };
 
   return (
-    <div className=" max-w-[960px] mx-auto flex w-full gap-4 my-6">
+    <div className="flex w-full gap-4">
       <div className=" flex flex-col w-2/3">
         <p className="w-full bg-gray-300 font-bold py-2 px-4 text-lg my-4">
-          Chọn card
+          Chọn thẻ
         </p>
-        {listCards?.map((g) => (
-          <div
-            key={g.id}
-            onClick={() => {
-              handleGetListItemCard(g.id.toString());
-              setCardName(g.name);
-            }}
-            className={` p-3 max-w-36 rounded-lg cursor-pointer hover:scale-105  hover:shadow-lg transition-all ${
-              g.name === cardName
-                ? " border-[#f3a44a] shadow-md border-2"
-                : " border-[#00000038] border"
-            }`}
-          >
-            <p>{g.name}</p>
-          </div>
-        ))}
+        <div className="flex flex-wrap gap-4">
+          {listCards?.map((g) => (
+            <div
+              key={g.id}
+              onClick={() => {
+                handleGetListItemCard(g.id.toString());
+                setCard(g);
+              }}
+              className={` p-3 max-w-36 rounded-lg cursor-pointer hover:scale-105  hover:shadow-lg transition-all ${
+                g.id === card?.id
+                  ? " border-[#f3a44a] shadow-md border-2"
+                  : " border-[#1b1b1b1f] border-2"
+              }`}
+            >
+              <Image
+                src={g.image}
+                alt="card"
+                width={120}
+                height={100}
+                className=" mx-auto h-[100px]"
+              />
+            </div>
+          ))}
+        </div>
         {listItems?.length > 0 && (
           <>
             <p className="w-full bg-gray-300 font-bold py-2 px-4 text-lg my-4">
@@ -82,7 +93,7 @@ const SelectCard = () => {
                   className={` p-3 max-w-36 rounded-lg cursor-pointer hover:scale-105  hover:shadow-lg transition-all ${
                     i.id === cardValue.id
                       ? " border-[#f3a44a] shadow-md border-2"
-                      : " border-[#00000038] border"
+                      : " border-[#1b1b1b1f] border-2"
                   }`}
                 >
                   <p>{i.price.toLocaleString("vi-VN")}đ</p>
@@ -102,7 +113,7 @@ const SelectCard = () => {
         )}
       </div>
       <ReSultSelectCard
-        cardName={cardName}
+        cardName={card?.name ? card?.name : ""}
         cardValue={cardValue}
         amount={amount}
       />

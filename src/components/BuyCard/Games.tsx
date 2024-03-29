@@ -86,23 +86,31 @@ const SelectGame = ({ auto }: IProps) => {
     }
   };
   return (
-    <div className=" max-w-[960px] mx-auto w-full ap-4 my-6">
+    <div className="w-full">
       <p className="w-full bg-gray-300 font-bold py-2 px-4 text-lg my-4">
         Chọn game
       </p>
-      {listGames?.map((g) => (
-        <div
-          key={g.id}
-          onClick={() => setGameSelected(g)}
-          className={` p-3 max-w-36 rounded-lg cursor-pointer hover:scale-105  hover:shadow-lg transition-all ${
-            g.id === gameSelected?.id
-              ? " border-[#f3a44a] shadow-md border-2"
-              : " border-[#00000038] border"
-          }`}
-        >
-          <p>{g.name}</p>
-        </div>
-      ))}
+      <div className="flex flex-wrap gap-3">
+        {listGames?.map((g) => (
+          <div
+            key={g.id}
+            onClick={() => setGameSelected(g)}
+            className={` p-3 min-w-24 w-36 rounded-lg cursor-pointer hover:scale-105  hover:shadow-lg transition-all ${
+              g.id === gameSelected?.id
+                ? " border-[#f3a44a] shadow-md border-2"
+                : " border-[#00000038] border"
+            }`}
+          >
+            <Image
+              src={g.image}
+              alt="game"
+              width={120}
+              height={80}
+              className=" mx-auto"
+            />
+          </div>
+        ))}
+      </div>
       {auto ? (
         <div className="flex mt-8 gap-4 items-center">
           <p className="text-base font-semibold">Nhập mệnh giá: </p>

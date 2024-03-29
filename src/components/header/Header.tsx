@@ -3,6 +3,8 @@ import React from "react";
 import InteractiveIcon from "@/components/header/interactive-icon/InteractiveIcon";
 import HorizonHeader from "../horiHeader/HorizonHeader";
 import { MenuOutlined } from "@mui/icons-material";
+import Link from "next/link";
+import { PageURL } from "@/constants";
 
 export default function Header() {
   const [open, setOpen] = React.useState(false);
@@ -15,7 +17,9 @@ export default function Header() {
       <Box className="header-wrapper h-full px-6">
         <div className="flex gap-6">
           <MenuOutlined onClick={toggleDrawer(true)} />
-          <p className="text-xl font-semibold">NAPTHENGAY</p>
+          <Link href={PageURL.HOME} className="text-xl font-semibold">
+            NAPTHENGAY
+          </Link>
         </div>
         <Drawer open={open} onClose={toggleDrawer(false)}>
           <HorizonHeader />

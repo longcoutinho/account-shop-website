@@ -3,11 +3,13 @@ export interface IGamesRes {
   name: string;
   description: string;
   code: string;
+  image: string;
 }
 
 export interface ICardsRes {
   id: number;
   name: string;
+  image: string;
 }
 
 export interface IItemCardRes {

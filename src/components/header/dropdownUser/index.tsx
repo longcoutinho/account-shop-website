@@ -1,6 +1,6 @@
 import { Menu, MenuItem } from "@mui/material";
 import React from "react";
-import { Logout, Person } from "@mui/icons-material";
+import { History, Logout, Person } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import { PageURL } from "@/constants";
 
@@ -32,6 +32,10 @@ export default function DropDownUser({
         <MenuItem onClick={() => router.push(PageURL.PROFILE)}>
           <Person fontSize="small" className="mr-2" />
           Thông tin tài khoản
+        </MenuItem>
+        <MenuItem onClick={() => router.push(PageURL.PROFILE)}>
+          <History fontSize="small" className="mr-2" />
+          Lịch sử giao dịch
         </MenuItem>
         <MenuItem onClick={handleLogout}>
           <Logout fontSize="small" className="mr-2" />

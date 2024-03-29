@@ -2,7 +2,8 @@ import {
   faCartShopping,
   faContactBook,
   faHouse,
-  faGamepad,
+  faCreditCard,
+  faHand,
 } from "@fortawesome/free-solid-svg-icons";
 import { PageURL } from ".";
 export const menuBar = [
@@ -18,12 +19,12 @@ export const menuBar = [
   },
   {
     title: "Nạp thẻ thủ công",
-    icon: faGamepad,
+    icon: faHand,
     url: PageURL.RECHARGE,
   },
   {
     title: "Nạp thẻ tự động",
-    icon: faGamepad,
+    icon: faCreditCard,
     url: PageURL.RECHARGE_AUTO,
   },
   // {
