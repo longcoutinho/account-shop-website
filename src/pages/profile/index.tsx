@@ -1,17 +1,14 @@
-import { PAGE_TITLE } from "@/constants";
+import { PAGE_TITLE, PageURL } from "@/constants";
 import Page from "@/layouts";
-import { Box } from "@mui/material";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
-import "@/constants/FnCommon";
+import { Box, Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { COMMON_TEXT } from "@/constants/message";
 import { User } from "@/interfaces";
 import { getUserInfo } from "@/constants/FnCommon";
+import { useRouter } from "next/router";
+import Image from "next/image";
 
 export default function Profile() {
+  const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   useEffect(() => {
     setUser(getUserInfo());
@@ -19,33 +16,48 @@ export default function Profile() {
 
   return (
     <Page title={PAGE_TITLE.HOME} menuIndex={1}>
-      <Box className="profile-page-container">
+      <Box className="profile-page-container h-full">
+        <p className=" text-2xl font-semibold mb-6">Thông tin tài khoản</p>
         <Box className="profile-page-wrapper">
-          <Box className="name-and-email-container">
-            <p>{user?.fullName}</p>
-            <p>{user?.email}</p>
-          </Box>
-          <Box className="user-info-container">
-            <Box className="profile-user-info-element">
-              <p>Email ID</p>
-              <p>{user?.email}</p>
-            </Box>
-            <Box className="profile-user-info-element">
-              <p>Full Name</p>
-              <p>{user?.fullName}</p>
-            </Box>
-            <Box className="profile-user-info-element">
-              <p>Phone Number</p>
-              <p>{user?.phoneNumber}</p>
-            </Box>
-            <Box className="profile-user-info-element">
-              <p>DOB</p>
-              <p>2/11/2000</p>
-            </Box>
-          </Box>
-          {/*<Box>*/}
-          {/*    <Button>Edit profile</Button>*/}
-          {/*</Box>*/}
+          <div className="w-fit flex gap-7 flex-col">
+            <Image
+              src={"/img/avatar.png"}
+              alt="ava"
+              width={140}
+              height={140}
+              className="mx-auto"
+            />
+            <div className="flex gap-3 w-full">
+              <p className="w-28">Họ và tên: </p>
+              <p className="text-red-500 font-medium">
+                {user?.fullName || "Nguyễn Thị Phương mai"}
+              </p>
+            </div>
+            <div className="flex gap-3 w-full">
+              <p className="w-28">Username: </p>
+              <p className="text-red-500 font-medium">{user?.username}</p>
+            </div>
+            <div className="flex gap-3 w-full">
+              <p className="w-28">Email: </p>
+              <p className="text-red-500 font-medium">
+                {user?.email || "maitho3101@gmail.com"}
+              </p>
+            </div>
+            <div className="flex gap-3 w-full">
+              <p className="w-28">Số điện thoại: </p>
+              <p className="text-red-500 font-medium">
+                {user?.phoneNumber || "0816928986"}
+              </p>
+            </div>
+            <Button
+              onClick={() => {
+                router.push(PageURL.HOME);
+              }}
+              className={`w-[200px] bg-[#05296b] text-white min-h-11 mt-4 mx-auto cursor-pointer hover:bg-[#30466b] capitalize`}
+            >
+              Trở về trang chủ
+            </Button>
+          </div>
         </Box>
       </Box>
     </Page>
