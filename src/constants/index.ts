@@ -32,6 +32,7 @@ export enum PAGE_TITLE {
   ALL_PRODUCTS = "All Products",
   EDIT_ITEM = "Edit Item",
   RECHARGE = "Recharge card",
+  RECHARGE_AUTO = "Recharge card auto",
   BUY_CARD = "Buy card",
 }
 
@@ -193,6 +194,7 @@ export enum PageURL {
   BUY = "/buy",
   POST = "/post",
   RECHARGE = "/recharge",
+  RECHARGE_AUTO = "/recharge-auto",
   BUY_CARD = "/buy-card",
 }
 

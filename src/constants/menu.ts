@@ -17,9 +17,14 @@ export const menuBar = [
     url: PageURL.BUY_CARD,
   },
   {
-    title: "Nạp thẻ",
+    title: "Nạp thẻ thủ công",
     icon: faGamepad,
     url: PageURL.RECHARGE,
+  },
+  {
+    title: "Nạp thẻ tự động",
+    icon: faGamepad,
+    url: PageURL.RECHARGE_AUTO,
   },
   // {
   //   title: "Lịch sử giao dịch",
