@@ -16,7 +16,7 @@ const Page = (props: any) => {
       <NotificationWrapper />
       <Box className="w-full flex flex-col h-screen overflow-auto">
         <Header></Header>
-        {children}
+        <div className=" max-w-[960px] mx-auto w-full my-6">{children}</div>
       </Box>
     </div>
   );

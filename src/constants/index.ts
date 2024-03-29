@@ -31,8 +31,9 @@ export enum PAGE_TITLE {
   LAPLA = "Lap la so phong thuy",
   ALL_PRODUCTS = "All Products",
   EDIT_ITEM = "Edit Item",
-  RECHARGE = "Recharge card",
-  BUY_CARD = "Buy card",
+  RECHARGE = "Nạp thẻ thủ công",
+  RECHARGE_AUTO = "Nạp thẻ tự động",
+  BUY_CARD = "Mua thẻ nạp",
 }
 
 export const HomePage = {
@@ -189,9 +190,11 @@ export enum PageURL {
   HOME = "/",
   LOGIN = "/login",
   SIGNUP = "/signup",
+  PROFILE = "/profile",
   BUY = "/buy",
   POST = "/post",
   RECHARGE = "/recharge",
+  RECHARGE_AUTO = "/recharge-auto",
   BUY_CARD = "/buy-card",
 }
 
