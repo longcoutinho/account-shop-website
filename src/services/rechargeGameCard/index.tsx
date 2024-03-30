@@ -24,3 +24,8 @@ export const requestCreateOrder = async (
   const request = body;
   return doPostRequest(url, request);
 };
+
+export const requestGetListPaymentMethod = async (): Promise<any> => {
+  const url = Backend.BASE_URL + "/payment/method";
+  return doGetRequest(url, null);
+};

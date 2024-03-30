@@ -1,5 +1,5 @@
 export interface ICreateOrderReq {
-  itemId: number;
-  amount: number;
+  orderList?: { itemId: number; amount: number }[];
   method: number;
+  price: number;
 }

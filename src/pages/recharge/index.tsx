@@ -1,5 +1,4 @@
 import Page from "@/layouts";
-import SelectCard from "../../components/BuyCard/Cards";
 import SelectGame from "../../components/BuyCard/Games";
 import { PAGE_TITLE } from "@/constants";
 

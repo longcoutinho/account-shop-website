@@ -95,10 +95,10 @@ const SelectGame = ({ auto }: IProps) => {
           <div
             key={g.id}
             onClick={() => setGameSelected(g)}
-            className={` p-3 min-w-24 w-36 rounded-lg cursor-pointer hover:scale-105  hover:shadow-lg transition-all ${
+            className={` p-1 min-w-24 w-36 rounded-lg cursor-pointer hover:scale-105  hover:shadow-lg transition-all ${
               g.id === gameSelected?.id
                 ? " border-[#f3a44a] shadow-md border-2"
-                : " border-[#00000038] border"
+                : " border-[#00000038] border-2"
             }`}
           >
             <Image
@@ -106,7 +106,7 @@ const SelectGame = ({ auto }: IProps) => {
               alt="game"
               width={120}
               height={80}
-              className=" mx-auto"
+              className="w-full h-full rounded-lg"
             />
           </div>
         ))}

@@ -2,7 +2,7 @@ import { Course } from "@/interfaces/response";
 import { PATH_PAGE } from "@/routes/path";
 
 export enum Backend {
-  BASE_URL = "http://42.118.20.77:8989",
+  BASE_URL = "http://58.187.231.220:8989",
   // BASE_URL = "http://10.248.158.39:8989",
   // BASE_URL = 'http://localhost:8989',
   USER_SERVICE = BASE_URL + "/user",
@@ -34,6 +34,7 @@ export enum PAGE_TITLE {
   RECHARGE = "Nạp thẻ thủ công",
   RECHARGE_AUTO = "Nạp thẻ tự động",
   BUY_CARD = "Mua thẻ nạp",
+  PAYMENT = "Thanh toán",
 }
 
 export const HomePage = {
@@ -106,54 +107,9 @@ export const listItems = [
     price: 3500000,
     introduction: "abc",
   },
-  {
-    titleImageUrlStream:
-      "https://images.pexels.com/photos/1486861/pexels-photo-1486861.jpeg?cs=srgb&dl=pexels-engin-akyurt-1486861.jpg&fm=jpg",
-    title: "Bai viet 1",
-    id: 1,
-    price: 3500000,
-    introduction: "abc",
-  },
-  {
-    titleImageUrlStream:
-      "https://images.pexels.com/photos/1486861/pexels-photo-1486861.jpeg?cs=srgb&dl=pexels-engin-akyurt-1486861.jpg&fm=jpg",
-    title: "Bai viet 1",
-    id: 1,
-    price: 3500000,
-    introduction: "abc",
-  },
-  {
-    titleImageUrlStream:
-      "https://images.pexels.com/photos/1486861/pexels-photo-1486861.jpeg?cs=srgb&dl=pexels-engin-akyurt-1486861.jpg&fm=jpg",
-    title: "Bai viet 1",
-    id: 1,
-    price: 3500000,
-    introduction: "abc",
-  },
 ];
 
 export const listCourse: Course[] = [
-  {
-    title: "Lớp 1",
-    teacher: "Kim ca",
-    titleImageUrlStream:
-      "https://images.pexels.com/photos/1486861/pexels-photo-1486861.jpeg?cs=srgb&dl=pexels-engin-akyurt-1486861.jpg&fm=jpg",
-    videoTime: 20,
-  },
-  {
-    title: "Lớp 1",
-    teacher: "Kim ca",
-    titleImageUrlStream:
-      "https://images.pexels.com/photos/1486861/pexels-photo-1486861.jpeg?cs=srgb&dl=pexels-engin-akyurt-1486861.jpg&fm=jpg",
-    videoTime: 20,
-  },
-  {
-    title: "Lớp 1",
-    teacher: "Kim ca",
-    titleImageUrlStream:
-      "https://images.pexels.com/photos/1486861/pexels-photo-1486861.jpeg?cs=srgb&dl=pexels-engin-akyurt-1486861.jpg&fm=jpg",
-    videoTime: 20,
-  },
   {
     title: "Lớp 1",
     teacher: "Kim ca",
@@ -169,21 +125,6 @@ export const listServicesTitle = [
     title: "Làm viên chức",
     content: "Bạn muốn biết hôn nhân mình ra sao?",
   },
-  {
-    img: "https://www.kimca.net/wp-content/uploads/2022/02/163418138042938300_a640x364-1-364x363.jpg",
-    title: "Tình duyên",
-    content: "Bạn muốn biết hôn nhân mình ra sao?",
-  },
-  {
-    img: "https://www.kimca.net/wp-content/uploads/2022/02/163418138042938300_a640x364-1-364x363.jpg",
-    title: "Làm kinh doanh",
-    content: "Bạn muốn biết hôn nhân mình ra sao?",
-  },
-  {
-    img: "https://www.kimca.net/wp-content/uploads/2022/02/163418138042938300_a640x364-1-364x363.jpg",
-    title: "Làm viên chức",
-    content: "Bạn muốn xem thời vận sắp tới có thuận lợi để đầu tư không?",
-  },
 ];
 
 export enum PageURL {
@@ -196,6 +137,7 @@ export enum PageURL {
   RECHARGE = "/recharge",
   RECHARGE_AUTO = "/recharge-auto",
   BUY_CARD = "/buy-card",
+  PAYMENT = "/payment",
 }
 
 export const MenuTitle: any = [
@@ -225,3 +167,7 @@ export const MenuTitle: any = [
     drop_down: false,
   },
 ];
+
+export enum LOCALSTORAGE_KEY {
+  SHOPPING_CART = "shopping_cart",
+}
