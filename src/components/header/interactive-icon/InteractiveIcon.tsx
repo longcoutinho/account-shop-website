@@ -1,20 +1,28 @@
-import { Box, Button, Divider, Link } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { deleteUserInfo, getUserInfo } from "@/constants/FnCommon";
-import { HTTP_STATUS, PageURL } from "@/constants";
+import { HTTP_STATUS, LOCALSTORAGE_KEY, PageURL } from "@/constants";
 import { User } from "@/interfaces";
 import { getUserBalance } from "@/services/userService";
 import Image from "next/image";
 import { isUndefined } from "lodash";
 import DropDownUser from "../dropdownUser";
+import { ShoppingCart } from "@mui/icons-material";
+import { RootState } from "@/redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { IListOrder } from "@/components/Payment";
+import { setBuyNow, setItemInCart } from "@/redux/slices/cart";
 
 export default function InteractiveIcon() {
+  const dispatch = useDispatch();
+
   const [balance, setBalance] = useState("0");
   const router = useRouter();
   const [user, setUser] = useState<User>();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const { itemInCart, buyNow } = useSelector((state: RootState) => state.cart);
 
   useEffect(() => {
     const user = getUserInfo();
@@ -30,6 +38,10 @@ export default function InteractiveIcon() {
           console.log(err);
         });
     }
+    const list: IListOrder[] = JSON.parse(
+      localStorage.getItem(LOCALSTORAGE_KEY.SHOPPING_CART) as string
+    );
+    dispatch(setItemInCart(list && list?.length > 0 ? list?.length : 0));
   }, []);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -43,8 +55,18 @@ export default function InteractiveIcon() {
     deleteUserInfo();
     handleClose();
   };
+  const handleGoToCart = () => {
+    dispatch(setBuyNow(false));
+    router.push(PageURL.PAYMENT);
+  };
   return (
-    <Box className="w-fit">
+    <Box className="w-fit flex justify-center items-center gap-5">
+      <div className="relative cursor-pointer" onClick={handleGoToCart}>
+        <ShoppingCart fontSize="large" />
+        <p className="absolute -top-2 -right-3 bg-red-500 text-white rounded-full text-xs p-[2px] min-w-5 text-center">
+          {itemInCart}
+        </p>
+      </div>
       {isUndefined(user) ? (
         <div className="flex gap-5">
           <span

@@ -12,6 +12,12 @@ export interface ICardsRes {
   image: string;
 }
 
+export interface IPaymentMethodRes {
+  id: number;
+  name: string;
+  image: string;
+}
+
 export interface IItemCardRes {
   id: number;
   price: number;

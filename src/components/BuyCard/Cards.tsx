@@ -49,14 +49,17 @@ const SelectCard = () => {
       console.log(e);
     }
   };
-
+  const handleReset = () => {
+    setCardValue({ value: 0, id: 0 });
+    setAmount(0);
+  };
   return (
     <div className="flex w-full gap-4">
       <div className=" flex flex-col w-2/3">
         <p className="w-full bg-gray-300 font-bold py-2 px-4 text-lg my-4">
-          Chọn thẻ
+          Chọn nhà cung cấp
         </p>
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-wrap gap-2">
           {listCards?.map((g) => (
             <div
               key={g.id}
@@ -73,9 +76,9 @@ const SelectCard = () => {
               <Image
                 src={g.image}
                 alt="card"
-                width={120}
-                height={100}
-                className=" mx-auto h-[100px]"
+                width={90}
+                height={50}
+                className=" mx-auto h-[50px]"
               />
             </div>
           ))}
@@ -112,11 +115,14 @@ const SelectCard = () => {
           </>
         )}
       </div>
-      <ReSultSelectCard
-        cardName={card?.name ? card?.name : ""}
-        cardValue={cardValue}
-        amount={amount}
-      />
+      <div className=" w-1/3">
+        <ReSultSelectCard
+          card={card}
+          cardValue={cardValue}
+          amount={amount}
+          reset={handleReset}
+        />
+      </div>
     </div>
   );
 };

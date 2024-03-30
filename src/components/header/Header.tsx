@@ -15,7 +15,7 @@ export default function Header() {
   return (
     <Box className="header-container min-h-20 h-20 border-b-2">
       <Box className="header-wrapper h-full px-6">
-        <div className="flex gap-6">
+        <div className="flex gap-6 cursor-pointer">
           <MenuOutlined onClick={toggleDrawer(true)} />
           <Link href={PageURL.HOME} className="text-xl font-semibold">
             NAPTHENGAY

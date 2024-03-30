@@ -5,15 +5,12 @@ import {
   Backdrop,
   Box,
   Button,
-  CircularProgress,
   Input,
   InputAdornment,
   Modal,
   TextField,
-  Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import OTP from "../InputOTP";
 import { toast } from "react-toastify";
 import { NumericFormat } from "react-number-format";
 import Image from "next/image";
@@ -28,10 +25,8 @@ const SelectGame = ({ auto }: IProps) => {
   const [cardCode, setCardCode] = useState<string>("");
   const [cardValue, setCardValue] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
-  const [open, setOpen] = useState<boolean>(false);
   const [openModalQr, setOpenModalQr] = useState<boolean>(false);
   const [otp, setOtp] = useState("");
-  const OTPLength = 5;
 
   useEffect(() => {
     renderListGames();
@@ -48,13 +43,7 @@ const SelectGame = ({ auto }: IProps) => {
     }
   };
 
-  const handleOpen = () => {
-    if (cardCode && gameSelected) {
-      setOpen(true);
-    }
-  };
   const handleClose = () => {
-    setOpen(false);
     setOpenModalQr(false);
     setOtp("");
   };
@@ -68,11 +57,11 @@ const SelectGame = ({ auto }: IProps) => {
         }, 2000);
       }
     } else {
-      handleOpen();
+      console.log("getOTP");
     }
   };
   const handleRecharge = () => {
-    if (otp?.length === OTPLength) {
+    if (otp) {
       try {
         setLoading(true);
         setLoading(false);
@@ -95,10 +84,10 @@ const SelectGame = ({ auto }: IProps) => {
           <div
             key={g.id}
             onClick={() => setGameSelected(g)}
-            className={` p-3 min-w-24 w-36 rounded-lg cursor-pointer hover:scale-105  hover:shadow-lg transition-all ${
+            className={` p-1 min-w-24 w-36 rounded-lg cursor-pointer hover:scale-105  hover:shadow-lg transition-all ${
               g.id === gameSelected?.id
                 ? " border-[#f3a44a] shadow-md border-2"
-                : " border-[#00000038] border"
+                : " border-[#00000038] border-2"
             }`}
           >
             <Image
@@ -106,7 +95,7 @@ const SelectGame = ({ auto }: IProps) => {
               alt="game"
               width={120}
               height={80}
-              className=" mx-auto"
+              className="w-full h-full rounded-lg"
             />
           </div>
         ))}
@@ -128,79 +117,50 @@ const SelectGame = ({ auto }: IProps) => {
           />
         </div>
       ) : (
-        <div className="flex mt-8 gap-4 items-center">
-          <p className="text-base font-semibold">Nhập mã thẻ: </p>
-          <Input
-            className="border border-gray-300 rounded"
-            value={cardCode}
-            onChange={(e) => setCardCode(e.target.value)}
-          />
+        <div className=" w-full">
+          <div className="flex mt-8 gap-4 items-center">
+            <p className="text-base font-semibold min-w-16">IGG ID: </p>
+            <Input
+              className="border border-gray-300 rounded"
+              value={cardCode}
+              onChange={(e) => setCardCode(e.target.value)}
+            />
+          </div>
+          <div className="flex mt-8 gap-4 items-center">
+            <p className="text-base font-semibold min-w-16">OTP: </p>
+            <div className="relative">
+              <Input
+                className="border border-gray-300 rounded"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+              />{" "}
+              <p className="absolute -bottom-6 left-0 whitespace-nowrap text-xs text-blue-600 mt-3">
+                (* OTP will be sent via your ID)
+              </p>
+            </div>
+            <p
+              className="text-[#e6a357] cursor-pointer underline"
+              onClick={handleSubmit}
+            >
+              Get code
+            </p>
+          </div>
         </div>
       )}
+
       <div className="flex flex-col mt-4 items-center">
         <Button
-          onClick={handleSubmit}
+          onClick={auto ? handleSubmit : handleRecharge}
           className={` w-32 bg-[#05296b] text-white min-h-11 mt-4  ${
-            (cardCode || cardValue) && gameSelected
+            ((cardCode && otp) || cardValue) && gameSelected
               ? "cursor-pointer hover:bg-[#30466b]"
               : "cursor-not-allowed opacity-50 hover:bg-[#05296b] hover:text-white"
           }`}
         >
-          {auto ? "Thanh toán" : " Gửi OTP"}
+          {auto ? "Thanh toán" : "Nạp"}
         </Button>
-        {!auto && (
-          <p className=" text-xs text-blue-600 mt-3">
-            (* OTP will be sent via your phone number)
-          </p>
-        )}
       </div>
-      {open && (
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-          closeAfterTransition
-          slots={{ backdrop: Backdrop }}
-          slotProps={{
-            backdrop: {
-              timeout: 500,
-            },
-          }}
-        >
-          <Box sx={style}>
-            <Typography
-              id="modal-modal-title"
-              variant="h6"
-              component="h2"
-              className="text-center"
-            >
-              Nhập mã OTP
-            </Typography>
-            <div className="w-full flex justify-center">
-              <OTP
-                separator={<span>-</span>}
-                value={otp}
-                onChange={setOtp}
-                length={OTPLength}
-              />
-            </div>
-            <Button
-              onClick={handleRecharge}
-              className={` w-32 bg-[#05296b] text-white min-h-11 mt-4  ${
-                otp?.length === OTPLength
-                  ? "cursor-pointer hover:bg-[#30466b]"
-                  : "cursor-not-allowed opacity-50 hover:bg-[#05296b] hover:text-white"
-              }`}
-            >
-              {loading && (
-                <CircularProgress size={20} color="inherit" className="mr-2" />
-              )}
-              Nạp
-            </Button>
-          </Box>
-        </Modal>
-      )}
+
       {openModalQr && (
         <Modal
           open={openModalQr}

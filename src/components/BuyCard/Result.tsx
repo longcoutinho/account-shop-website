@@ -1,55 +1,84 @@
-import { requestCreateOrder } from "@/services/rechargeGameCard";
-import { Button, CircularProgress, Divider } from "@mui/material";
+import { Button } from "@mui/material";
 import { ICardValue } from "./Cards";
-import { HTTP_STATUS } from "@/constants";
-import { toast } from "react-toastify";
-import { useState } from "react";
+import { LOCALSTORAGE_KEY, PageURL } from "@/constants";
+import { useDispatch, useSelector } from "react-redux";
+import { setBuyNow, setItemInCart, setOrderDetail } from "@/redux/slices/cart";
+import { RootState } from "@/redux/store";
+import { ICardsRes } from "@/interfaces/response/rechargeGameCard";
+import { useRouter } from "next/router";
 
 interface IProps {
-  cardName: string;
+  card?: ICardsRes;
   cardValue: ICardValue;
   amount: number | null;
+  reset: () => void;
 }
-const ReSultSelectCard = ({ cardName, cardValue, amount }: IProps) => {
-  const [loading, setLoading] = useState(false);
+const ReSultSelectCard = ({ card, cardValue, amount, reset }: IProps) => {
+  const dispatch = useDispatch();
+  const router = useRouter();
 
-  const handleBuyCard = async () => {
-    try {
-      if (
-        amount &&
-        cardValue &&
-        cardValue?.value &&
-        cardValue.value * amount > 0
-      ) {
-        setLoading(true);
-        const res = await requestCreateOrder({
-          itemId: cardValue.id,
-          amount: amount,
-          method: 1,
-        });
-        console.log(res);
-        if (res?.status === HTTP_STATUS.OK) {
-          setLoading(false);
-          toast.success("Mua thành công");
-        } else {
-          setLoading(false);
-          toast.error("Mua không thành công");
-        }
+  const handleAddtoCart = () => {
+    if (
+      amount &&
+      cardValue &&
+      cardValue?.value &&
+      cardValue.value * amount > 0
+    ) {
+      const oldData = JSON.parse(
+        (localStorage.getItem(LOCALSTORAGE_KEY.SHOPPING_CART) as string) ?? "[]"
+      );
+
+      const data = {
+        item: card,
+        cardId: cardValue.id,
+        price: cardValue.value,
+        amount: amount,
+      };
+
+      let newData: any;
+      if (oldData) {
+        newData = oldData
+          .filter(
+            (e: any) =>
+              e.item && e.item.id === card?.id && e.cardId === cardValue.id
+          )
+          .map((e: any) => ({ ...e, amount: e.amount + amount }));
+      } else {
+        newData = [];
       }
-    } catch {
-      setLoading(false);
-      toast.error("Mua không thành công");
+
+      const array =
+        newData.length > 0
+          ? [
+              ...oldData.filter((e: any) => !(newData[0].cardId === e.cardId)),
+              ...newData,
+            ]
+          : [...oldData, data];
+      localStorage.setItem(
+        LOCALSTORAGE_KEY.SHOPPING_CART,
+        `${JSON.stringify(array)}`
+      );
+      dispatch(setItemInCart(array?.length));
+      reset();
     }
   };
+  const handleClickBuyNow = () => {
+    const data = {
+      item: card,
+      price: cardValue.value,
+      amount: amount || 0,
+    };
+    dispatch(setBuyNow(true));
+    dispatch(setOrderDetail([data]));
+    router?.push(PageURL.PAYMENT);
+  };
   return (
-    <div className=" w-1/3">
-      <p className="w-full bg-gray-300 py-2 px-4 text-xl my-4">
-        Chi tiết giao dịch
-      </p>
+    <div>
+      <p className="w-full bg-gray-300 py-2 px-4 text-xl my-4">Chi tiết</p>
       <div className="mx-3">
         <div className="flex justify-between mb-4">
           <p>Thẻ: </p>
-          <p className="text-red-500 font-medium">{cardName}</p>
+          <p className="text-red-500 font-medium">{card?.name}</p>
         </div>
         <div className="flex justify-between mb-4">
           <p>Mệnh giá thẻ: </p>
@@ -71,22 +100,35 @@ const ReSultSelectCard = ({ cardName, cardValue, amount }: IProps) => {
             đ
           </p>
         </div>
-        <Button
-          onClick={handleBuyCard}
-          className={`w-full bg-[#05296b] text-white min-h-11 mt-4 ${
-            amount &&
-            cardValue &&
-            cardValue?.value &&
-            cardValue.value * amount > 0
-              ? "cursor-pointer hover:bg-[#30466b]"
-              : "cursor-not-allowed opacity-50 hover:bg-[#05296b] hover:text-white"
-          }`}
-        >
-          {loading && (
-            <CircularProgress size={20} color="inherit" className="mr-2" />
-          )}
-          Thanh toán
-        </Button>
+        <div className="flex gap-3">
+          <Button
+            onClick={handleAddtoCart}
+            style={{ border: "1px solid #0e1522" }}
+            className={`w-full  text-[#05296b] min-h-11 mt-4 capitalize ${
+              amount &&
+              cardValue &&
+              cardValue?.value &&
+              cardValue.value * amount > 0
+                ? "cursor-pointer hover:bg-[#05296b1f]"
+                : "cursor-not-allowed opacity-50 hover:bg-white"
+            }`}
+          >
+            Thêm vào giỏ
+          </Button>
+          <Button
+            onClick={handleClickBuyNow}
+            className={`w-full bg-[#05296b] text-white min-h-11 mt-4 capitalize ${
+              amount &&
+              cardValue &&
+              cardValue?.value &&
+              cardValue.value * amount > 0
+                ? "cursor-pointer hover:bg-[#30466b]"
+                : "cursor-not-allowed opacity-50 hover:bg-[#05296b] hover:text-white"
+            }`}
+          >
+            Mua ngay
+          </Button>
+        </div>
       </div>
     </div>
   );
