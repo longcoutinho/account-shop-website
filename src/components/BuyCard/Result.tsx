@@ -16,7 +16,6 @@ interface IProps {
 const ReSultSelectCard = ({ card, cardValue, amount, reset }: IProps) => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { itemInCart } = useSelector((state: RootState) => state.cart);
 
   const handleAddtoCart = () => {
     if (
@@ -28,17 +27,38 @@ const ReSultSelectCard = ({ card, cardValue, amount, reset }: IProps) => {
       const oldData = JSON.parse(
         (localStorage.getItem(LOCALSTORAGE_KEY.SHOPPING_CART) as string) ?? "[]"
       );
+
       const data = {
         item: card,
+        cardId: cardValue.id,
         price: cardValue.value,
         amount: amount,
       };
-      const array = [...oldData, data];
+
+      let newData: any;
+      if (oldData) {
+        newData = oldData
+          .filter(
+            (e: any) =>
+              e.item && e.item.id === card?.id && e.cardId === cardValue.id
+          )
+          .map((e: any) => ({ ...e, amount: e.amount + amount }));
+      } else {
+        newData = [];
+      }
+
+      const array =
+        newData.length > 0
+          ? [
+              ...oldData.filter((e: any) => !(newData[0].cardId === e.cardId)),
+              ...newData,
+            ]
+          : [...oldData, data];
       localStorage.setItem(
         LOCALSTORAGE_KEY.SHOPPING_CART,
         `${JSON.stringify(array)}`
       );
-      dispatch(setItemInCart(itemInCart + 1));
+      dispatch(setItemInCart(array?.length));
       reset();
     }
   };

@@ -100,7 +100,7 @@ const Payment = () => {
                 listOder?.map((o, index) => (
                   <div
                     key={index}
-                    className="flex justify-between border-gray-200 border px-4 py-2"
+                    className="flex justify-between border-gray-200 border px-4 py-2 mb-4"
                   >
                     <div className="flex items-center gap-3">
                       <Image

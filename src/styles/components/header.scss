@@ -221,7 +221,8 @@ $gray-color: rgb(160, 167, 179);
         color: $gray-color;
       }
     }
-    .menu-element-content:hover {
+    .menu-element-content:hover,
+    .menu-element-content-hover {
       cursor: pointer;
       background-color: #1f458b7c;
       svg:first-child {
