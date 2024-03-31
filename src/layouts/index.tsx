@@ -4,6 +4,7 @@ import { PAGE_TITLE } from "@/constants";
 import Header from "@/components/header/Header";
 import { Box } from "@mui/material";
 import NotificationWrapper from "@/components/NotificationWrapper";
+import Footer from "@/components/Footer";
 
 const Page = (props: any) => {
   const { children, title, admin, menuIndex, cartAmount: number } = props;
@@ -19,6 +20,7 @@ const Page = (props: any) => {
         <div className=" max-w-[1280px] mx-auto w-full mt-6 mb-20  px-[5%]">
           {children}
         </div>
+        <Footer />
       </Box>
     </div>
   );

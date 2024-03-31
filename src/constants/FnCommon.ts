@@ -3,6 +3,8 @@ import { ItemToCart } from "@/interfaces/response";
 import { NextRouter } from "next/router";
 import { User } from "@/interfaces";
 import dayjs from "dayjs";
+import { PageURL } from ".";
+import { toast } from "react-toastify";
 
 const insertStringAtIndex = (ind: number, str1: string, str2: string) => {
   let stringResult = "";
@@ -41,7 +43,6 @@ export const doPostRequest = (url: string, data: any): any => {
     (err) => {
       if (err.response.status == "401") {
         deleteUserInfo();
-        location.href = "/login";
         // const router = useRouter();
         // redirectUrl(router, '/login', null);
       }
@@ -69,7 +70,6 @@ export const doFileRequest = (url: string, data: any): any => {
     (err) => {
       if (err.response.status == "401") {
         deleteUserInfo();
-        location.href = "/login";
         // const router = useRouter();
         // redirectUrl(router, '/login', null);
       }
@@ -96,7 +96,6 @@ export const doGetRequest = (url: string, params: any): any => {
     (err) => {
       if (err.response.status == "401") {
         deleteUserInfo();
-        location.href = "/login";
         // console.log('kk');
         // redirectUrl(router, '/login', null);
       }
@@ -204,10 +203,10 @@ export const getDisplayMenu = (): number[] => {
 };
 
 export const formatDateTime = (date: string): string => {
-  const DATE_TIME_FORMAT = "HH:mm:ss DD-MM-YYYY"
+  const DATE_TIME_FORMAT = "HH:mm:ss DD-MM-YYYY";
   return dayjs(date).format(DATE_TIME_FORMAT);
-}
+};
 
 export const getTotalPage = (pagesize: number, totalCount: number) => {
   return Math.floor(totalCount / pagesize) + (totalCount % pagesize ? 1 : 0);
-}
+};

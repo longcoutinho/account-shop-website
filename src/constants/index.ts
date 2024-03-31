@@ -24,6 +24,7 @@ export enum Frontend {
 }
 export enum HTTP_STATUS {
   OK = 200,
+  UNAUTH = 401,
 }
 export enum PAGE_TITLE {
   PREFIX = "",

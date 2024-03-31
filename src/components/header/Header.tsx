@@ -18,7 +18,7 @@ export default function Header() {
         <div className="flex gap-6 cursor-pointer">
           <MenuOutlined onClick={toggleDrawer(true)} />
           <Link href={PageURL.HOME} className="text-xl font-semibold">
-            NAPTHENGAY
+            LOGO
           </Link>
         </div>
         <Drawer open={open} onClose={toggleDrawer(false)}>
