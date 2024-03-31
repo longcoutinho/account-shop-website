@@ -85,12 +85,21 @@ const Payment = () => {
           router.push(res?.data?.hosted_url);
         } else {
           setLoading(false);
-          toast.error("Mua không thành công");
+          if (res?.response?.status === HTTP_STATUS.UNAUTH) {
+            toast.error("Bạn chưa đăng nhập");
+          } else {
+            toast.error("Mua không thành công");
+          }
         }
       }
-    } catch {
+    } catch (e: any) {
       setLoading(false);
-      toast.error("Mua không thành công");
+
+      if (e?.response?.status === HTTP_STATUS.UNAUTH) {
+        toast.error("Bạn chưa đăng nhập");
+      } else {
+        toast.error("Mua không thành công");
+      }
     }
   };
 

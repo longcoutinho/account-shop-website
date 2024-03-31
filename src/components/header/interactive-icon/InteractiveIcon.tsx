@@ -53,6 +53,7 @@ export default function InteractiveIcon() {
   const handleLogout = () => {
     setUser(undefined);
     deleteUserInfo();
+    router.push(PageURL.HOME);
     handleClose();
   };
   const handleGoToCart = () => {
