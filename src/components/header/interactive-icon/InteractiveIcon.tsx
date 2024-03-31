@@ -60,12 +60,14 @@ export default function InteractiveIcon() {
     router.push(PageURL.PAYMENT);
   };
   return (
-    <Box className="w-fit flex justify-center items-center gap-5">
-      <div className="relative cursor-pointer" onClick={handleGoToCart}>
+    <Box className="w-fit flex justify-center items-center">
+      <div className="relative cursor-pointer mr-5" onClick={handleGoToCart}>
         <ShoppingCart fontSize="large" />
-        <p className="absolute -top-2 -right-3 bg-red-500 text-white rounded-full text-xs p-[2px] min-w-5 text-center">
-          {itemInCart}
-        </p>
+        {itemInCart > 0 && (
+          <p className="absolute -top-2 -right-3 bg-red-500 text-white rounded-full text-xs p-[2px] min-w-5 text-center">
+            {itemInCart}
+          </p>
+        )}
       </div>
       {isUndefined(user) ? (
         <div className="flex gap-5">
@@ -93,7 +95,13 @@ export default function InteractiveIcon() {
             onClick={handleClick}
             className="flex gap-2"
           >
-            <Image src={"/img/avatar.png"} alt="ava" width={40} height={40} />
+            <Image
+              src={"/img/avatar-default.svg"}
+              alt="ava"
+              width={40}
+              height={40}
+              className="bg-white rounded-full p-1"
+            />
             <p className="text-white">{user?.username}</p>
           </Button>
           {open && (

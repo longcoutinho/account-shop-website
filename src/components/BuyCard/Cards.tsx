@@ -56,7 +56,7 @@ const SelectCard = () => {
   return (
     <div className="flex w-full gap-4">
       <div className=" flex flex-col w-2/3">
-        <p className="w-full bg-gray-300 font-bold py-2 px-4 text-lg my-4">
+        <p className="w-full bg-gray-200 font-bold py-2 px-4 text-lg my-4">
           Chọn nhà cung cấp
         </p>
         <div className="flex flex-wrap gap-2">
@@ -67,7 +67,7 @@ const SelectCard = () => {
                 handleGetListItemCard(g.id.toString());
                 setCard(g);
               }}
-              className={` p-3 max-w-36 rounded-lg cursor-pointer hover:scale-105  hover:shadow-lg transition-all ${
+              className={`w-36 rounded-lg cursor-pointer hover:scale-105  hover:shadow-lg transition-all ${
                 g.id === card?.id
                   ? " border-[#f3a44a] shadow-md border-2"
                   : " border-[#1b1b1b1f] border-2"
@@ -76,16 +76,16 @@ const SelectCard = () => {
               <Image
                 src={g.image}
                 alt="card"
-                width={90}
+                width={110}
                 height={50}
-                className=" mx-auto h-[50px]"
+                className=" mx-auto w-full h-[80px]"
               />
             </div>
           ))}
         </div>
         {listItems?.length > 0 && (
           <>
-            <p className="w-full bg-gray-300 font-bold py-2 px-4 text-lg my-4">
+            <p className="w-full bg-gray-200 font-bold py-2 px-4 text-lg my-4">
               Chọn mệnh giá
             </p>
             <div className="grid grid-cols-6 gap-2">

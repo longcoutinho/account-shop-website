@@ -74,7 +74,7 @@ const ReSultSelectCard = ({ card, cardValue, amount, reset }: IProps) => {
   };
   return (
     <div>
-      <p className="w-full bg-gray-300 py-2 px-4 text-xl my-4">Chi tiết</p>
+      <p className="w-full bg-gray-200 py-2 px-4 text-xl my-4">Chi tiết</p>
       <div className="mx-3">
         <div className="flex justify-between mb-4">
           <p>Thẻ: </p>
