@@ -21,11 +21,11 @@ export default function Profile() {
         <Box className="profile-page-wrapper">
           <div className="w-fit flex gap-7 flex-col">
             <Image
-              src={"/img/avatar.png"}
+              src={"/img/avatar-default.svg"}
               alt="ava"
               width={140}
               height={140}
-              className="mx-auto"
+              className="mx-auto bg-white rounded-full border border-gray-400 p-3"
             />
             <div className="flex gap-3 w-full">
               <p className="w-28">Họ và tên: </p>

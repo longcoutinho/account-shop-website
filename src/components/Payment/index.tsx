@@ -9,8 +9,9 @@ import { HTTP_STATUS, LOCALSTORAGE_KEY, PageURL } from "@/constants";
 import { Button, CircularProgress } from "@mui/material";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import { setItemInCart } from "@/redux/slices/cart";
 
 export interface IListOrder {
   item: {
@@ -18,11 +19,14 @@ export interface IListOrder {
     name: string;
     image: string;
   };
+
+  cardId: number;
   price: number;
   amount: number;
 }
 const Payment = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const { buyNow, orderDetail } = useSelector((state: RootState) => state.cart);
   const [listOder, setListOrder] = useState<IListOrder[]>();
   const [listPaymentMethod, setListPaymentMethod] = useState<
@@ -90,6 +94,21 @@ const Payment = () => {
     }
   };
 
+  const handleDeleteItem = (itemId: number, cardId: number) => {
+    const itemRemove = listOder?.filter(
+      (e) => e.cardId === cardId && e.item.id === itemId
+    );
+    const newList = listOder?.filter((item) => !itemRemove?.includes(item));
+
+    if (newList) {
+      localStorage.setItem(
+        LOCALSTORAGE_KEY.SHOPPING_CART,
+        JSON.stringify(newList)
+      );
+      setListOrder(newList);
+      dispatch(setItemInCart(newList?.length));
+    }
+  };
   return (
     <div className="flex flex-col w-full gap-4">
       {listOder && listOder?.length > 0 ? (
@@ -100,7 +119,7 @@ const Payment = () => {
                 listOder?.map((o, index) => (
                   <div
                     key={index}
-                    className="flex justify-between border-gray-200 border px-4 py-2 mb-4"
+                    className="flex justify-between border-gray-200 border px-4 py-2 mb-4 relative"
                   >
                     <div className="flex items-center gap-3">
                       <Image
@@ -124,6 +143,13 @@ const Payment = () => {
                         </span>
                       </p>
                     </div>
+                    <Button
+                      style={{ border: "1px solid red" }}
+                      onClick={() => handleDeleteItem(o.item.id, o.cardId)}
+                      className=" absolute top-5 -right-10 border text-red-500 font-bold w-6 h-6"
+                    >
+                      X
+                    </Button>
                   </div>
                 ))}
             </div>
@@ -145,7 +171,7 @@ const Payment = () => {
                   onClick={() => {
                     setPaymentMethod(g);
                   }}
-                  className={` p-3 max-w-36 rounded-lg cursor-pointer hover:scale-105  hover:shadow-lg transition-all ${
+                  className={` p-0.5 max-w-36 rounded-lg cursor-pointer hover:scale-105  hover:shadow-lg transition-all ${
                     g.id === paymentMethod?.id
                       ? " border-[#f3a44a] shadow-md border-2"
                       : " border-[#1b1b1b1f] border-2"
@@ -154,9 +180,9 @@ const Payment = () => {
                   <Image
                     src={g.image}
                     alt="card"
-                    width={90}
-                    height={50}
-                    className=" mx-auto h-[50px]"
+                    width={150}
+                    height={100}
+                    className=" mx-auto h-[100px]"
                   />
                 </div>
               ))}

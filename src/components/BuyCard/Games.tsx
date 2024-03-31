@@ -76,7 +76,7 @@ const SelectGame = ({ auto }: IProps) => {
   };
   return (
     <div className="w-full">
-      <p className="w-full bg-gray-300 font-bold py-2 px-4 text-lg my-4">
+      <p className="w-full bg-gray-200 font-bold py-2 px-4 text-lg my-4">
         Chọn game
       </p>
       <div className="flex flex-wrap gap-3">
@@ -84,7 +84,7 @@ const SelectGame = ({ auto }: IProps) => {
           <div
             key={g.id}
             onClick={() => setGameSelected(g)}
-            className={` p-1 min-w-24 w-36 rounded-lg cursor-pointer hover:scale-105  hover:shadow-lg transition-all ${
+            className={` min-w-24 w-36 rounded-lg cursor-pointer hover:scale-105  hover:shadow-lg transition-all hover:text-[#f3a44a] ${
               g.id === gameSelected?.id
                 ? " border-[#f3a44a] shadow-md border-2"
                 : " border-[#00000038] border-2"
@@ -93,10 +93,13 @@ const SelectGame = ({ auto }: IProps) => {
             <Image
               src={g.image}
               alt="game"
-              width={120}
-              height={80}
-              className="w-full h-full rounded-lg"
+              width={135}
+              height={100}
+              className="w-full h-[100px] rounded-t-lg"
             />
+            <p className="text-center text-sm my-2 hover:text-[#f3a44a]">
+              {g.name}
+            </p>
           </div>
         ))}
       </div>
