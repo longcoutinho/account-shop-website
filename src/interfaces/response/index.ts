@@ -34,6 +34,14 @@ export interface TopUpRequest {
   method: number;
 }
 
+export interface IOrderHistory {
+  id: string;
+  createUser: string;
+  createDate: string;
+  price: number;
+  status: number;
+}
+
 export interface Course {
   title: string;
   teacher: string;

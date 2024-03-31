@@ -35,6 +35,7 @@ export enum PAGE_TITLE {
   RECHARGE_AUTO = "Nạp thẻ tự động",
   BUY_CARD = "Mua thẻ nạp",
   PAYMENT = "Thanh toán",
+  HISTORY = "Lịch sử giao dịch",
 }
 
 export const HomePage = {
@@ -138,6 +139,7 @@ export enum PageURL {
   RECHARGE_AUTO = "/recharge-auto",
   BUY_CARD = "/buy-card",
   PAYMENT = "/payment",
+  HISTORY = "/history",
 }
 
 export const MenuTitle: any = [
