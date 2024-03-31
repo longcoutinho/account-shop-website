@@ -3,8 +3,6 @@ import { ItemToCart } from "@/interfaces/response";
 import { NextRouter } from "next/router";
 import { User } from "@/interfaces";
 import dayjs from "dayjs";
-import { PageURL } from ".";
-import { toast } from "react-toastify";
 
 const insertStringAtIndex = (ind: number, str1: string, str2: string) => {
   let stringResult = "";
