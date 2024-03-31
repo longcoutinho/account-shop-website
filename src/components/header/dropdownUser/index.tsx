@@ -33,7 +33,7 @@ export default function DropDownUser({
           <Person fontSize="small" className="mr-2" />
           Thông tin tài khoản
         </MenuItem>
-        <MenuItem onClick={() => router.push(PageURL.PROFILE)}>
+        <MenuItem onClick={() => router.push(PageURL.HISTORY)}>
           <History fontSize="small" className="mr-2" />
           Lịch sử giao dịch
         </MenuItem>
