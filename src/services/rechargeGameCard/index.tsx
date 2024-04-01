@@ -29,3 +29,17 @@ export const requestGetListPaymentMethod = async (): Promise<any> => {
   const url = Backend.BASE_URL + "/payment/method";
   return doGetRequest(url, null);
 };
+
+export const requestGetSendOTP = async (id: string): Promise<any> => {
+  const url = Backend.BASE_URL + `/top-up-game/lord-mobile/send-otp/${id}`;
+  return doGetRequest(url, null);
+};
+
+export const requestGetToken = async (
+  id: string,
+  otp: string
+): Promise<any> => {
+  const url = Backend.BASE_URL + `/top-up-game/lord-mobile/token/${id}`;
+  const request = { otp: otp };
+  return doPostRequest(url, request);
+};

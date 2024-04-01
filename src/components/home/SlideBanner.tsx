@@ -2,6 +2,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Scrollbar, Pagination, A11y, Autoplay } from "swiper";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import React from "react";
 
 const slideData = [
   { key: 0, redirectURL: "", imageURL: "/img/banner.png" },
@@ -15,7 +16,7 @@ export default function SlideBanner() {
 
   return (
     <Swiper
-      className="w-screen overflow-visible"
+      className="w-screen !overflow-visible select-none mt-[76px]"
       modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
       autoplay={{
         delay: 2500,
@@ -24,17 +25,18 @@ export default function SlideBanner() {
       navigation
       pagination={{ clickable: true, type: "bullets" }}
     >
-      {slideData?.map((e) => (
-        <SwiperSlide onClick={() => route.push(e.redirectURL)} key={e.key}>
-          <Image
-            src={e.imageURL}
-            alt="banner-home"
-            width={1000}
-            height={500}
-            className="w-full h-full"
-          />
-        </SwiperSlide>
-      ))}
+      {slideData &&
+        slideData?.map((e) => (
+          <SwiperSlide onClick={() => route.push(e.redirectURL)} key={e.key}>
+            <Image
+              src={e.imageURL}
+              alt="banner-home"
+              width={1000}
+              height={500}
+              className="w-full h-full"
+            />
+          </SwiperSlide>
+        ))}
     </Swiper>
   );
 }
