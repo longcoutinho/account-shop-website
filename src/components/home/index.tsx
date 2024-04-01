@@ -6,14 +6,12 @@ import {
   ShoppingCartTwoTone,
 } from "@mui/icons-material";
 import Link from "next/link";
-import SlideBanner from "./SlideBanner";
 import ListGames from "./ListGame";
 import ListCards from "./ListCard";
 
 export default function HomePage() {
   return (
     <Page title={PAGE_TITLE.HOME} menuIndex={1}>
-      <SlideBanner />
       <div className="flex shadow-xl rounded w-fit mt-4 mx-auto">
         <Link
           href={PageURL.BUY_CARD}
