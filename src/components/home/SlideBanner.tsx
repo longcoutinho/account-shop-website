@@ -15,7 +15,7 @@ export default function SlideBanner() {
 
   return (
     <Swiper
-      className=""
+      className="w-screen overflow-visible"
       modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
       autoplay={{
         delay: 2500,
@@ -30,7 +30,7 @@ export default function SlideBanner() {
             src={e.imageURL}
             alt="banner-home"
             width={1000}
-            height={430}
+            height={500}
             className="w-full h-full"
           />
         </SwiperSlide>

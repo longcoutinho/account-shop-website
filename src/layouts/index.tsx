@@ -5,6 +5,7 @@ import Header from "@/components/header/Header";
 import { Box } from "@mui/material";
 import NotificationWrapper from "@/components/NotificationWrapper";
 import Footer from "@/components/Footer";
+import SlideBanner from "@/components/home/SlideBanner";
 
 const Page = (props: any) => {
   const { children, title, admin, menuIndex, cartAmount: number } = props;
@@ -15,8 +16,9 @@ const Page = (props: any) => {
         <title>{PAGE_TITLE.PREFIX + title}</title>
       </Head>
       <NotificationWrapper />
-      <Box className="w-full flex flex-col h-screen overflow-auto">
+      <Box className="w-full flex flex-col h-screen overflow-y-auto overflow-x-hidden">
         <Header></Header>
+        <SlideBanner />
         <div className=" max-w-[1280px] mx-auto w-full mt-6 mb-20  px-[5%]">
           {children}
         </div>
