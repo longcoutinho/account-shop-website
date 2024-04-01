@@ -6,7 +6,7 @@ const Footer = () => {
     <Container
       disableGutters
       maxWidth={false}
-      className="footer-container-page bg-gray-200 fixed bottom-0"
+      className="footer-container-page bg-gray-200"
     >
       <Box className="flex items-center gap-4 px-[5%] py-6">
         <img alt="" id="logo" src="/img/fb.png" height={48} width={48} />

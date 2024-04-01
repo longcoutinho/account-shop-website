@@ -1,25 +1,37 @@
 import { HTTP_STATUS } from "@/constants";
 import { IGamesRes } from "@/interfaces/response/rechargeGameCard";
-import { requestGetListGames } from "@/services/rechargeGameCard";
+import {
+  requestGetListGames,
+  requestGetSendOTP,
+  requestGetToken,
+} from "@/services/rechargeGameCard";
 import {
   Backdrop,
   Box,
   Button,
+  CircularProgress,
+  IconButton,
   Input,
   InputAdornment,
   Modal,
   TextField,
+  Tooltip,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { NumericFormat } from "react-number-format";
 import Image from "next/image";
+import CopyClipboard from "../CopyClipboard";
+import CopyToClipboard from "react-copy-to-clipboard";
+import Iconify from "../Iconify";
+import { useSnackbar } from "notistack";
 
 interface IProps {
   auto?: boolean;
 }
 
 const SelectGame = ({ auto }: IProps) => {
+  const { enqueueSnackbar } = useSnackbar();
   const [listGames, setListGames] = useState<IGamesRes[]>([]);
   const [gameSelected, setGameSelected] = useState<IGamesRes>();
   const [cardCode, setCardCode] = useState<string>("");
@@ -27,6 +39,7 @@ const SelectGame = ({ auto }: IProps) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [openModalQr, setOpenModalQr] = useState<boolean>(false);
   const [otp, setOtp] = useState("");
+  const [token, setToken] = useState("");
 
   useEffect(() => {
     renderListGames();
@@ -48,7 +61,7 @@ const SelectGame = ({ auto }: IProps) => {
     setOtp("");
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (auto) {
       if (cardValue && gameSelected) {
         setOpenModalQr(true);
@@ -57,21 +70,49 @@ const SelectGame = ({ auto }: IProps) => {
         }, 2000);
       }
     } else {
-      console.log("getOTP");
+      try {
+        if (cardCode !== "") {
+          const res = await requestGetSendOTP(cardCode);
+          if (res?.status === HTTP_STATUS.OK) {
+            toast.success(
+              "Get code successfully, enter the game to get the code "
+            );
+          } else {
+            toast.error("Too many request. Please try again later");
+          }
+        }
+      } catch {
+        toast.error("Too many request. Please try again later");
+      }
     }
   };
-  const handleRecharge = () => {
-    if (otp) {
+
+  const handleRecharge = async () => {
+    if (otp && cardCode) {
       try {
         setLoading(true);
+        const res = await requestGetToken(cardCode, otp);
+        console.log(res);
+        if (res?.status === HTTP_STATUS.OK) {
+          setToken(res.data);
+          toast.success("Thành công");
+        } else {
+          toast.error("Không thành công");
+        }
         setLoading(false);
-        toast.success("Nạp thẻ thành công");
-        handleClose();
+        // handleClose();
         setCardCode("");
+        setOtp("");
       } catch {
         setLoading(false);
-        toast.error("Nạp thẻ không thành công");
+        toast.error("Không thành công");
       }
+    }
+  };
+  const onCopy = () => {
+    enqueueSnackbar("Copied!");
+    if (navigator.clipboard !== undefined) {
+      navigator.clipboard.writeText(token ? token : "");
     }
   };
   return (
@@ -123,7 +164,7 @@ const SelectGame = ({ auto }: IProps) => {
         <div className=" w-full">
           <div className="flex mt-8 gap-4 items-center">
             <p className="text-base font-semibold min-w-16">IGG ID: </p>
-            <Input
+            <input
               className="border border-gray-300 rounded"
               value={cardCode}
               onChange={(e) => setCardCode(e.target.value)}
@@ -132,9 +173,11 @@ const SelectGame = ({ auto }: IProps) => {
           <div className="flex mt-8 gap-4 items-center">
             <p className="text-base font-semibold min-w-16">OTP: </p>
             <div className="relative">
-              <Input
+              <input
                 className="border border-gray-300 rounded"
+                type="text"
                 value={otp}
+                maxLength={6}
                 onChange={(e) => setOtp(e.target.value)}
               />{" "}
               <p className="absolute -bottom-6 left-0 whitespace-nowrap text-xs text-blue-600 mt-3">
@@ -160,8 +203,26 @@ const SelectGame = ({ auto }: IProps) => {
               : "cursor-not-allowed opacity-50 hover:bg-[#05296b] hover:text-white"
           }`}
         >
-          {auto ? "Thanh toán" : "Nạp"}
+          {loading && (
+            <CircularProgress size={20} color="inherit" className="mr-2" />
+          )}
+          {auto ? "Thanh toán" : "Get token"}
         </Button>
+        {token && (
+          <div className="text-wrap text-center w-full mt-4">
+            <span>Token của bạn:</span>
+            <span className="ml-3 font-semibold">
+              {token?.slice(0, 8) + "..." + token?.slice(-8)}
+            </span>
+            <CopyToClipboard text={token} onCopy={onCopy}>
+              <Tooltip title="Copy">
+                <IconButton>
+                  <Iconify icon={"eva:copy-fill"} width={24} height={24} />
+                </IconButton>
+              </Tooltip>
+            </CopyToClipboard>
+          </div>
+        )}
       </div>
 
       {openModalQr && (
