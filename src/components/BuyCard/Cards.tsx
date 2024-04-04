@@ -54,8 +54,8 @@ const SelectCard = () => {
     setAmount(0);
   };
   return (
-    <div className="flex w-full gap-4">
-      <div className=" flex flex-col w-2/3">
+    <div className="flex w-full gap-4 flex-col lg:flex-row">
+      <div className=" flex flex-col w-full lg:w-2/3">
         <p className="w-full bg-gray-200 font-bold py-2 px-4 text-lg my-4">
           Chọn nhà cung cấp
         </p>
@@ -115,7 +115,7 @@ const SelectCard = () => {
           </>
         )}
       </div>
-      <div className=" w-1/3">
+      <div className="w-full lg:w-1/3">
         <ReSultSelectCard
           card={card}
           cardValue={cardValue}

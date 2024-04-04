@@ -27,10 +27,12 @@ const Page = (props: any) => {
       <NotificationWrapper />
       <Box className="w-full flex flex-col h-screen overflow-y-auto overflow-x-hidden">
         <Header></Header>
-        <div className=" max-w-[1280px] mx-auto w-full mt-28 mb-14  px-[5%] min-h-[calc(100vh-78px-96px)]">
-          {children}
+        <div className="min-h-[calc(100vh-78px)] mt-[78px]">
+          <div className=" max-w-[1280px] mx-auto w-full pt-10 px-[2%] sm:px-[5%] min-h-[calc(100%-188px)] lg:min-h-[calc(100%-164px)] pb-8">
+            {children}
+          </div>
+          <Footer />
         </div>
-        <Footer />
       </Box>
     </div>
   );

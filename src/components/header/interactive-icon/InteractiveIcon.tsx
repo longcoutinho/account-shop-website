@@ -63,10 +63,10 @@ export default function InteractiveIcon() {
   return (
     <Box className="w-fit flex justify-center items-center">
       <div className="relative cursor-pointer mr-5" onClick={handleGoToCart}>
-        <ShoppingCart fontSize="large" />
+        <ShoppingCart className=" w-6 h-6 sm:w-9 sm:h-9" />
         {itemInCart > 0 && (
-          <p className="absolute -top-2 -right-3 bg-red-500 text-white rounded-full text-xs p-[2px] min-w-5 text-center">
-            {itemInCart}
+          <p className="absolute -top-2 -right-3 bg-red-500 text-white rounded-full text-[10px] sm:text-xs p-[2px] min-w-4 sm:min-w-5 text-center">
+            {itemInCart > 99 ? "99+" : itemInCart}
           </p>
         )}
       </div>
@@ -101,7 +101,7 @@ export default function InteractiveIcon() {
               alt="ava"
               width={40}
               height={40}
-              className="bg-white rounded-full p-1"
+              className="bg-white rounded-full p-1  w-8 h-8 sm:w-10 sm:h-10"
             />
             <p className="text-white">{user?.username}</p>
           </Button>

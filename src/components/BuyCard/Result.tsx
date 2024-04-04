@@ -104,12 +104,12 @@ const ReSultSelectCard = ({ card, cardValue, amount, reset }: IProps) => {
           <Button
             onClick={handleAddtoCart}
             style={{ border: "1px solid #0e1522" }}
-            className={`w-full  text-[#05296b] min-h-11 mt-4 capitalize ${
+            className={`w-full  text-[#052d75] min-h-11 mt-4 capitalize ${
               amount &&
               cardValue &&
               cardValue?.value &&
               cardValue.value * amount > 0
-                ? "cursor-pointer hover:bg-[#05296b1f]"
+                ? "cursor-pointer hover:bg-[#052d751f]"
                 : "cursor-not-allowed opacity-50 hover:bg-white"
             }`}
           >
@@ -117,13 +117,13 @@ const ReSultSelectCard = ({ card, cardValue, amount, reset }: IProps) => {
           </Button>
           <Button
             onClick={handleClickBuyNow}
-            className={`w-full bg-[#05296b] text-white min-h-11 mt-4 capitalize ${
+            className={`w-full bg-[#052d75] text-white min-h-11 mt-4 capitalize ${
               amount &&
               cardValue &&
               cardValue?.value &&
               cardValue.value * amount > 0
                 ? "cursor-pointer hover:bg-[#30466b]"
-                : "cursor-not-allowed opacity-50 hover:bg-[#05296b] hover:text-white"
+                : "cursor-not-allowed opacity-50 hover:bg-[#052d75] hover:text-white"
             }`}
           >
             Mua ngay

@@ -18,7 +18,7 @@ export default function Profile() {
     <Page title={PAGE_TITLE.HOME} menuIndex={1}>
       <Box className="profile-page-container h-full">
         <p className=" text-2xl font-semibold mb-6">Thông tin tài khoản</p>
-        <Box className="profile-page-wrapper">
+        <Box className="profile-page-wrapper w-full md:w-3/4 lg:w-3/5">
           <div className="w-fit flex gap-7 flex-col">
             <Image
               src={"/img/avatar-default.svg"}
@@ -53,7 +53,7 @@ export default function Profile() {
               onClick={() => {
                 router.push(PageURL.HOME);
               }}
-              className={`w-[200px] bg-[#05296b] text-white min-h-11 mt-4 mx-auto cursor-pointer hover:bg-[#30466b] capitalize`}
+              className={`w-[200px] bg-[#052d75] text-white min-h-11 mt-4 mx-auto cursor-pointer hover:bg-[#30466b] capitalize`}
             >
               Trở về trang chủ
             </Button>
