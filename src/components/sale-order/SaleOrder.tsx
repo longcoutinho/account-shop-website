@@ -77,14 +77,14 @@ export default function AllSaleOrder(props: any) {
         </TableContainer>
       ) : (
         <div className="w-full flex flex-col">
-          <div className="mx-auto text-4xl font-bold px-20 py-32 w-fit mt-6">
+          <div className="mx-auto text-xl md:text-4xl font-bold px-0 md:px-20 py-32 w-fit mt-6">
             Bạn chưa thực hiện giao dịch nào!
           </div>
           <Button
             onClick={() => {
               router.push(PageURL.BUY_CARD);
             }}
-            className={`w-[200px] bg-[#05296b] text-white min-h-11 mt-4 mx-auto cursor-pointer hover:bg-[#30466b] capitalize`}
+            className={`w-[200px] bg-[#052d75] text-white min-h-11 mt-4 mx-auto cursor-pointer hover:bg-[#30466b] capitalize`}
           >
             Bắt đầu mua sắm
           </Button>

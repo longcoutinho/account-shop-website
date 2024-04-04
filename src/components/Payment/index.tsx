@@ -199,10 +199,10 @@ const Payment = () => {
             <div className="w-full flex justify-center mt-4">
               <Button
                 onClick={handleBuyCard}
-                className={`w-[120px] mx-auto bg-[#05296b] text-white min-h-11 mt-4 capitalize ${
+                className={`w-[120px] mx-auto bg-[#052d75] text-white min-h-11 mt-4 capitalize ${
                   paymentMethod
                     ? "cursor-pointer hover:bg-[#30466b]"
-                    : "cursor-not-allowed opacity-50 hover:bg-[#05296b] hover:text-white"
+                    : "cursor-not-allowed opacity-50 hover:bg-[#052d75] hover:text-white"
                 }`}
               >
                 {loading && (
@@ -226,7 +226,7 @@ const Payment = () => {
             onClick={() => {
               router.push(PageURL.BUY_CARD);
             }}
-            className={`w-[200px] bg-[#05296b] text-white min-h-11 mt-4 mx-auto cursor-pointer hover:bg-[#30466b] capitalize`}
+            className={`w-[200px] bg-[#052d75] text-white min-h-11 mt-4 mx-auto cursor-pointer hover:bg-[#30466b] capitalize`}
           >
             Tiếp tục mua sắm
           </Button>

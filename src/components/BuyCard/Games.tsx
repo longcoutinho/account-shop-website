@@ -145,7 +145,7 @@ const SelectGame = ({ auto }: IProps) => {
         ))}
       </div>
       {auto ? (
-        <div className="flex mt-8 gap-4 items-center">
+        <div className="flex mt-8 gap-4 items-center flex-col sm:flex-row">
           <p className="text-base font-semibold">Nhập mệnh giá: </p>
 
           <NumericFormat
@@ -165,16 +165,16 @@ const SelectGame = ({ auto }: IProps) => {
           <div className="flex mt-8 gap-4 items-center">
             <p className="text-base font-semibold min-w-16">IGG ID: </p>
             <input
-              className="border border-gray-300 rounded"
+              className="border border-gray-300 rounded h-10"
               value={cardCode}
               onChange={(e) => setCardCode(e.target.value)}
             />
           </div>
-          <div className="flex mt-8 gap-4 items-center">
+          <div className="flex mt-4 sm:mt-8 gap-4 items-center flex-wrap">
             <p className="text-base font-semibold min-w-16">OTP: </p>
             <div className="relative">
               <input
-                className="border border-gray-300 rounded"
+                className="border border-gray-300 rounded h-10"
                 type="text"
                 value={otp}
                 maxLength={6}
@@ -197,10 +197,10 @@ const SelectGame = ({ auto }: IProps) => {
       <div className="flex flex-col mt-4 items-center">
         <Button
           onClick={auto ? handleSubmit : handleRecharge}
-          className={` w-32 bg-[#05296b] text-white min-h-11 mt-4  ${
+          className={` w-32 bg-[#052d75] text-white min-h-11 mt-4  ${
             ((cardCode && otp) || cardValue) && gameSelected
               ? "cursor-pointer hover:bg-[#30466b]"
-              : "cursor-not-allowed opacity-50 hover:bg-[#05296b] hover:text-white"
+              : "cursor-not-allowed opacity-50 hover:bg-[#052d75] hover:text-white"
           }`}
         >
           {loading && (

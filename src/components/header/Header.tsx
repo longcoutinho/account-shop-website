@@ -14,15 +14,15 @@ export default function Header() {
     setOpen(newOpen);
   };
   return (
-    <Box className="header-container min-h-20 h-20 border-b-2 fixed top-0 z-50">
+    <Box className="header-container min-h-[76px] h-20 fixed top-0 z-50">
       <Box className="header-wrapper h-full px-6">
         <div className="flex gap-6 cursor-pointer">
           <MenuOutlined onClick={toggleDrawer(true)} />
           <p
             onClick={() => router.push(PageURL.HOME)}
-            className="text-xl font-semibold"
+            className="text-xl font-semibold hidden sm:block"
           >
-            LOGO
+            LEKUYTOC
           </p>
         </div>
         <Drawer open={open} onClose={toggleDrawer(false)}>
