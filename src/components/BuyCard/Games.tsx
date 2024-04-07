@@ -195,19 +195,19 @@ const SelectGame = ({ auto }: IProps) => {
       )}
 
       <div className="flex flex-col mt-4 items-center">
-        <Button
-          onClick={auto ? handleSubmit : handleRecharge}
-          className={` w-32 bg-[#052d75] text-white min-h-11 mt-4  ${
-            ((cardCode && otp) || cardValue) && gameSelected
-              ? "cursor-pointer hover:bg-[#30466b]"
-              : "cursor-not-allowed opacity-50 hover:bg-[#052d75] hover:text-white"
-          }`}
-        >
-          {loading && (
-            <CircularProgress size={20} color="inherit" className="mr-2" />
-          )}
-          {auto ? "Thanh toán" : "Get token"}
-        </Button>
+        {/*<Button*/}
+        {/*  onClick={auto ? handleSubmit : handleRecharge}*/}
+        {/*  className={` w-32 bg-[#052d75] text-white min-h-11 mt-4  ${*/}
+        {/*    ((cardCode && otp) || cardValue) && gameSelected*/}
+        {/*      ? "cursor-pointer hover:bg-[#30466b]"*/}
+        {/*      : "cursor-not-allowed opacity-50 hover:bg-[#052d75] hover:text-white"*/}
+        {/*  }`}*/}
+        {/*>*/}
+        {/*  {loading && (*/}
+        {/*    <CircularProgress size={20} color="inherit" className="mr-2" />*/}
+        {/*  )}*/}
+        {/*  {auto ? "Thanh toán" : "Get token"}*/}
+        {/*</Button>*/}
         {token && (
           <div className="text-wrap text-center w-full mt-4">
             <span>Token của bạn:</span>
