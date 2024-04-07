@@ -12,6 +12,8 @@ import { Provider } from "react-redux";
 import { combineReducers } from "redux";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { store } from "@/redux/store";
+import { appWithTranslation } from "next-i18next";
+
 // Prevent fontawesome from adding its CSS since we did it manually above:
 
 const counter = (state = 0, action: any) => {
@@ -42,10 +44,11 @@ const allReducers = combineReducers({
   // add more reducers here
 });
 
-export default function App({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <Component {...pageProps} />
     </Provider>
   );
 }
+export default appWithTranslation(App);

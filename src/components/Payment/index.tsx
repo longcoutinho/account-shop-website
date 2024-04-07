@@ -35,7 +35,6 @@ const Payment = () => {
   const [paymentMethod, setPaymentMethod] = useState<IPaymentMethodRes>();
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [loading, setLoading] = useState(false);
-
   useEffect(() => {
     renderListPaymentMethod();
     const list: IListOrder[] = buyNow
@@ -173,28 +172,29 @@ const Payment = () => {
             <p className="w-fit py-2 px-4 my-4 mx-auto">
               Chọn phương thức thanh toán:
             </p>
-            <div className=" w-full flex justify-center flex-wrap">
-              {listPaymentMethod?.map((g) => (
-                <div
-                  key={g.id}
-                  onClick={() => {
-                    setPaymentMethod(g);
-                  }}
-                  className={` p-0.5 max-w-36 rounded-lg cursor-pointer hover:scale-105  hover:shadow-lg transition-all ${
-                    g.id === paymentMethod?.id
-                      ? " border-[#f3a44a] shadow-md border-2"
-                      : " border-[#1b1b1b1f] border-2"
-                  }`}
-                >
-                  <Image
-                    src={g.image}
-                    alt="card"
-                    width={150}
-                    height={100}
-                    className=" mx-auto h-[100px]"
-                  />
-                </div>
-              ))}
+            <div className=" w-full flex justify-center flex-wrap gap-3">
+              {listPaymentMethod &&
+                listPaymentMethod?.map((g) => (
+                  <div
+                    key={g?.id}
+                    onClick={() => {
+                      setPaymentMethod(g);
+                    }}
+                    className={` p-0.5 max-w-36 rounded-lg cursor-pointer hover:scale-105  hover:shadow-lg transition-all ${
+                      g.id === paymentMethod?.id
+                        ? " border-[#f3a44a] shadow-md border-2"
+                        : " border-[#1b1b1b1f] border-2"
+                    }`}
+                  >
+                    <Image
+                      src={g?.image ? g?.image : ""}
+                      alt="card"
+                      width={150}
+                      height={100}
+                      className=" mx-auto h-[100px] "
+                    />
+                  </div>
+                ))}
             </div>
             <div className="w-full flex justify-center mt-4">
               <Button

@@ -34,9 +34,11 @@ export enum PAGE_TITLE {
   EDIT_ITEM = "Edit Item",
   RECHARGE = "Nạp thẻ thủ công",
   RECHARGE_AUTO = "Nạp thẻ tự động",
-  BUY_CARD = "Mua thẻ nạp",
+  BUY_CARD = "Game Card",
   PAYMENT = "Thanh toán",
   HISTORY = "Lịch sử giao dịch",
+  LORDS_MOBILE = "Lords mobile",
+  CASTLE_CLASH = "Castle clash",
 }
 
 export const HomePage = {
@@ -141,6 +143,8 @@ export enum PageURL {
   BUY_CARD = "/buy-card",
   PAYMENT = "/payment",
   HISTORY = "/history",
+  CASTLE_CLASH = "/castle-clash",
+  LORDS_MOBILE = "/lords-mobile",
 }
 
 export const MenuTitle: any = [
