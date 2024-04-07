@@ -4,6 +4,7 @@ export interface IGamesRes {
   description: string;
   code: string;
   image: string;
+  router: string;
 }
 
 export interface ICardsRes {

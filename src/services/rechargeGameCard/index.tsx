@@ -43,3 +43,8 @@ export const requestGetToken = async (
   const request = { otp: otp };
   return doPostRequest(url, request);
 };
+
+export const requestGetListTier = async (): Promise<any> => {
+  const url = Backend.BASE_URL + "/top-up-item/1";
+  return doGetRequest(url, null);
+};

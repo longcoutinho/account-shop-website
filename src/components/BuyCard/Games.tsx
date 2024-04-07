@@ -241,7 +241,12 @@ const SelectGame = ({ auto }: IProps) => {
         >
           <Box sx={style}>
             <div className="w-full flex justify-center">
-              <Image src={"/img/qr.jpg"} alt="qr" width={500} height={500} />
+              <Image
+                src={"/img/vietqr.jpg"}
+                alt="qr"
+                width={500}
+                height={500}
+              />
             </div>
           </Box>
         </Modal>

@@ -13,19 +13,19 @@ export const menuBar = [
     url: PageURL.HOME,
   },
   {
-    title: "Mua thẻ",
+    title: "Game Card",
     icon: faCartShopping,
     url: PageURL.BUY_CARD,
   },
   {
-    title: "Nạp thẻ thủ công",
+    title: "Lords mobile",
     icon: faHand,
-    url: PageURL.RECHARGE,
+    url: PageURL.LORDS_MOBILE,
   },
   {
-    title: "Nạp thẻ tự động",
+    title: "Castle clash",
     icon: faCreditCard,
-    url: PageURL.RECHARGE_AUTO,
+    url: PageURL.CASTLE_CLASH,
   },
   // {
   //   title: "Lịch sử giao dịch",
