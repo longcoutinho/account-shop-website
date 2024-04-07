@@ -7,9 +7,9 @@ export const COMMON_TEXT = {
     EMAIL_ADDRESS: "Email Address",
     PASSWORD: "Password",
     CONFIRM_PASSWORD: "Confirm Password",
-    LOGIN: "login",
+    LOGIN: "Login",
     SUCCESS: "success",
-    SIGNUP: 'sign up',
+    SIGNUP: 'Sign Up',
     COLLECTION: 'collection',
     FULL_NAME: "Full name",
     PHONE_NUMBER: "Phone number"

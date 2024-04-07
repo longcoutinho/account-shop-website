@@ -1,7 +1,6 @@
 import Page from "@/layouts";
 import { PAGE_TITLE } from "@/constants";
 import HistoryList from "@/components/History";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 const HistoryPage = () => {
   return (
     <Page title={PAGE_TITLE.HISTORY} menuIndex={1}>
@@ -11,10 +10,3 @@ const HistoryPage = () => {
   );
 };
 export default HistoryPage;
-export async function getStaticProps({ locale }: { locale: string }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ["common"])),
-    },
-  };
-}

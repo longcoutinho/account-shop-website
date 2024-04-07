@@ -1,7 +1,6 @@
 import Page from "@/layouts";
 import SelectCard from "../../components/BuyCard/Cards";
 import { PAGE_TITLE } from "@/constants";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const BuyCard = () => {
   return (
@@ -12,10 +11,3 @@ const BuyCard = () => {
   );
 };
 export default BuyCard;
-export async function getStaticProps({ locale }: { locale: string }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ["common"])),
-    },
-  };
-}
