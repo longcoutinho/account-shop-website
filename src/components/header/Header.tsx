@@ -1,11 +1,17 @@
 import { Box, Button, Drawer } from "@mui/material";
 import React from "react";
-import InteractiveIcon from "@/components/header/interactive-icon/InteractiveIcon";
 import HorizonHeader from "../horiHeader/HorizonHeader";
 import { MenuOutlined } from "@mui/icons-material";
 import Link from "next/link";
 import { PageURL } from "@/constants";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
+const InteractiveIcon = dynamic(
+  () => import("@/components/header/interactive-icon/InteractiveIcon"),
+  {
+    ssr: false,
+  }
+);
 
 export default function Header() {
   const [open, setOpen] = React.useState(false);

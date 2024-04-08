@@ -42,24 +42,25 @@ const SwitchLanguage = () => {
     return arrayLanguage;
   };
 
-  return null;
-  // <div className="ml-3 border border-[#ffffff67] rounded-md ">
-  //   <Select
-  //     defaultValue={language}
-  //     className="sm:text-white"
-  //     style={{
-  //       width: 150,
-  //       fontSize: "12px",
-  //       padding: 0,
-  //       border: "none",
-  //     }}
-  //     onChange={handleChange}
-  //   >
-  //     {convertArrayObject()?.map((e) => (
-  //       <MenuItem value={e.value}>{e.label}</MenuItem>
-  //     ))}
-  //   </Select>
-  // </div>
+  return (
+    <div className="ml-3 border border-[#ffffff67] rounded-md ">
+      <Select
+        defaultValue={language}
+        className="sm:text-white"
+        style={{
+          width: 150,
+          fontSize: "12px",
+          padding: 0,
+          border: "none",
+        }}
+        onChange={handleChange}
+      >
+        {convertArrayObject()?.map((e) => (
+          <MenuItem value={e.value}>{e.label}</MenuItem>
+        ))}
+      </Select>
+    </div>
+  );
 };
 
 export default SwitchLanguage;

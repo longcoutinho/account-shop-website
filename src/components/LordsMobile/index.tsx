@@ -2,8 +2,10 @@ import React from "react";
 import { Box, Tab } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import TopupTab from "./TopupTab";
+import { useTranslation } from "next-i18next";
 
 const LordsMobile = () => {
+  const { t } = useTranslation("common");
   const [value, setValue] = React.useState("1");
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -20,8 +22,8 @@ const LordsMobile = () => {
             aria-label="lab API tabs example"
             className="font-semibold"
           >
-            <Tab label="Flash top-up" value="1" />
-            <Tab label="Quick top-up" value="2" />
+            <Tab label={t("FLASH_TOPUP")} value="1" />
+            <Tab label={t("QUICK_TOPUP")} value="2" />
           </TabList>
         </Box>
         <TabPanel value="1" className="px-0">

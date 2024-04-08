@@ -15,9 +15,10 @@ import { IListOrder } from "@/components/Payment";
 import { setBuyNow, setItemInCart } from "@/redux/slices/cart";
 import SwitchLanguage from "@/components/SwitchLang/SwitchLanguage";
 import { useMediaQuery } from "react-responsive";
-import {COMMON_TEXT} from "@/constants/message";
+import { useTranslation } from "next-i18next";
 
 export default function InteractiveIcon() {
+  const { t } = useTranslation("common");
   const dispatch = useDispatch();
   const [balance, setBalance] = useState("0");
   const router = useRouter();
@@ -73,14 +74,14 @@ export default function InteractiveIcon() {
             className="cursor-pointer hover:underline"
             onClick={() => router.push(PageURL.SIGNUP)}
           >
-            {COMMON_TEXT.SIGNUP}
+            {t("SIGNUP")}
           </span>
           <span>/</span>
           <span
             className="cursor-pointer hover:underline"
             onClick={() => router.push(PageURL.LOGIN)}
           >
-            {COMMON_TEXT.LOGIN}
+            {t("LOGIN")}
           </span>
         </div>
       ) : (

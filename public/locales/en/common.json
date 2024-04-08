@@ -1,4 +1,23 @@
 {
   "LOGIN": "Login",
-  "SIGNUP": "Sign up"
+  "SIGNUP": "Sign up",
+  "GAME_CARD": "Game Card",
+  "PICK_CARD": "Select card type",
+  "PICK_DENOM": "Choose denomination",
+  "QUANTITY": "Quantity",
+  "DETAIL": "Detail",
+  "CARD": "Card",
+  "CARD_VALUE": "Card value",
+  "TOTAL": "Total",
+  "ADD_TO_CART": "Add to cart",
+  "BUY_NOW": "Buy now",
+  "FLASH_TOPUP": "Flash top-up",
+  "QUICK_TOPUP": "Quick top-up",
+  "COPIED": "Copied",
+  "CHOOSE_PACKAGE": "Choose package",
+  "CONFIRM": "Confirm",
+  "GET_CODE": "Get code",
+  "HOME": "Home",
+  "WARNING_SENT_OTP": "OTP will be sent via your ID",
+  "SELECT_PAYMENT": "Select a payment method"
 }

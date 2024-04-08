@@ -1,4 +1,23 @@
 {
   "LOGIN": "Đăng nhập",
-  "SIGNUP": "Đăng kí"
+  "SIGNUP": "Đăng kí",
+  "GAME_CARD": "Game Card",
+  "PICK_CARD": "Chọn loại thẻ",
+  "PICK_DENOM": "Chọn mệnh giá",
+  "QUANTITY": "Số lượng",
+  "DETAIL": "Chi tiết",
+  "CARD": "Thẻ",
+  "CARD_VALUE": "Mệnh giá thẻ",
+  "TOTAL": "Tổng tiền",
+  "ADD_TO_CART": "Thêm vào giỏ",
+  "BUY_NOW": "Mua ngay",
+  "FLASH_TOPUP": "Flash top-up",
+  "QUICK_TOPUP": "Quick top-up",
+  "COPIED": "Sao chép",
+  "CHOOSE_PACKAGE": "Chọn gói",
+  "CONFIRM": "Xác nhận",
+  "GET_CODE": "Lấy mã",
+  "HOME": "Trang chủ",
+  "WARNING_SENT_OTP": "OTP sẽ được gửi thông qua ID của bạn",
+  "SELECT_PAYMENT": "Chọn phương thức thanh toán"
 }
