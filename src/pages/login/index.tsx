@@ -1,8 +1,4 @@
 import { Box, Button } from "@mui/material";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
 import React, { useState } from "react";
 import Link from "next/link";
 import { signIn } from "@/services/userService";
@@ -35,17 +31,14 @@ export default function Login() {
       signIn(request)
         .then((res) => {
           if (res.status == HTTP_STATUS.OK) {
-            console.log(res.data);
             saveUserToSessionStorage(res.data);
             redirectUrl(route, PageURL.HOME, null);
           } else {
             setNotify(res.response.data);
             setNotifyColor("red");
-            console.log(res);
           }
         })
         .catch((err) => {
-          console.log(err);
           setNotify(err?.response?.data);
           setNotifyColor("red");
         });
