@@ -1,9 +1,4 @@
 import { Box, Button } from "@mui/material";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
-import "@/constants/FnCommon";
 import React, { useEffect, useState } from "react";
 import { IOrderHistory } from "@/interfaces/response";
 import { HTTP_STATUS, PageURL } from "@/constants";
@@ -16,8 +11,10 @@ import TableRow from "@mui/material/TableRow";
 import TableBody from "@mui/material/TableBody";
 import { getAllSaleOrders } from "@/services/sale-order";
 import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 
-export default function AllSaleOrder(props: any) {
+export default function AllSaleOrder() {
+  const { t } = useTranslation("common");
   const router = useRouter();
   const [listOrderHistory, setOrderHistory] = useState<IOrderHistory[]>([]);
   const [page, setPage] = React.useState(1);
@@ -48,10 +45,10 @@ export default function AllSaleOrder(props: any) {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Mã giao dịch</TableCell>
-                <TableCell>Số tiền</TableCell>
-                <TableCell>Thời gian</TableCell>
-                <TableCell>Trạng thái</TableCell>
+                <TableCell>{t("TRANSACTION_CODE")}</TableCell>
+                <TableCell>{t("AMOUNT")}</TableCell>
+                <TableCell>{t("CREATED_AT")}</TableCell>
+                <TableCell>{t("STATUS")}</TableCell>
               </TableRow>
             </TableHead>
 
@@ -78,7 +75,7 @@ export default function AllSaleOrder(props: any) {
       ) : (
         <div className="w-full flex flex-col">
           <div className="mx-auto text-xl md:text-4xl font-bold px-0 md:px-20 py-32 w-fit mt-6">
-            Bạn chưa thực hiện giao dịch nào!
+            {t("HAVENT_MADE_TRANSACTION")}
           </div>
           <Button
             onClick={() => {
@@ -86,7 +83,7 @@ export default function AllSaleOrder(props: any) {
             }}
             className={`w-[200px] bg-[#052d75] text-white min-h-11 mt-4 mx-auto cursor-pointer hover:bg-[#30466b] capitalize`}
           >
-            Bắt đầu mua sắm
+            {t("START_SHOPPING")}
           </Button>
         </div>
       )}

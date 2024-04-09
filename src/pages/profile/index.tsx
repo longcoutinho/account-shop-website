@@ -6,10 +6,14 @@ import { User } from "@/interfaces";
 import { getUserInfo } from "@/constants/FnCommon";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 export default function Profile() {
+  const { t } = useTranslation("common");
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
+
   useEffect(() => {
     setUser(getUserInfo());
   }, []);
@@ -17,7 +21,7 @@ export default function Profile() {
   return (
     <Page title={PAGE_TITLE.HOME} menuIndex={1}>
       <Box className="profile-page-container h-full">
-        <p className=" text-2xl font-semibold mb-6">Thông tin tài khoản</p>
+        <p className=" text-2xl font-semibold mb-6">{t("ACCOUNT_DETAIL")}</p>
         <Box className="profile-page-wrapper w-full md:w-3/4 lg:w-3/5">
           <div className="w-fit flex gap-7 flex-col">
             <Image
@@ -28,23 +32,23 @@ export default function Profile() {
               className="mx-auto bg-white rounded-full border border-gray-400 p-3"
             />
             <div className="flex gap-3 w-full">
-              <p className="w-28">Họ và tên: </p>
+              <p className="w-36">{t("FULL_NAME")}: </p>
               <p className="text-red-500 font-medium">
                 {user?.fullName || "Nguyễn Thị Phương mai"}
               </p>
             </div>
             <div className="flex gap-3 w-full">
-              <p className="w-28">Username: </p>
+              <p className="w-36">{t("USER_NAME")}: </p>
               <p className="text-red-500 font-medium">{user?.username}</p>
             </div>
             <div className="flex gap-3 w-full">
-              <p className="w-28">Email: </p>
+              <p className="w-36">Email: </p>
               <p className="text-red-500 font-medium">
                 {user?.email || "maitho3101@gmail.com"}
               </p>
             </div>
             <div className="flex gap-3 w-full">
-              <p className="w-28">Số điện thoại: </p>
+              <p className="w-36">{t("PHONE_NUMBER")}: </p>
               <p className="text-red-500 font-medium">
                 {user?.phoneNumber || "0816928986"}
               </p>
@@ -55,11 +59,19 @@ export default function Profile() {
               }}
               className={`w-[200px] bg-[#052d75] text-white min-h-11 mt-4 mx-auto cursor-pointer hover:bg-[#30466b] capitalize`}
             >
-              Trở về trang chủ
+              {t("RETURN_HOME")}
             </Button>
           </div>
         </Box>
       </Box>
     </Page>
   );
+}
+
+export async function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
 }

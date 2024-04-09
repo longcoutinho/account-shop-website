@@ -5,8 +5,11 @@ import { signIn } from "@/services/userService";
 import { HTTP_STATUS, PageURL } from "@/constants";
 import { useRouter } from "next/router";
 import { redirectUrl, saveUserToSessionStorage } from "@/constants/FnCommon";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 export default function Login() {
+  const { t } = useTranslation("common");
   const route = useRouter();
   const LoginForm = () => {
     const [username, setUsername] = useState("");
@@ -45,53 +48,53 @@ export default function Login() {
     };
 
     return (
-      <Box className="login-wrapper">
+      <Box className="login-wrapper py-10 px-4 sm:px-12 sm:py-12">
         <Box className="title-container">
-          <p>login</p>
-          <p>Enter Login details to get access</p>
+          <p>{t("LOGIN")}</p>
+          <p>{t("LOGIN_DES")}</p>
         </Box>
         <Box className="form-container">
           <Box className="input-container">
-            <label>Username</label>
+            <label>{t("USER_NAME")}</label>
             <input
               type="text"
               value={username}
               onChange={(e) => {
                 setUsername(e.currentTarget.value);
               }}
-              placeholder="Username"
+              placeholder={t("USER_NAME")}
             ></input>
           </Box>
           <Box className="input-container">
-            <label>Password</label>
+            <label>{t("PASSWORD")}</label>
             <input
               type="password"
               value={password}
               onChange={(e) => {
                 setPassword(e.currentTarget.value);
               }}
-              placeholder="Enter Password"
+              placeholder={t("ENTER_PASSWORD")}
             ></input>
           </Box>
           <Notify textColor={notifyColor} text={notify}></Notify>
           <Box className="forgot-password-container">
             <Box className="remember-me-container">
               <input type={"checkbox"} />
-              <label>keep me logged in</label>
+              <label>{t("KEEP_LOGIN")}</label>
             </Box>
             <Box className="forgot-pass-container">
-              <Link href={"/signup"}>forgot password?</Link>
+              <Link href={"/signup"}>{t("FORGOR_PASSWORD")}?</Link>
             </Box>
           </Box>
         </Box>
-        <Box className="login-button-container">
+        <Box className="login-button-container flex mt-4 flex-col-reverse gap-2 sm:flex-row">
           <Box className="sign-up-container">
-            <p>Don&apos;t have an account?</p>
-            <Link href={PageURL.SIGNUP}>Sign Up</Link>
-            <p>here</p>
+            <p>{t("DONT_HAVE_ACCOUNT")}?</p>
+            <Link href={PageURL.SIGNUP}>{t("SIGNUP")}</Link>
+            <p>{t("HERE")}</p>
           </Box>
           <Button onClick={doSignIn} className="login-button">
-            Login
+            {t("LOGIN")}
           </Button>
         </Box>
       </Box>
@@ -103,4 +106,12 @@ export default function Login() {
       <LoginForm></LoginForm>
     </Box>
   );
+}
+
+export async function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
 }

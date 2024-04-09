@@ -3,7 +3,7 @@ import React from "react";
 import { History, Logout, Person } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import { PageURL } from "@/constants";
-
+import { useTranslation } from "next-i18next";
 interface IProps {
   open: boolean;
   anchorEl: HTMLElement | null;
@@ -17,6 +17,7 @@ export default function DropDownUser({
   handleClose,
   handleLogout,
 }: IProps) {
+  const { t } = useTranslation("common");
   const router = useRouter();
   return (
     <div>
@@ -31,15 +32,15 @@ export default function DropDownUser({
       >
         <MenuItem onClick={() => router.push(PageURL.PROFILE)}>
           <Person fontSize="small" className="mr-2" />
-          Thông tin tài khoản
+          {t("ACCOUNT_DETAIL")}
         </MenuItem>
         <MenuItem onClick={() => router.push(PageURL.HISTORY)}>
           <History fontSize="small" className="mr-2" />
-          Lịch sử giao dịch
+          {t("TRANSACTION_HISTORY")}
         </MenuItem>
         <MenuItem onClick={handleLogout}>
           <Logout fontSize="small" className="mr-2" />
-          Đăng xuất
+          {t("LOG_OUT")}
         </MenuItem>
       </Menu>
     </div>
