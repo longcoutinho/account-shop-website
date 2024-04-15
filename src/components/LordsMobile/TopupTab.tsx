@@ -20,12 +20,14 @@ import Image from "next/image";
 import CopyToClipboard from "react-copy-to-clipboard";
 import Iconify from "../Iconify";
 import { useSnackbar } from "notistack";
+import { useTranslation } from "next-i18next";
 
 interface IProps {
   isQuick?: boolean;
 }
 
 const TopupTab = ({ isQuick }: IProps) => {
+  const { t } = useTranslation("common");
   const { enqueueSnackbar } = useSnackbar();
   const [listTiers, setListTiers] = useState<any[]>([]);
   const [tierSelected, setTierSelected] = useState<any>();
@@ -63,7 +65,6 @@ const TopupTab = ({ isQuick }: IProps) => {
   const renderListPaymentMethod = async () => {
     try {
       const res = await requestGetListPaymentMethod();
-      console.log(res);
       if (res?.status === HTTP_STATUS.OK) {
         setListPaymentMethod(res?.data);
       }
@@ -103,7 +104,7 @@ const TopupTab = ({ isQuick }: IProps) => {
     }
   };
   const onCopy = () => {
-    enqueueSnackbar("Copied!");
+    enqueueSnackbar(t("COPIED"));
     if (navigator.clipboard !== undefined) {
       navigator.clipboard.writeText(token ? token : "");
     }
@@ -112,7 +113,7 @@ const TopupTab = ({ isQuick }: IProps) => {
     <div className="w-full">
       {/* pick card */}
       <p className="w-full bg-gray-200 font-bold py-2 px-4 text-lg my-4">
-        Chọn gói
+        {t("CHOOSE_PACKAGE")}
       </p>
       <div className="grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-3">
         {listTiers?.map((g) => (
@@ -172,14 +173,14 @@ const TopupTab = ({ isQuick }: IProps) => {
                 onChange={(e) => setOtp(e.target.value)}
               />{" "}
               <p className="absolute -bottom-6 left-0 whitespace-nowrap text-xs text-blue-600 mt-3">
-                (* OTP will be sent via your ID)
+                (* {t("WARNING_SENT_OTP")})
               </p>
             </div>
             <p
               className="text-[#e6a357] cursor-pointer underline"
               onClick={handleRecharge}
             >
-              Get code
+              {t("GET_CODE")}
             </p>
           </div>
         )}
@@ -201,7 +202,7 @@ const TopupTab = ({ isQuick }: IProps) => {
       )}
       {/* pick paymemt method */}
       <p className="w-full bg-gray-200 font-bold py-2 px-4 text-lg my-8">
-        Chọn phương thức thanh toán
+        {t("SELECT_PAYMENT")}
       </p>
       <div className="flex flex-wrap gap-3">
         {listPaymentMethod?.map((e) => (
@@ -242,7 +243,7 @@ const TopupTab = ({ isQuick }: IProps) => {
           {loading && (
             <CircularProgress size={20} color="inherit" className="mr-2" />
           )}
-          Xác nhận
+          {t("CONFIRM")}
         </Button>
       </div>
 

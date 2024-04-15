@@ -1,20 +1,18 @@
 import { Box, Button } from "@mui/material";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import "../../constants/message";
 import { COMMON_TEXT, SIGNUP_PAGE } from "@/constants/message";
-import "@/constants/FnCommon";
 import { isNullOrEmpty, isValidLength } from "@/constants/FnCommon";
 import { signUp } from "@/services/userService";
 import { HTTP_STATUS, PageURL } from "@/constants";
 import { useRouter } from "next/router";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 export default function SignUp() {
-  // const route = useRouter();
+  const { t } = useTranslation("common");
+
   const SignUpForm = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -72,55 +70,55 @@ export default function SignUp() {
     };
 
     return (
-      <Box className="signup-wrapper">
+      <Box className="signup-wrapper py-10 px-4 sm:px-12 sm:py-12">
         <Box className="title-container">
-          <p>{SIGNUP_PAGE.SIGNUP}</p>
-          <p>{SIGNUP_PAGE.TITLE}</p>
+          <p>{t("SIGNUP")}</p>
+          <p>{t("SIGNUP_DES")}</p>
         </Box>
         <Box className="form-container">
           <Box className="input-container">
-            <label>{COMMON_TEXT.USERNAME}</label>
+            <label>{t("USER_NAME")}</label>
             <input
               type="text"
               value={username}
               onChange={(e) => {
                 setUsername(e.currentTarget.value);
               }}
-              placeholder="Enter Username"
+              placeholder={t("USER_NAME")}
             ></input>
           </Box>
           <Box className="input-container">
-            <label>{COMMON_TEXT.PASSWORD}</label>
+            <label>{t("PASSWORD")}</label>
             <input
               type="password"
               value={password}
               onChange={(e) => {
                 setPassword(e.currentTarget.value);
               }}
-              placeholder="Enter Password"
+              placeholder={t("ENTER_PASSWORD")}
             ></input>
           </Box>
           <Box className="input-container">
-            <label>{COMMON_TEXT.CONFIRM_PASSWORD}</label>
+            <label>{t("CONFIRM_PASSWORD")}</label>
             <input
               type="password"
               value={confirmPassword}
               onChange={(e) => {
                 setConfirmPassword(e.currentTarget.value);
               }}
-              placeholder="Confirm Password"
+              placeholder={t("CONFIRM_PASSWORD")}
             ></input>
           </Box>
           <Notify textColor={notifyColor} text={notify}></Notify>
         </Box>
-        <Box className="signup-button-container">
+        <Box className="signup-button-container flex mt-2 flex-col-reverse gap-2 sm:flex-row">
           <Box className="sign-up-container">
-            <p>Already have an account?</p>
-            <Link href={"login"}>{COMMON_TEXT.LOGIN}</Link>
-            <p>here</p>
+            <p>{t("ALREADY_HAVE_ACCOUNT")}?</p>
+            <Link href={"login"}>{t("LOGIN")}</Link>
+            <p>{t("HERE")}</p>
           </Box>
           <Button onClick={doSignUp} className="signup-button">
-            {SIGNUP_PAGE.SIGNUP}
+            {t("SIGNUP")}
           </Button>
         </Box>
       </Box>
@@ -132,4 +130,12 @@ export default function SignUp() {
       <SignUpForm></SignUpForm>
     </Box>
   );
+}
+
+export async function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
 }

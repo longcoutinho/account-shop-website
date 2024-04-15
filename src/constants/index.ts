@@ -35,8 +35,8 @@ export enum PAGE_TITLE {
   RECHARGE = "Nạp thẻ thủ công",
   RECHARGE_AUTO = "Nạp thẻ tự động",
   BUY_CARD = "Game Card",
-  PAYMENT = "Thanh toán",
-  HISTORY = "Lịch sử giao dịch",
+  PAYMENT = "PAYMENT",
+  HISTORY = "TRANSACTION_HISTORY",
   LORDS_MOBILE = "Lords mobile",
   CASTLE_CLASH = "Castle clash",
 }

@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import ReSultSelectCard from "./Result";
 import { NumberInput } from "../NumberInput";
 import Image from "next/image";
+import { useTranslation } from "next-i18next";
 
 export interface ICardValue {
   value: number;
@@ -18,6 +19,7 @@ export interface ICardValue {
 }
 
 const SelectCard = () => {
+  const { t } = useTranslation("common");
   const [listCards, setListCards] = useState<ICardsRes[]>([]);
   const [listItems, setListItems] = useState<IItemCardRes[]>([]);
   const [card, setCard] = useState<ICardsRes>();
@@ -57,7 +59,7 @@ const SelectCard = () => {
     <div className="flex w-full gap-4 flex-col lg:flex-row">
       <div className=" flex flex-col w-full lg:w-2/3">
         <p className="w-full bg-gray-200 font-bold py-2 px-4 text-lg my-4">
-          Chọn loại thẻ
+          {t("PICK_CARD")}
         </p>
         <div className="flex flex-wrap gap-2">
           {listCards?.map((g) => (
@@ -86,7 +88,7 @@ const SelectCard = () => {
         {listItems?.length > 0 && (
           <>
             <p className="w-full bg-gray-200 font-bold py-2 px-4 text-lg my-4">
-              Chọn mệnh giá
+              {t("PICK_DENOM")}
             </p>
             <div className="grid grid-cols-4 gap-2">
               {listItems?.map((i) => (
@@ -104,7 +106,7 @@ const SelectCard = () => {
               ))}
             </div>
             <div className="flex mt-8 justify-between items-center">
-              <p className="text-base font-semibold">Số lượng: </p>
+              <p className="text-base font-semibold">{t("QUANTITY")}: </p>
               <NumberInput
                 defaultValue={1}
                 value={amount}
