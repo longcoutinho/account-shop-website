@@ -159,7 +159,7 @@ const Payment = () => {
                       <Button
                         style={{ border: "1px solid red" }}
                         onClick={() => handleDeleteItem(o.item.id, o.cardId)}
-                        className="border text-red-500 font-bold w-6 h-6 "
+                        className="border !text-red-500 !font-bold !w-6 !h-6 !min-w-6 "
                       >
                         X
                       </Button>
@@ -205,10 +205,10 @@ const Payment = () => {
             <div className="w-full flex justify-center mt-4">
               <Button
                 onClick={handleBuyCard}
-                className={`w-[120px] mx-auto bg-[#052d75] text-white min-h-11 mt-4 capitalize ${
+                className={`!w-[120px] !mx-auto !bg-[#052d75] !text-white !min-h-11 !mt-4 !capitalize ${
                   paymentMethod
-                    ? "cursor-pointer hover:bg-[#30466b]"
-                    : "cursor-not-allowed opacity-50 hover:bg-[#052d75] hover:text-white"
+                    ? "!cursor-pointer !hover:bg-[#30466b]"
+                    : "!cursor-not-allowed !opacity-50 !hover:bg-[#052d75] !hover:text-white"
                 }`}
               >
                 {loading && (

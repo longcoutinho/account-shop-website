@@ -16,7 +16,7 @@ export default function SlideBanner() {
 
   return (
     <Swiper
-      className="w-screen !overflow-visible select-none mt-[76px] min-h-52 sm:min-h-fit"
+      className="w-screen !overflow-visible select-none mt-[76px] max-h-[70dvh] min-h-52 sm:min-h-fit"
       modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
       autoplay={{
         delay: 2500,

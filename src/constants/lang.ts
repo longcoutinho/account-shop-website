@@ -9,9 +9,9 @@ export const LANGUAGE = [
     content: "Tiếng việt",
     image: "/img/vi.png",
   },
-  {
-    key: "RU",
-    content: "Russian",
-    image: "/img/russian.svg",
-  },
+  // {
+  //   key: "RU",
+  //   content: "Russian",
+  //   image: "/img/russian.svg",
+  // },
 ];

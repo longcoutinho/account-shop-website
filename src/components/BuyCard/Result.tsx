@@ -64,14 +64,21 @@ const ReSultSelectCard = ({ card, cardValue, amount, reset }: IProps) => {
     }
   };
   const handleClickBuyNow = () => {
-    const data = {
-      item: card,
-      price: cardValue.value,
-      amount: amount || 0,
-    };
-    dispatch(setBuyNow(true));
-    dispatch(setOrderDetail([data]));
-    router?.push(PageURL.PAYMENT);
+    if (
+      amount &&
+      cardValue &&
+      cardValue?.value &&
+      cardValue.value * amount > 0
+    ) {
+      const data = {
+        item: card,
+        price: cardValue.value,
+        amount: amount || 0,
+      };
+      dispatch(setBuyNow(true));
+      dispatch(setOrderDetail([data]));
+      router?.push(PageURL.PAYMENT);
+    }
   };
   return (
     <div>
@@ -105,26 +112,26 @@ const ReSultSelectCard = ({ card, cardValue, amount, reset }: IProps) => {
           <Button
             onClick={handleAddtoCart}
             style={{ border: "1px solid #0e1522" }}
-            className={`w-full  text-[#052d75] min-h-11 mt-4 capitalize ${
+            className={`w-full  !text-[#052d75] !min-h-11 !mt-4 !capitalize ${
               amount &&
               cardValue &&
               cardValue?.value &&
               cardValue.value * amount > 0
-                ? "cursor-pointer hover:bg-[#052d751f]"
-                : "cursor-not-allowed opacity-50 hover:bg-white"
+                ? "!cursor-pointer !hover:bg-[#052d751f]"
+                : "!cursor-not-allowed !opacity-50 !hover:bg-white"
             }`}
           >
             {t("ADD_TO_CART")}
           </Button>
           <Button
             onClick={handleClickBuyNow}
-            className={`w-full bg-[#052d75] text-white min-h-11 mt-4 capitalize ${
+            className={`w-full !bg-[#052d75] !text-white !min-h-11 !mt-4 !capitalize ${
               amount &&
               cardValue &&
               cardValue?.value &&
               cardValue.value * amount > 0
-                ? "cursor-pointer hover:bg-[#30466b]"
-                : "cursor-not-allowed opacity-50 hover:bg-[#052d75] hover:text-white"
+                ? "!cursor-pointer !hover:bg-[#30466b]"
+                : "!cursor-not-allowed !opacity-50 !hover:bg-[#052d75] !hover:text-white"
             }`}
           >
             {t("BUY_NOW")}
