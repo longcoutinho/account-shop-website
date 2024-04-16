@@ -232,11 +232,11 @@ const TopupTab = ({ isQuick }: IProps) => {
       <div className="flex flex-col mt-4 items-center">
         <Button
           onClick={handleSubmit}
-          className={` w-32 bg-[#052d75] text-white min-h-11 mt-4  
+          className={`!w-32 !bg-[#052d75] !text-white !min-h-11 !mt-4  
           ${
             tierSelected && paymentMethod && (isQuick ? otp : cardCode)
-              ? "cursor-pointer hover:bg-[#30466b]"
-              : "cursor-not-allowed opacity-50 hover:bg-[#052d75] hover:text-white"
+              ? "!cursor-pointer !hover:bg-[#30466b]"
+              : "!cursor-not-allowed !opacity-50 !hover:bg-[#052d75] !hover:text-white"
           }
           `}
         >
