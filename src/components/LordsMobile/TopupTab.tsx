@@ -4,6 +4,7 @@ import {
   requestGetListPaymentMethod,
   requestGetListTier,
   requestGetToken,
+  requestGetUserFromId,
 } from "@/services/rechargeGameCard";
 import {
   Backdrop,
@@ -21,6 +22,7 @@ import CopyToClipboard from "react-copy-to-clipboard";
 import Iconify from "../Iconify";
 import { useSnackbar } from "notistack";
 import { useTranslation } from "next-i18next";
+import { SearchOutlined } from "@mui/icons-material";
 
 interface IProps {
   isQuick?: boolean;
@@ -36,6 +38,7 @@ const TopupTab = ({ isQuick }: IProps) => {
   const [openModalQr, setOpenModalQr] = useState<boolean>(false);
   const [token, setToken] = useState("");
   const [otp, setOtp] = useState("");
+  const [userNameFromID, setUserNameFromID] = useState("");
   const [listPaymentMethod, setListPaymentMethod] = useState<
     IPaymentMethodRes[]
   >([]);
@@ -109,6 +112,20 @@ const TopupTab = ({ isQuick }: IProps) => {
       navigator.clipboard.writeText(token ? token : "");
     }
   };
+
+  const handleSearchId = async () => {
+    try {
+      const res = await requestGetUserFromId(cardCode);
+      if (res?.status === HTTP_STATUS.OK) {
+        setUserNameFromID(res?.data);
+      } else {
+        toast.error(res?.response?.data);
+      }
+    } catch (e) {
+      toast.error("Không thành công");
+    }
+  };
+
   return (
     <div className="w-full">
       {/* pick card */}
@@ -155,11 +172,22 @@ const TopupTab = ({ isQuick }: IProps) => {
       <div className=" w-full">
         <div className="flex mt-8 gap-4 items-center">
           <p className="text-base font-semibold min-w-16">IGG ID: </p>
-          <input
-            className="border border-gray-300 rounded h-10"
-            value={cardCode}
-            onChange={(e) => setCardCode(e.target.value)}
-          />
+          <div className="relative w-fit h-fit">
+            <input
+              className="border border-gray-300 rounded h-10 w-60 pl-2 pr-10"
+              value={cardCode}
+              onChange={(e) => setCardCode(e.target.value)}
+            />
+            <SearchOutlined
+              onClick={handleSearchId}
+              className="absolute top-1/2 -translate-y-1/2 right-2 cursor-pointer"
+            />
+          </div>
+          {userNameFromID !== "" && (
+            <p>
+              Username: <span className="font-semibold">{userNameFromID}</span>
+            </p>
+          )}
         </div>
         {isQuick && (
           <div className="flex mt-4 sm:mt-8 gap-4 items-center flex-wrap">

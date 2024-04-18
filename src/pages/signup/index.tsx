@@ -15,6 +15,7 @@ export default function SignUp() {
 
   const SignUpForm = () => {
     const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [notify, setNotify] = useState("");
@@ -23,6 +24,7 @@ export default function SignUp() {
 
     useEffect(() => {
       setUsername("");
+      setEmail("");
       setPassword("");
       setConfirmPassword("");
       setNotify("");
@@ -40,6 +42,7 @@ export default function SignUp() {
 
     const doSignUp = async () => {
       if (isNullOrEmpty(username)) setNotify(SIGNUP_PAGE.EMPTY_USERNAME);
+      else if (isNullOrEmpty(email)) setNotify(SIGNUP_PAGE.EMPTY_EMAIL);
       else if (!isValidLength(username, 6, 12))
         setNotify(SIGNUP_PAGE.INVALID_LENGTH_USERNAME);
       else if (isNullOrEmpty(password)) setNotify(SIGNUP_PAGE.EMPTY_PASSWORD);
@@ -53,6 +56,7 @@ export default function SignUp() {
         const request = {
           username: username,
           password: password,
+          email: email,
         };
         signUp(request)
           .then((res) => {
@@ -85,6 +89,17 @@ export default function SignUp() {
                 setUsername(e.currentTarget.value);
               }}
               placeholder={t("USER_NAME")}
+            ></input>
+          </Box>
+          <Box className="input-container">
+            <label>Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.currentTarget.value);
+              }}
+              placeholder="Email"
             ></input>
           </Box>
           <Box className="input-container">

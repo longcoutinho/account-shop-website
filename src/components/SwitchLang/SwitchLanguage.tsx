@@ -22,11 +22,11 @@ const SwitchLanguage = () => {
 
   const convertArrayObject = () => {
     const arrayLanguage: { value: string; label: any }[] = [];
-    LANGUAGE.map((item) => {
+    LANGUAGE.map((item: any) => {
       arrayLanguage.push({
         value: item && item?.key.toString().toLowerCase(),
         label: (
-          <div className="flex items-center gap-[0.77rem] text-black sm:text-white">
+          <div className="flex items-center gap-[0.77rem] ">
             <Image
               src={item.image.toString()}
               width={30}
@@ -43,20 +43,19 @@ const SwitchLanguage = () => {
   };
 
   return (
-    <div className="ml-3 border-none switch-lang">
+    <div className="ml-3">
       <Select
         defaultValue={language}
-        className="sm:text-white"
+        className=""
         style={{
           width: 150,
           fontSize: "12px",
           padding: 0,
-          border: "none",
         }}
         onChange={handleChange}
       >
         {convertArrayObject()?.map((e) => (
-          <MenuItem value={e.value} className="text-black sm:text-white">
+          <MenuItem value={e.value} className="">
             {e.label}
           </MenuItem>
         ))}

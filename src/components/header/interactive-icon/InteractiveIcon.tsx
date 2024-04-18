@@ -13,31 +13,24 @@ import { RootState } from "@/redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { IListOrder } from "@/components/Payment";
 import { setBuyNow, setItemInCart } from "@/redux/slices/cart";
-import SwitchLanguage from "@/components/SwitchLang/SwitchLanguage";
-import { useMediaQuery } from "react-responsive";
 import { useTranslation } from "next-i18next";
 
 export default function InteractiveIcon() {
   const { t } = useTranslation("common");
   const dispatch = useDispatch();
-  const [balance, setBalance] = useState("0");
   const router = useRouter();
   const [user, setUser] = useState<User>();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const { itemInCart, buyNow } = useSelector((state: RootState) => state.cart);
-  const isDesktop = useMediaQuery({
-    query: "(min-width: 641px)",
-  });
 
   useEffect(() => {
     const user = getUserInfo();
     if (user !== null) {
-      setUser(user);
       getUserBalance(user.id)
         .then((res) => {
           if (res.status == HTTP_STATUS.OK) {
-            setBalance(res.data.balance);
+            setUser(res.data);
           }
         })
         .catch((err) => {
@@ -108,11 +101,13 @@ export default function InteractiveIcon() {
             <Image
               src={"/img/avatar-default.svg"}
               alt="ava"
-              width={40}
-              height={40}
-              className="bg-white rounded-full p-1  w-8 h-8 sm:w-10 sm:h-10"
+              width={32}
+              height={32}
+              className="bg-white rounded-full p-1  w-8 h-8"
             />
-            <p className="text-white">{user?.username}</p>
+            <p className="text-white">
+              {Number(user?.balance)?.toLocaleString("vi-VN")} EP
+            </p>
           </Button>
           {open && (
             <DropDownUser
@@ -124,7 +119,6 @@ export default function InteractiveIcon() {
           )}
         </>
       )}
-      {isDesktop && <SwitchLanguage />}
     </Box>
   );
 }

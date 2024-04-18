@@ -48,3 +48,8 @@ export const requestGetListTier = async (): Promise<any> => {
   const url = Backend.BASE_URL + "/top-up-item/1";
   return doGetRequest(url, null);
 };
+
+export const requestGetUserFromId = async (username: string): Promise<any> => {
+  const url = Backend.BASE_URL + `/lord-mobile/search/${username}`;
+  return doGetRequest(url, null);
+};

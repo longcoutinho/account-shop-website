@@ -1,28 +1,30 @@
 export const PAGE = {
-    TITLE: 'Admin Web'
-}
+  TITLE: "Admin Web",
+};
 
 export const COMMON_TEXT = {
-    USERNAME: "Username",
-    EMAIL_ADDRESS: "Email Address",
-    PASSWORD: "Password",
-    CONFIRM_PASSWORD: "Confirm Password",
-    LOGIN: "Login",
-    SUCCESS: "success",
-    SIGNUP: 'Sign Up',
-    COLLECTION: 'collection',
-    FULL_NAME: "Full name",
-    PHONE_NUMBER: "Phone number"
-}
+  USERNAME: "Username",
+  EMAIL_ADDRESS: "Email Address",
+  PASSWORD: "Password",
+  CONFIRM_PASSWORD: "Confirm Password",
+  LOGIN: "Login",
+  SUCCESS: "success",
+  SIGNUP: "Sign Up",
+  COLLECTION: "collection",
+  FULL_NAME: "Full name",
+  PHONE_NUMBER: "Phone number",
+};
 
 export const SIGNUP_PAGE = {
-    SIGNUP: 'sign up',
-    TITLE: 'Create Your Account To Get Full Access',
-    EMPTY_USERNAME: 'Username must not empty!',
-    INVALID_LENGTH_USERNAME: 'Username must not has length in range (6,12) characters!',
-    INVALID_LENGTH_PASSWORD: 'Password must not has length in range (6,24) characters!',
-    INVALID_CONFIRM_PASSWORD: 'Confirm password does not match',
-    EMPTY_EMAIL: 'Email must not empty!',
-    EMPTY_PASSWORD: 'Password must not empty!',
-    EMPTY_CONFIRM_PASSWORD: 'Confirm password must not empty!'
-}
+  SIGNUP: "sign up",
+  TITLE: "Create Your Account To Get Full Access",
+  EMPTY_USERNAME: "Username must not empty!",
+  INVALID_LENGTH_USERNAME:
+    "Username must not has length in range (6,12) characters!",
+  INVALID_LENGTH_PASSWORD:
+    "Password must not has length in range (6,24) characters!",
+  INVALID_CONFIRM_PASSWORD: "Confirm password does not match",
+  EMPTY_EMAIL: "Email must not empty!",
+  EMPTY_PASSWORD: "Password must not empty!",
+  EMPTY_CONFIRM_PASSWORD: "Confirm password must not empty!",
+};

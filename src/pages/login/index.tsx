@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { redirectUrl, saveUserToSessionStorage } from "@/constants/FnCommon";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
+import FacebookLogin from "react-facebook-login";
 
 export default function Login() {
   const { t } = useTranslation("common");
@@ -16,6 +17,8 @@ export default function Login() {
     const [password, setPassword] = useState("");
     const [notify, setNotify] = useState("");
     const [notifyColor, setNotifyColor] = useState("");
+    const [loginWithFB, setLoginWithFB] = useState<boolean>(false);
+
     const Notify = (props: any) => {
       return (
         <Box className="notify-text-container">
@@ -34,6 +37,7 @@ export default function Login() {
       signIn(request)
         .then((res) => {
           if (res.status == HTTP_STATUS.OK) {
+            console.log(res);
             saveUserToSessionStorage(res.data);
             redirectUrl(route, PageURL.HOME, null);
           } else {
@@ -46,7 +50,9 @@ export default function Login() {
           setNotifyColor("red");
         });
     };
-
+    const responseFacebook = (response: any) => {
+      console.log(response);
+    };
     return (
       <Box className="login-wrapper py-10 px-4 sm:px-12 sm:py-12">
         <Box className="title-container">
@@ -97,6 +103,21 @@ export default function Login() {
             {t("LOGIN")}
           </Button>
         </Box>
+        <div className="flex gap-2 items-center flex-col mt-4">
+          <p>{t("LOGIN_WITH_FB")}</p>
+          <FacebookLogin
+            appId="1125417158131722"
+            autoLoad={loginWithFB}
+            textButton=""
+            fields="name,email,picture"
+            callback={responseFacebook}
+            onClick={() => setLoginWithFB(true)}
+            cssClass="bg-white "
+            icon={
+              <img alt="" id="logo" src="/img/fb.png" height={40} width={40} />
+            }
+          />
+        </div>
       </Box>
     );
   };

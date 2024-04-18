@@ -12,8 +12,7 @@ export default function Logo() {
       className="logo-wrapper"
     >
       <Box className="logo-container">
-        <img alt="" id="logo" src="/img/fb.png" height={48} width={48} />
-        <p className="text-xl font-bold">LEKUYTOC</p>
+        <img alt="" id="logo" src="/img/logo2.png" height={140} width={140} />
       </Box>
     </Box>
   );
