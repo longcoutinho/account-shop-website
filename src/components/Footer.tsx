@@ -11,8 +11,7 @@ const Footer = () => {
       className="footer-container-page bg-gray-200 px-[5%] py-6 text-xs md:text-base"
     >
       <Box className="flex items-center gap-4 mb-4">
-        <img alt="" id="logo" src="/img/fb.png" height={48} width={48} />
-        <p className="text-xl font-bold">CÔNG TY TNHH LEKUYTOC</p>
+        <img alt="" id="logo" src="/img/logo1.png" height={240} width={240} />
       </Box>
 
       <div className="flex w-full gap-1 md:gap-6 text-[#000000DE] flex-col md:flex-row">

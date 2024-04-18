@@ -22,14 +22,17 @@ export default function Header() {
   return (
     <Box className="header-container min-h-[76px] h-20 fixed top-0 z-50">
       <Box className="header-wrapper h-full px-6">
-        <div className="flex gap-6 cursor-pointer">
+        <div className="flex gap-6 cursor-pointer items-center">
           <MenuOutlined onClick={toggleDrawer(true)} />
-          <p
+          <img
+            className="hidden sm:block"
             onClick={() => router.push(PageURL.HOME)}
-            className="text-xl font-semibold hidden sm:block"
-          >
-            LEKUYTOC
-          </p>
+            alt=""
+            id="logo"
+            src="/img/logo1.png"
+            height={200}
+            width={200}
+          />
         </div>
         <Drawer open={open} onClose={toggleDrawer(false)}>
           <HorizonHeader />

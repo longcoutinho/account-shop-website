@@ -1,4 +1,4 @@
-import { PAGE_TITLE, PageURL } from "@/constants";
+import { HTTP_STATUS, PAGE_TITLE, PageURL } from "@/constants";
 import Page from "@/layouts";
 import { Box, Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
+import { getUserBalance } from "@/services/userService";
 
 export default function Profile() {
   const { t } = useTranslation("common");
@@ -15,7 +16,18 @@ export default function Profile() {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    setUser(getUserInfo());
+    const user = getUserInfo();
+    if (user !== null) {
+      getUserBalance(user.id)
+        .then((res) => {
+          if (res.status == HTTP_STATUS.OK) {
+            setUser(res.data);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, []);
 
   return (
@@ -32,10 +44,8 @@ export default function Profile() {
               className="mx-auto bg-white rounded-full border border-gray-400 p-3"
             />
             <div className="flex gap-3 w-full">
-              <p className="w-36">{t("FULL_NAME")}: </p>
-              <p className="text-red-500 font-medium">
-                {user?.fullName || "Nguyễn Thị Phương mai"}
-              </p>
+              <p className="w-36">E-Point: </p>
+              <p className="text-red-500 font-medium">{user?.balance} EP</p>
             </div>
             <div className="flex gap-3 w-full">
               <p className="w-36">{t("USER_NAME")}: </p>
@@ -45,12 +55,6 @@ export default function Profile() {
               <p className="w-36">Email: </p>
               <p className="text-red-500 font-medium">
                 {user?.email || "maitho3101@gmail.com"}
-              </p>
-            </div>
-            <div className="flex gap-3 w-full">
-              <p className="w-36">{t("PHONE_NUMBER")}: </p>
-              <p className="text-red-500 font-medium">
-                {user?.phoneNumber || "0816928986"}
               </p>
             </div>
             <Button
