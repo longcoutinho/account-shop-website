@@ -1,6 +1,9 @@
 import { Box } from "@mui/material";
 import Container from "@mui/system/Container";
+import { useTranslation } from "next-i18next";
+
 const Footer = () => {
+  const { t } = useTranslation("common");
   return (
     <Container
       disableGutters
@@ -15,11 +18,11 @@ const Footer = () => {
       <div className="flex w-full gap-1 md:gap-6 text-[#000000DE] flex-col md:flex-row">
         <div className=" w-full md:w-2/3 flex flex-col gap-1">
           <p>
-            Đăng ký kinh doanh số:{" "}
+            {t("BUSINESS_REGISTER")}:{" "}
             <span className="font-semibold">4900896509</span>
           </p>
           <p>
-            Địa chỉ:{" "}
+            {t("ADDRESS")} :{" "}
             <span className="font-semibold">
               {" "}
               197 đường Bắc Sơn, phường Hoàng Văn Thụ, TP Lạng Sơn, tỉnh Lạng

@@ -26,7 +26,7 @@ const SwitchLanguage = () => {
       arrayLanguage.push({
         value: item && item?.key.toString().toLowerCase(),
         label: (
-          <div className="flex items-center gap-[0.77rem]">
+          <div className="flex items-center gap-[0.77rem] text-black sm:text-white">
             <Image
               src={item.image.toString()}
               width={30}
@@ -42,24 +42,27 @@ const SwitchLanguage = () => {
     return arrayLanguage;
   };
 
-  return null;
-  // <div className="ml-3 border border-[#ffffff67] rounded-md ">
-  //   <Select
-  //     defaultValue={language}
-  //     className="sm:text-white"
-  //     style={{
-  //       width: 150,
-  //       fontSize: "12px",
-  //       padding: 0,
-  //       border: "none",
-  //     }}
-  //     onChange={handleChange}
-  //   >
-  //     {convertArrayObject()?.map((e) => (
-  //       <MenuItem value={e.value}>{e.label}</MenuItem>
-  //     ))}
-  //   </Select>
-  // </div>
+  return (
+    <div className="ml-3 border-none switch-lang">
+      <Select
+        defaultValue={language}
+        className="sm:text-white"
+        style={{
+          width: 150,
+          fontSize: "12px",
+          padding: 0,
+          border: "none",
+        }}
+        onChange={handleChange}
+      >
+        {convertArrayObject()?.map((e) => (
+          <MenuItem value={e.value} className="text-black sm:text-white">
+            {e.label}
+          </MenuItem>
+        ))}
+      </Select>
+    </div>
+  );
 };
 
 export default SwitchLanguage;

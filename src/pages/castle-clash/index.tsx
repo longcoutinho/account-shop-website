@@ -1,9 +1,12 @@
 import Page from "@/layouts";
 import { PAGE_TITLE } from "@/constants";
 import dynamic from "next/dynamic";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+
 const TopupTab = dynamic(() => import("@/components/LordsMobile/TopupTab"), {
   ssr: false,
 });
+
 const CastleClashPage = () => {
   return (
     <Page title={PAGE_TITLE.LORDS_MOBILE} menuIndex={1}>
@@ -14,3 +17,10 @@ const CastleClashPage = () => {
 };
 export default CastleClashPage;
 
+export async function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}

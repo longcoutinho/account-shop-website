@@ -11,9 +11,6 @@
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
-  --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
-    "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
-    "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
   --item-blue: #0000ff;
   --primary-glow: conic-gradient(
     from 180deg at 50% 50%,
@@ -112,8 +109,17 @@ a {
   }
 }
 
-@import url("https://fonts.googleapis.com/css?family=Inter");
-
+.css-6hp17o-MuiList-root-MuiMenu-list {
+  @apply bg-white sm:bg-gray-500;
+}
+.switch-lang {
+  svg {
+    @apply sm:text-white;
+  }
+  fieldset {
+    @apply sm:border-none;
+  }
+}
 body {
   font-family: "Sora", sans-serif;
   background: #f9f9f9;

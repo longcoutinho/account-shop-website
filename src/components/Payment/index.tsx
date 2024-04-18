@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { setItemInCart } from "@/redux/slices/cart";
+import { useTranslation } from "next-i18next";
 
 export interface IListOrder {
   item: {
@@ -25,6 +26,7 @@ export interface IListOrder {
   amount: number;
 }
 const Payment = () => {
+  const { t } = useTranslation("common");
   const router = useRouter();
   const dispatch = useDispatch();
   const { buyNow, orderDetail } = useSelector((state: RootState) => state.cart);
@@ -127,42 +129,46 @@ const Payment = () => {
                 listOder?.map((o, index) => (
                   <div
                     key={index}
-                    className="flex justify-between border-gray-200 border px-4 py-2 mb-4 relative"
+                    className="flex justify-between gap-4 border-gray-200 border px-4 py-2 mb-4 relative"
                   >
-                    <div className="flex items-center gap-3">
-                      <Image
-                        src={o?.item?.image}
-                        alt="order"
-                        width={90}
-                        height={50}
-                        className="h-[50px]"
-                      />
-                      <p>{o?.item?.name}</p>
+                    <div className="flex w-[90%] xs:w-[95%] flex-col md:flex-row">
+                      <div className="flex items-center justify-start xxs:justify-center md:justify-start gap-3 w-full md:w-1/2">
+                        <Image
+                          src={o?.item?.image}
+                          alt="order"
+                          width={90}
+                          height={50}
+                          className="h-[50px]"
+                        />
+                        <p>{o?.item?.name}</p>
+                      </div>
+                      <div className="w-full md:w-1/2 flex justify-between items-start xxs:items-center flex-col xxs:flex-row">
+                        <p className="">
+                          {t("QUANTITY")}:{" "}
+                          <span className=" font-semibold">{o.amount}</span>
+                        </p>
+                        <p>
+                          {t("PRICE")}:{" "}
+                          <span className=" font-semibold">
+                            {(o.price * o.amount).toLocaleString("vi-VN")}đ
+                          </span>
+                        </p>
+                      </div>
                     </div>
-                    <div className="w-1/2 flex justify-between items-center">
-                      <p className="">
-                        Số lượng:{" "}
-                        <span className=" font-semibold">{o.amount}</span>
-                      </p>
-                      <p>
-                        Giá tiền:{" "}
-                        <span className=" font-semibold">
-                          {(o.price * o.amount).toLocaleString("vi-VN")}đ
-                        </span>
-                      </p>
+                    <div className="w-[10%] xs:w-[5%] flex items-center justify-center">
+                      <Button
+                        style={{ border: "1px solid red" }}
+                        onClick={() => handleDeleteItem(o.item.id, o.cardId)}
+                        className="border !text-red-500 !font-bold !w-6 !h-6 !min-w-6 "
+                      >
+                        X
+                      </Button>
                     </div>
-                    <Button
-                      style={{ border: "1px solid red" }}
-                      onClick={() => handleDeleteItem(o.item.id, o.cardId)}
-                      className=" absolute top-5 -right-10 border text-red-500 font-bold w-6 h-6"
-                    >
-                      X
-                    </Button>
                   </div>
                 ))}
             </div>
             <p className="text-right w-full text-xl font-semibold mt-4">
-              Tổng tiền:{" "}
+              {t("TOTAL")}:{" "}
               <span className=" font-semibold text-2xl text-red-500">
                 {totalPrice.toLocaleString("vi-VN")}đ
               </span>
@@ -170,7 +176,7 @@ const Payment = () => {
           </div>
           <div className=" w-full">
             <p className="w-fit py-2 px-4 my-4 mx-auto">
-              Chọn phương thức thanh toán:
+              {t("SELECT_PAYMENT")}:
             </p>
             <div className=" w-full flex justify-center flex-wrap gap-3">
               {listPaymentMethod &&
@@ -199,10 +205,10 @@ const Payment = () => {
             <div className="w-full flex justify-center mt-4">
               <Button
                 onClick={handleBuyCard}
-                className={`w-[120px] mx-auto bg-[#052d75] text-white min-h-11 mt-4 capitalize ${
+                className={`!w-[120px] !mx-auto !bg-[#052d75] !text-white !min-h-11 !mt-4 !capitalize ${
                   paymentMethod
-                    ? "cursor-pointer hover:bg-[#30466b]"
-                    : "cursor-not-allowed opacity-50 hover:bg-[#052d75] hover:text-white"
+                    ? "!cursor-pointer !hover:bg-[#30466b]"
+                    : "!cursor-not-allowed !opacity-50 !hover:bg-[#052d75] !hover:text-white"
                 }`}
               >
                 {loading && (
@@ -212,7 +218,7 @@ const Payment = () => {
                     className="mr-2"
                   />
                 )}
-                Thanh toán
+                {t("PAYMENT")}
               </Button>
             </div>
           </div>
@@ -220,7 +226,7 @@ const Payment = () => {
       ) : (
         <>
           <div className="mx-auto text-4xl font-bold border border-gray-500 border-dashed px-20 py-32 w-fit mt-6">
-            Giỏ hàng trống
+            {t("EMPTY_CART")}
           </div>
           <Button
             onClick={() => {
@@ -228,7 +234,7 @@ const Payment = () => {
             }}
             className={`w-[200px] bg-[#052d75] text-white min-h-11 mt-4 mx-auto cursor-pointer hover:bg-[#30466b] capitalize`}
           >
-            Tiếp tục mua sắm
+            {t("CONTINUE_SHOPPING")}
           </Button>
         </>
       )}
