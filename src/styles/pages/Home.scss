@@ -55,16 +55,17 @@
 .swiper-button-next {
   color: white;
   background-color: rgba(41, 38, 33, 0.2);
-  height: 100px !important;
-  width: 50px !important;
+  height: 60px !important;
+  width: 60px !important;
+  border-radius: 100%;
 }
 
 .swiper-button-prev {
-  left: 0 !important;
+  left: 4px !important;
 }
 
 .swiper-button-next {
-  right: 0 !important;
+  right: 20px !important;
 }
 
 .swiper-button-prev:after,
