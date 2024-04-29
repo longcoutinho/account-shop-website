@@ -8,6 +8,10 @@ import { redirectUrl, saveUserToSessionStorage } from "@/constants/FnCommon";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import FacebookLogin from "react-facebook-login";
+import { useGoogleLogin } from "@react-oauth/google";
+import Image from "next/image";
+import TwitterLogin from "react-twitter-login";
+import { ENVIROMENTS } from "@/utils/login";
 
 export default function Login() {
   const { t } = useTranslation("common");
@@ -52,6 +56,19 @@ export default function Login() {
     };
     const responseFacebook = (response: any) => {
       console.log(response);
+    };
+
+    const handleLoginWithGG = useGoogleLogin({
+      onSuccess: (tokenResponse) => console.log(tokenResponse),
+      onError: (er) => console.log(er),
+    });
+
+    const handleLoginWithX = (err: any, data: any) => {
+      try {
+        console.log(err, data);
+      } catch (e) {
+        console.log(e);
+      }
     };
     return (
       <Box className="login-wrapper py-10 px-4 sm:px-12 sm:py-12">
@@ -103,19 +120,32 @@ export default function Login() {
             {t("LOGIN")}
           </Button>
         </Box>
-        <div className="flex gap-2 items-center flex-col mt-4">
-          <p>{t("LOGIN_WITH_FB")}</p>
+        <div className="flex gap-2 items-center flex-col mt-4 ">
+          <p>Other login methods</p>
           <FacebookLogin
-            appId="1125417158131722"
+            appId={ENVIROMENTS.FB_APP_ID}
             autoLoad={loginWithFB}
-            textButton=""
+            textButton="Login with facebook"
             fields="name,email,picture"
             callback={responseFacebook}
             onClick={() => setLoginWithFB(true)}
-            cssClass="bg-white "
+            cssClass="bg-white w-[216px] h-[47px] flex items-center gap-2 border px-4 font-semibold py-2 text-[#1a73e8] border-[#1a73e8] rounded-[32px]"
             icon={
-              <img alt="" id="logo" src="/img/fb.png" height={40} width={40} />
+              <img alt="" id="logo" src="/img/fb.png" height={24} width={24} />
             }
+          />
+          <div
+            onClick={() => handleLoginWithGG()}
+            style={{ border: "1px solid black" }}
+            className="bg-white mx-auto w-[216px] h-[47px] flex items-center gap-2 px-4 font-semibold !text-black py-2 rounded-[32px] capitalize"
+          >
+            <Image src={"/img/gg.png"} alt="logo-gg" width={24} height={24} />
+            <p>Login with Google</p>
+          </div>
+          <TwitterLogin
+            authCallback={handleLoginWithX}
+            consumerKey={ENVIROMENTS.X_CONSUMER_KEY}
+            consumerSecret={ENVIROMENTS.X_SECRET_KEY}
           />
         </div>
       </Box>
