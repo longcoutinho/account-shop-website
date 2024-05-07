@@ -65,6 +65,7 @@
     "stylis-plugin-rtl": "^2.1.1",
     "swiper": "^9.2.0",
     "tailwind": "^4.0.0",
+    "telegram-login-button": "^0.1.0",
     "typescript": "5.0.2",
     "universal-cookie": "^7.1.0",
     "yup": "^1.0.2"

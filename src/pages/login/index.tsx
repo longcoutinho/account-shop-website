@@ -12,6 +12,7 @@ import { useGoogleLogin } from "@react-oauth/google";
 import Image from "next/image";
 import TwitterLogin from "react-twitter-login";
 import { ENVIROMENTS } from "@/utils/login";
+import TelegramLoginButton, { TelegramUser } from "telegram-login-button";
 
 export default function Login() {
   const { t } = useTranslation("common");
@@ -146,6 +147,10 @@ export default function Login() {
             authCallback={handleLoginWithX}
             consumerKey={ENVIROMENTS.X_CONSUMER_KEY}
             consumerSecret={ENVIROMENTS.X_SECRET_KEY}
+          />
+          <TelegramLoginButton
+            botName="game_card_bot"
+            dataOnauth={(user: TelegramUser) => console.log(user)}
           />
         </div>
       </Box>
