@@ -23,6 +23,10 @@ const Page = (props: any) => {
     <div style={{ display: "flex", flexDirection: "row" }}>
       <Head>
         <title>{PAGE_TITLE.PREFIX + title}</title>
+        <meta
+          name="facebook-domain-verification"
+          content="53vm0p6q4svrormxgulw8etr59u84l"
+        />
       </Head>
       <NotificationWrapper />
       <Box className="w-full flex flex-col h-screen overflow-y-auto overflow-x-hidden">
