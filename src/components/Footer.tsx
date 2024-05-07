@@ -10,10 +10,12 @@ const Footer = () => {
       maxWidth={false}
       className="footer-container-page bg-gray-200 px-[5%] py-6 text-xs md:text-base"
     >
-      <Box className="flex items-center gap-4 mb-4">
-        <img alt="" id="logo" src="/img/logo1.png" height={240} width={240} />
+      <Box className="flex md:items-center flex-col md:flex-row gap-1 w-full">
+        <Box className="flex items-center mb-4  w-full md:w-2/3  ">
+          <img alt="" id="logo" src="/img/logo1.png" height={240} width={240} />
+        </Box>
+        <p className="text-xl font-bold ">CÔNG TY TNHH LEKUYTOC</p>
       </Box>
-
       <div className="flex w-full gap-1 md:gap-6 text-[#000000DE] flex-col md:flex-row">
         <div className=" w-full md:w-2/3 flex flex-col gap-1">
           <p>
