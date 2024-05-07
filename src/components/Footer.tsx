@@ -14,7 +14,7 @@ const Footer = () => {
         <Box className="flex items-center mb-4  w-full md:w-2/3  ">
           <img alt="" id="logo" src="/img/logo1.png" height={240} width={240} />
         </Box>
-        <p className="text-xl font-bold ">CÔNG TY TNHH LEKUYTOC</p>
+        <p className="text-xl font-bold ">CÔNG TY TNHH LE KUYTOC</p>
       </Box>
       <div className="flex w-full gap-1 md:gap-6 text-[#000000DE] flex-col md:flex-row">
         <div className=" w-full md:w-2/3 flex flex-col gap-1">
