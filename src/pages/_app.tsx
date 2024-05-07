@@ -15,6 +15,7 @@ import { store } from "@/redux/store";
 import { appWithTranslation } from "next-i18next";
 // Prevent fontawesome from adding its CSS since we did it manually above:
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { ENVIROMENTS } from "@/utils/login";
 
 const counter = (state = 0, action: any) => {
   switch (action.type) {
@@ -46,7 +47,7 @@ const allReducers = combineReducers({
 
 function App({ Component, pageProps }: AppProps) {
   return (
-    <GoogleOAuthProvider clientId="92675223390-aqr5uibbnvuob511qqp4fs6faitfsaea.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId={ENVIROMENTS.GG_CLIENT_ID}>
       <Provider store={store}>
         <Component {...pageProps} />
       </Provider>
