@@ -106,7 +106,7 @@ export default function Login() {
         <div className="flex gap-2 items-center flex-col mt-4">
           <p>{t("LOGIN_WITH_FB")}</p>
           <FacebookLogin
-            appId="1125417158131722"
+            appId="425036606901408"
             autoLoad={loginWithFB}
             textButton=""
             fields="name,email,picture"
