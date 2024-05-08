@@ -13,6 +13,7 @@ import Image from "next/image";
 import TwitterLogin from "react-twitter-login";
 import { ENVIROMENTS } from "@/utils/login";
 import TelegramLoginButton, { TelegramUser } from "telegram-login-button";
+import { signIn as signInX } from "next-auth/react";
 
 export default function Login() {
   const { t } = useTranslation("common");
@@ -143,6 +144,13 @@ export default function Login() {
             <Image src={"/img/gg.png"} alt="logo-gg" width={24} height={24} />
             <p>Login with Google</p>
           </div>
+          <button
+            onClick={() =>
+              signInX("twitter", { callbackUrl: "http://localhost:3000" })
+            }
+          >
+            Sign in
+          </button>
           <TwitterLogin
             authCallback={handleLoginWithX}
             consumerKey={ENVIROMENTS.X_CONSUMER_KEY}

@@ -6,8 +6,11 @@ import { Box } from "@mui/material";
 import NotificationWrapper from "@/components/NotificationWrapper";
 import Footer from "@/components/Footer";
 import SlideBanner from "./SlideBanner";
+import { useSession } from "next-auth/react";
 
 export default function HomePage() {
+  const { data: session, status } = useSession();
+  console.log(status, session);
   return (
     <div style={{ display: "flex", flexDirection: "row" }}>
       <Head>
