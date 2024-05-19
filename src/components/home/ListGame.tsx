@@ -31,7 +31,7 @@ const ListGames = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 xxs:grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3 w-full mt-10">
+    <div className="grid grid-cols-1 xxs:grid-cols-2 sm:grid-cols-3 xl:grid-cols-3 gap-3 w-full mt-10">
       {[...gameCard, ...listGames]?.map((g) => (
         <Link
           href={g?.router ? g.router : PageURL.HOME}
@@ -45,7 +45,7 @@ const ListGames = () => {
             alt="home"
             width={200}
             height={200}
-            className={`w-full h-[170px] rounded-t-lg mx-auto 2 ${
+            className={`w-full h-[180px] xl:h-[240px] rounded-t-lg mx-auto 2 ${
               g.id === 9999999 && "object-contain"
             }`}
           />

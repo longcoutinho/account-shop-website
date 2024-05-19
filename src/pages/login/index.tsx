@@ -125,61 +125,46 @@ export default function Login() {
         <div className="flex gap-2 items-center flex-col mt-4 ">
           <p>Other login methods</p>
           <div className="flex gap-4">
-            <div className="flex gap-4 flex-col">
-              <FacebookLogin
-                appId={ENVIROMENTS.FB_APP_ID}
-                autoLoad={loginWithFB}
-                textButton="Login with facebook"
-                fields="name,email,picture"
-                callback={responseFacebook}
-                onClick={() => setLoginWithFB(true)}
-                cssClass="bg-white w-[216px] h-[47px] flex items-center gap-2 border px-4 font-semibold py-2 text-[#1a73e8] border-[#1a73e8] rounded-[32px]"
-                icon={
-                  <img
-                    alt=""
-                    id="logo"
-                    src="/img/fb.png"
-                    height={24}
-                    width={24}
-                  />
-                }
-              />
-              <div
-                onClick={() => handleLoginWithGG()}
-                style={{ border: "1px solid black" }}
-                className="bg-white mx-auto w-[216px] h-[47px] flex items-center gap-2 px-4 font-semibold !text-black py-2 rounded-[32px] capitalize"
-              >
-                <Image
-                  src={"/img/gg.png"}
-                  alt="logo-gg"
-                  width={24}
-                  height={24}
+            <FacebookLogin
+              appId={ENVIROMENTS.FB_APP_ID}
+              autoLoad={loginWithFB}
+              textButton=""
+              fields="name,email,picture"
+              callback={responseFacebook}
+              onClick={() => setLoginWithFB(true)}
+              cssClass="w-fit h-fit flex items-center"
+              icon={
+                <img
+                  alt=""
+                  id="logo"
+                  src="/img/fb.png"
+                  height={50}
+                  width={50}
                 />
-                <p>Login with Google</p>
-              </div>
-            </div>
-            <div className="flex gap-4 flex-col">
-              {" "}
-              <div
-                onClick={() =>
-                  signInX("twitter", { callbackUrl: "https://elitagame.com" })
-                }
-                style={{ border: "1px solid black" }}
-                className="bg-white mx-auto w-[216px] h-[47px] flex items-center gap-2 px-4 font-semibold !text-black py-2 rounded-[32px] capitalize"
-              >
-                <Image
-                  src={"/img/x.png"}
-                  alt="logo-gg"
-                  width={24}
-                  height={24}
-                />
-                <p>Login with X</p>
-              </div>
-              <TelegramLoginButton
-                botName="game_card_bot"
-                dataOnauth={(user: TelegramUser) => console.log(user)}
-              />
-            </div>
+              }
+            />
+            <Image
+              onClick={() => handleLoginWithGG()}
+              src={"/img/gg.png"}
+              alt="logo-gg"
+              width={50}
+              height={50}
+              className=" cursor-pointer"
+            />
+            <Image
+              onClick={() =>
+                signInX("twitter", { callbackUrl: "https://elitagame.com" })
+              }
+              src={"/img/x.png"}
+              alt="logo-gg"
+              width={50}
+              height={50}
+              className=" cursor-pointer"
+            />
+            <TelegramLoginButton
+              botName="game_card_bot"
+              dataOnauth={(user: TelegramUser) => console.log(user)}
+            />
           </div>
         </div>
       </Box>
