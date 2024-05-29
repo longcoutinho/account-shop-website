@@ -30,6 +30,10 @@ const Footer = () => {
               Sơn, Việt Nam
             </span>
           </p>
+          <Box>
+            <a href="/terms-of-service" style={{fontWeight: 500}}>Term of Services</a>
+            <a href="/privacy-policy" style={{marginLeft: "20px", fontWeight: 500}}>Privacy Policy</a>
+          </Box>
         </div>
         <div className=" w-full md:w-1/3 flex-col gap-1">
           <p>
