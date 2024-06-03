@@ -130,7 +130,10 @@ export default function Login() {
             <Link href={PageURL.SIGNUP}>{t("SIGNUP")}</Link>
             <p>{t("HERE")}</p>
           </Box>
-          <Button onClick={() => doSignIn({})} className="login-button">
+          <Button
+            onClick={() => doSignIn({ loginMethod: LOGIN_METHOD.DIRECT })}
+            className="login-button"
+          >
             {t("LOGIN")}
           </Button>
         </Box>
