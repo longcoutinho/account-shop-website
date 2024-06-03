@@ -1,7 +1,7 @@
 export enum LOGIN_METHOD {
-  DIRECT = 1,
-  FACEBOOK = 2,
-  GOOGLE = 3,
-  X = 4,
-  TELEGRAM = 5,
+  DIRECT = "DIRECT",
+  FACEBOOK = "FACEBOOK",
+  GOOGLE = "GOOGLE",
+  X = "X",
+  TELEGRAM = "TELEGRAM",
 }
