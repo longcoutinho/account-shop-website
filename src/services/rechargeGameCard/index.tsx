@@ -20,7 +20,7 @@ export const requestGetItemCard = async (id: string): Promise<any> => {
 export const requestCreateOrder = async (
   body: ICreateOrderReq
 ): Promise<any> => {
-  const url = Backend.BASE_URL + "/sale-order/create";
+  const url = Backend.BASE_URL + "/card/order";
   const request = body;
   return doPostRequest(url, request);
 };

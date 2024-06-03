@@ -70,11 +70,10 @@ const Payment = () => {
       if (paymentMethod) {
         setLoading(true);
         const res = await requestCreateOrder({
-          orderList: listOder?.map((o) => {
-            return { itemId: o?.item?.id, amount: o.amount };
+          cardInfo: listOder?.map((o) => {
+            return { cardId: o?.item?.id, quantity: o.amount };
           }),
-          price: totalPrice,
-          method: paymentMethod?.id,
+          paymentMethodCode: paymentMethod?.code,
         });
 
         if (res?.status === HTTP_STATUS.OK) {

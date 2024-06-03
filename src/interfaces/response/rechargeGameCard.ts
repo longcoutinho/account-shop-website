@@ -15,8 +15,10 @@ export interface ICardsRes {
 
 export interface IPaymentMethodRes {
   id: number;
+  isActive: number;
   name: string;
   image: string;
+  code: string;
 }
 
 export interface IItemCardRes {
