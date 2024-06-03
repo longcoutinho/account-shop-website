@@ -14,6 +14,12 @@ import TwitterLogin from "react-twitter-login";
 import { ENVIROMENTS } from "@/utils/login";
 import TelegramLoginButton, { TelegramUser } from "telegram-login-button";
 import { signIn as signInX } from "next-auth/react";
+import { LOGIN_METHOD } from "@/constants/Login";
+
+interface ILogin {
+  loginMethod: LOGIN_METHOD;
+  accessToken?: string;
+}
 
 export default function Login() {
   const { t } = useTranslation("common");
@@ -35,8 +41,10 @@ export default function Login() {
       );
     };
 
-    const doSignIn = async () => {
+    const doSignIn = async ({ loginMethod, accessToken }: ILogin) => {
       const request = {
+        loginMethod: loginMethod,
+        accessToken: accessToken,
         username: username,
         password: password,
       };
@@ -61,7 +69,11 @@ export default function Login() {
     };
 
     const handleLoginWithGG = useGoogleLogin({
-      onSuccess: (tokenResponse) => console.log(tokenResponse),
+      onSuccess: (tokenResponse) =>
+        doSignIn({
+          loginMethod: LOGIN_METHOD.GOOGLE,
+          accessToken: tokenResponse.access_token,
+        }),
       onError: (er) => console.log(er),
     });
 
@@ -118,7 +130,10 @@ export default function Login() {
             <Link href={PageURL.SIGNUP}>{t("SIGNUP")}</Link>
             <p>{t("HERE")}</p>
           </Box>
-          <Button onClick={doSignIn} className="login-button">
+          <Button
+            onClick={() => doSignIn({ loginMethod: LOGIN_METHOD.DIRECT })}
+            className="login-button"
+          >
             {t("LOGIN")}
           </Button>
         </Box>
