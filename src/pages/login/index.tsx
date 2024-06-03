@@ -18,7 +18,7 @@ import { LOGIN_METHOD } from "@/constants/Login";
 
 interface ILogin {
   loginMethod: LOGIN_METHOD;
-  accessToken?: string;
+  accessToken?: string | number;
 }
 
 export default function Login() {
@@ -178,7 +178,12 @@ export default function Login() {
             />
             <TelegramLoginButton
               botName="game_card_bot"
-              dataOnauth={(user: TelegramUser) => console.log(user)}
+              dataOnauth={(user: TelegramUser) =>
+                doSignIn({
+                  loginMethod: LOGIN_METHOD.TELEGRAM,
+                  accessToken: user.id,
+                })
+              }
             />
           </div>
         </div>
