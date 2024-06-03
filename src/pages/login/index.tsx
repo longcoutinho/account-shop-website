@@ -48,7 +48,7 @@ export default function Login() {
         username: username,
         password: password,
       };
-      signIn(request)
+      await signIn(request)
         .then((res) => {
           if (res.status == HTTP_STATUS.OK) {
             console.log(res);
@@ -176,16 +176,17 @@ export default function Login() {
               height={50}
               className=" cursor-pointer"
             />
-            <TelegramLoginButton
-              botName="game_card_bot"
-              dataOnauth={(user: TelegramUser) =>
-                doSignIn({
-                  loginMethod: LOGIN_METHOD.TELEGRAM,
-                  accessToken: user.id,
-                })
-              }
-            />
           </div>
+          <TelegramLoginButton
+            botName="game_card_bot"
+            cornerRadius={500}
+            dataOnauth={(user: TelegramUser) =>
+              doSignIn({
+                loginMethod: LOGIN_METHOD.TELEGRAM,
+                accessToken: user.id.toString(),
+              })
+            }
+          />
         </div>
       </Box>
     );
