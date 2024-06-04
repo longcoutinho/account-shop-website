@@ -61,7 +61,7 @@ const Payment = () => {
         setListPaymentMethod(res?.data);
       }
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   };
 
