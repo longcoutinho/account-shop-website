@@ -71,7 +71,7 @@ const Payment = () => {
         setLoading(true);
         const res = await requestCreateOrder({
           cardInfo: listOder?.map((o) => {
-            return { cardId: o?.item?.id, quantity: o.amount };
+            return { cardItemId: o?.cardId, quantity: o.amount };
           }),
           paymentMethodCode: paymentMethod?.code,
         });
