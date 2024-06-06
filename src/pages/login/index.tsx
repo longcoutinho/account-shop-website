@@ -67,7 +67,7 @@ export default function Login() {
     const responseFacebook = (response: any) => {
       doSignIn({
         loginMethod: LOGIN_METHOD.FACEBOOK,
-        accessToken: response?.userID.toString(),
+        accessToken: response?.userID?.toString(),
       });
     };
 
