@@ -65,7 +65,10 @@ export default function Login() {
         });
     };
     const responseFacebook = (response: any) => {
-      console.log(response);
+      doSignIn({
+        loginMethod: LOGIN_METHOD.FACEBOOK,
+        accessToken: response?.userID.toString(),
+      });
     };
 
     const handleLoginWithGG = useGoogleLogin({
@@ -166,7 +169,7 @@ export default function Login() {
               height={50}
               className=" cursor-pointer"
             />
-            <Image
+            {/* <Image
               onClick={() =>
                 signInX("twitter", { callbackUrl: "https://elitagame.com" })
               }
@@ -175,7 +178,7 @@ export default function Login() {
               width={50}
               height={50}
               className=" cursor-pointer"
-            />
+            /> */}
           </div>
           <TelegramLoginButton
             botName="game_card_bot"

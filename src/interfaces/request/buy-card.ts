@@ -1,4 +1,4 @@
 export interface ICreateOrderReq {
-  cardInfo?: { cardId: number; quantity: number }[];
+  cardInfo?: { cardItemId: number; quantity: number }[];
   paymentMethodCode: string;
 }
