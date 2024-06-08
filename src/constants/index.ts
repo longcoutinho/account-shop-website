@@ -3,7 +3,7 @@ import { PATH_PAGE } from "@/routes/path";
 
 export enum Backend {
   BASE_URL = "https://elitagame.online",
-  // BASE_URL = "http://58.186.176.214:8989",
+  // BASE_URL = "http://42.118.38.110:8989",
   // BASE_URL = 'http://localhost:8989',
   USER_SERVICE = BASE_URL + "/user",
   GAME_SERVICE = BASE_URL + "/game",
@@ -39,6 +39,7 @@ export enum PAGE_TITLE {
   HISTORY = "TRANSACTION_HISTORY",
   LORDS_MOBILE = "Lords mobile",
   CASTLE_CLASH = "Castle clash",
+  ORDER = "Order",
 }
 
 export const HomePage = {
