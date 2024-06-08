@@ -8,6 +8,6 @@ export const createOrder = async (request: Order): Promise<any> => {
 };
 
 export const getAllSaleOrders = async (): Promise<any> => {
-  const url = Backend.SALE_ORDER_SERVICE + "/list";
+  const url = Backend.CARD_SERVICE + "/order";
   return doGetRequest(url, null);
 };

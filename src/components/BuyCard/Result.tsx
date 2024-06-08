@@ -72,6 +72,7 @@ const ReSultSelectCard = ({ card, cardValue, amount, reset }: IProps) => {
     ) {
       const data = {
         item: card,
+        cardId: cardValue.id,
         price: cardValue.value,
         amount: amount || 0,
       };
@@ -110,16 +111,19 @@ const ReSultSelectCard = ({ card, cardValue, amount, reset }: IProps) => {
         </div>
         <div className="flex gap-3">
           <Button
-            onClick={handleAddtoCart}
+            disabled
+            // onClick={handleAddtoCart}
             style={{ border: "1px solid #0e1522" }}
-            className={`w-full  !text-[#052d75] !min-h-11 !mt-4 !capitalize ${
-              amount &&
-              cardValue &&
-              cardValue?.value &&
-              cardValue.value * amount > 0
-                ? "!cursor-pointer !hover:bg-[#052d751f]"
-                : "!cursor-not-allowed !opacity-50 !hover:bg-white"
-            }`}
+            className={`w-full  !text-[#052d75] !min-h-11 !mt-4 !capitalize opacity-50
+               ${
+                 amount &&
+                 cardValue &&
+                 cardValue?.value &&
+                 cardValue.value * amount > 0
+                   ? "!cursor-pointer !hover:bg-[#052d751f]"
+                   : "!cursor-not-allowed !opacity-50 !hover:bg-white"
+               }
+            `}
           >
             {t("ADD_TO_CART")}
           </Button>

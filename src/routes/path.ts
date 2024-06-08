@@ -27,4 +27,7 @@ export const PATH_PAGE = {
     tutru: path(ROOTS_PAGE, "lapla/tutru"),
     thansohoc: path(ROOTS_PAGE, "lapla/thansohoc"),
   },
+  history: {
+    root: path(ROOTS_PAGE, "history"),
+  },
 };

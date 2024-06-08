@@ -25,6 +25,12 @@ export const requestCreateOrder = async (
   return doPostRequest(url, request);
 };
 
+export const requestGetOrderInfo = async (orderId: string): Promise<any> => {
+  const url = Backend.BASE_URL + "/card/order/info";
+  const request = { orderId: orderId };
+  return doPostRequest(url, request);
+};
+
 export const requestGetListPaymentMethod = async (): Promise<any> => {
   const url = Backend.BASE_URL + "/payment/method";
   return doGetRequest(url, null);

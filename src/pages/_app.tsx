@@ -11,12 +11,12 @@ import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import { combineReducers } from "redux";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import { store } from "@/redux/store";
 import { appWithTranslation } from "next-i18next";
 // Prevent fontawesome from adding its CSS since we did it manually above:
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { ENVIROMENTS } from "@/utils/login";
 import { SessionProvider } from "next-auth/react";
+import { store } from "@/redux/store";
 
 const counter = (state = 0, action: any) => {
   switch (action.type) {
