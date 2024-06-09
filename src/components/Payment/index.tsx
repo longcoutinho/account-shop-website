@@ -9,14 +9,13 @@ import { HTTP_STATUS, LOCALSTORAGE_KEY, PageURL } from "@/constants";
 import { Button, CircularProgress } from "@mui/material";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
-import { RootState } from "@/redux/store";
+import { AppDispatch, RootState } from "@/redux/store";
 import { setItemInCart } from "@/redux/slices/cart";
 import { useTranslation } from "next-i18next";
 import { getUserInfo } from "@/constants/FnCommon";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserBalance } from "@/services/userService";
-import { User } from "@/interfaces";
 import { PATH_PAGE } from "@/routes/path";
+import { fetchInfoUser } from "@/redux/slices/user";
 export interface IListOrder {
   item: {
     id: number;
@@ -31,8 +30,9 @@ export interface IListOrder {
 const Payment = () => {
   const { t } = useTranslation("common");
   const router = useRouter();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const { buyNow, orderDetail } = useSelector((state: RootState) => state.cart);
+  const { user } = useSelector((state: RootState) => state.user);
   const [listOder, setListOrder] = useState<IListOrder[]>();
   const [listPaymentMethod, setListPaymentMethod] = useState<
     IPaymentMethodRes[]
@@ -40,20 +40,11 @@ const Payment = () => {
   const [paymentMethod, setPaymentMethod] = useState<IPaymentMethodRes>();
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState<User>();
   const userInfo = getUserInfo();
 
   useEffect(() => {
     if (userInfo !== null) {
-      getUserBalance(userInfo?.id)
-        .then((res) => {
-          if (res.status == HTTP_STATUS.OK) {
-            setUser(res.data);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      dispatch(fetchInfoUser(userInfo?.id));
     }
     renderListPaymentMethod();
     const list: IListOrder[] = buyNow
@@ -106,10 +97,12 @@ const Payment = () => {
             if (!buyNow) {
               localStorage.removeItem(LOCALSTORAGE_KEY.SHOPPING_CART);
             }
-            if (paymentMethod?.code !== "EP") {
-              router.push(res?.data?.returnURL ? res?.data?.returnURL : "");
-            } else {
+            if (paymentMethod?.code === "EP") {
               router.push(PATH_PAGE.history.root + `/${res?.data?.orderId}`);
+            } else if (paymentMethod?.code === "STP") {
+              router.push("https://buy.stripe.com/test_dR65kw86e3B8cGTdp6");
+            } else {
+              router.push(res?.data?.returnURL ? res?.data?.returnURL : "");
             }
           } else {
             setLoading(false);
