@@ -12,7 +12,7 @@ export const signIn = async (request: any): Promise<any> => {
   return doPostRequest(url, request);
 };
 
-export const getUserBalance = async (id: string) => {
+export const getUserBalance = async (id: string): Promise<any> => {
   const url = Backend.USER_SERVICE + "/" + id;
   return doGetRequest(url, null);
 };

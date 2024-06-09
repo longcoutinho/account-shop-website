@@ -1,6 +1,7 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "@/interfaces";
 import { getUserBalance } from "@/services/userService";
+import { WritableDraft } from "immer/dist/internal";
 
 interface IState {
   user: Partial<User>;
@@ -23,15 +24,18 @@ const slice = createSlice({
   initialState: initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchInfoUser.pending, (state) => {
+    builder.addCase(fetchInfoUser.pending, (state: WritableDraft<IState>) => {
       state.loading = true;
     });
-    builder.addCase(fetchInfoUser.fulfilled, (state, action) => {
-      state.loading = false;
-      state.user = action.payload;
-      state.error = "";
-    });
-    builder.addCase(fetchInfoUser.rejected, (state) => {
+    builder.addCase(
+      fetchInfoUser.fulfilled,
+      (state: WritableDraft<IState>, action: PayloadAction<User>) => {
+        state.loading = false;
+        state.user = action.payload;
+        state.error = "";
+      }
+    );
+    builder.addCase(fetchInfoUser.rejected, (state: WritableDraft<IState>) => {
       state.loading = true;
       state.user = {};
     });
