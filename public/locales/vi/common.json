@@ -49,5 +49,7 @@
   "FULL_NAME": "Họ và tên",
   "PHONE_NUMBER": "Số điện thoại",
   "RETURN_HOME": "Trở về trang chủ",
-  "BUSINESS_REGISTER": "Đăng ký kinh doanh số"
+  "BUSINESS_REGISTER": "Đăng ký kinh doanh số",
+  "TRANSACTION_SUCCESS": "Giao dịch thành công",
+  "TRANSACTION_FAIL": "Giao dịch thất bại"
 }

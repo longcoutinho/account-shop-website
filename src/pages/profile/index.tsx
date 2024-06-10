@@ -53,9 +53,7 @@ export default function Profile() {
             </div>
             <div className="flex gap-3 w-full">
               <p className="w-36">Email: </p>
-              <p className="text-red-500 font-medium">
-                {user?.email || "maitho3101@gmail.com"}
-              </p>
+              <p className="text-red-500 font-medium">{user?.email}</p>
             </div>
             <Button
               onClick={() => {
