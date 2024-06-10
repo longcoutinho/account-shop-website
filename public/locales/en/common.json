@@ -49,5 +49,7 @@
   "FULL_NAME": "Full name",
   "PHONE_NUMBER": "Phone number",
   "RETURN_HOME": "Return to home page",
-  "BUSINESS_REGISTER": "Business registration number"
+  "BUSINESS_REGISTER": "Business registration number",
+  "TRANSACTION_SUCCESS": "Transaction successfully",
+  "TRANSACTION_FAIL": "Transaction failed"
 }

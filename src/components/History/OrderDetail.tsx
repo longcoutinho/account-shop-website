@@ -6,6 +6,7 @@ import { formatDateTime } from "@/constants/FnCommon";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { IconButton, Tooltip } from "@mui/material";
 import Iconify from "../Iconify";
+import ResultTransaction from "./ResultTransaction";
 
 interface IOrderDetail {
   code: string;
@@ -18,6 +19,8 @@ const OrderDetail = () => {
   const router = useRouter();
   const { id } = router.query;
   const [data, setData] = useState<IOrderDetail[]>();
+  const [isDone, setIsDone] = useState(false);
+  const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
 
   useEffect(() => {
     if (id) {
@@ -28,9 +31,22 @@ const OrderDetail = () => {
     try {
       const response = await requestGetOrderInfo(id as string);
       if (response?.status === HTTP_STATUS.OK) {
+        setIsSuccess(true);
         setData(response?.data);
+        setTimeout(() => {
+          setIsDone(true);
+        }, 1800);
+      } else {
+        setIsSuccess(false);
+        setTimeout(() => {
+          setIsDone(true);
+        }, 1800);
       }
     } catch (e) {
+      setIsSuccess(false);
+      setTimeout(() => {
+        setIsDone(true);
+      }, 1800);
       console.log(e);
     }
   };
@@ -40,54 +56,87 @@ const OrderDetail = () => {
     }
   };
   return (
-    <div className="flex flex-wrap w-full gap-4 items-center justify-center">
-      {data &&
-        data?.length > 0 &&
-        data?.map((e, index) => (
-          <div className="flex flex-col border px-4 py-6 rounded-md gap-4 w-[calc((100%-32px)/3)] items-center">
-            <p>
-              Code: <span className="font-bold">{e?.code}</span>{" "}
-              <CopyToClipboard text={e?.code} onCopy={() => onCopy(e?.code)}>
-                <Tooltip title="Copy">
-                  <IconButton>
-                    <Iconify icon={"eva:copy-fill"} width={20} height={20} />
-                  </IconButton>
-                </Tooltip>
-              </CopyToClipboard>
-            </p>
-            <p>
-              Serial: <span className="font-bold">{e?.serial}</span>
-              <CopyToClipboard text={e?.code} onCopy={() => onCopy(e?.serial)}>
-                <Tooltip title="Copy">
-                  <IconButton>
-                    <Iconify icon={"eva:copy-fill"} width={20} height={20} />
-                  </IconButton>
-                </Tooltip>
-              </CopyToClipboard>
-            </p>
-            <p>
-              Vendor: <span className="font-bold">{e?.vendor}</span>
-              <CopyToClipboard text={e?.code} onCopy={() => onCopy(e?.vendor)}>
-                <Tooltip title="Copy">
-                  <IconButton>
-                    <Iconify icon={"eva:copy-fill"} width={20} height={20} />
-                  </IconButton>
-                </Tooltip>
-              </CopyToClipboard>
-            </p>
-            <p>
-              Value:{" "}
-              <span className="font-bold">
-                {e?.value?.toLocaleString("en-US")}
-              </span>
-            </p>
-            <p>
-              Expiry:{" "}
-              <span className="font-bold">{formatDateTime(e?.expiry)}</span>
-            </p>
-          </div>
-        ))}
-    </div>
+    <>
+      {!isDone ? (
+        <>
+          {isSuccess === true ? (
+            <ResultTransaction isSuccess />
+          ) : isSuccess === false ? (
+            <ResultTransaction />
+          ) : null}
+        </>
+      ) : (
+        <div className="flex flex-wrap w-full gap-4 items-center justify-center">
+          {data &&
+            data?.length > 0 &&
+            data?.map((e, index) => (
+              <div className="flex flex-col border border-dashed border-gray-700 px-4 py-6 rounded-md gap-4 w-[calc((100%-32px)/3)] items-center">
+                <p>
+                  Code: <span className="font-bold">{e?.code}</span>{" "}
+                  <CopyToClipboard
+                    text={e?.code}
+                    onCopy={() => onCopy(e?.code)}
+                  >
+                    <Tooltip title="Copy">
+                      <IconButton>
+                        <Iconify
+                          icon={"eva:copy-fill"}
+                          width={20}
+                          height={20}
+                        />
+                      </IconButton>
+                    </Tooltip>
+                  </CopyToClipboard>
+                </p>
+                <p>
+                  Serial: <span className="font-bold">{e?.serial}</span>
+                  <CopyToClipboard
+                    text={e?.code}
+                    onCopy={() => onCopy(e?.serial)}
+                  >
+                    <Tooltip title="Copy">
+                      <IconButton>
+                        <Iconify
+                          icon={"eva:copy-fill"}
+                          width={20}
+                          height={20}
+                        />
+                      </IconButton>
+                    </Tooltip>
+                  </CopyToClipboard>
+                </p>
+                <p>
+                  Vendor: <span className="font-bold">{e?.vendor}</span>
+                  <CopyToClipboard
+                    text={e?.code}
+                    onCopy={() => onCopy(e?.vendor)}
+                  >
+                    <Tooltip title="Copy">
+                      <IconButton>
+                        <Iconify
+                          icon={"eva:copy-fill"}
+                          width={20}
+                          height={20}
+                        />
+                      </IconButton>
+                    </Tooltip>
+                  </CopyToClipboard>
+                </p>
+                <p>
+                  Value:{" "}
+                  <span className="font-bold">
+                    {e?.value?.toLocaleString("en-US")}
+                  </span>
+                </p>
+                <p>
+                  Expiry:{" "}
+                  <span className="font-bold">{formatDateTime(e?.expiry)}</span>
+                </p>
+              </div>
+            ))}
+        </div>
+      )}
+    </>
   );
 };
 export default OrderDetail;

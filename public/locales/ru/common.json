@@ -49,5 +49,7 @@
   "FULL_NAME": "Полное имя",
   "PHONE_NUMBER": "Номер телефона",
   "RETURN_HOME": "Вернуться на главную",
-  "BUSINESS_REGISTER": "Зарегистрировать бизнес"
+  "BUSINESS_REGISTER": "Зарегистрировать бизнес",
+  "TRANSACTION_SUCCESS": "транзакция успешно",
+  "TRANSACTION_FAIL": "транзакция не удалась"
 }
