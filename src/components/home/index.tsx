@@ -17,7 +17,7 @@ export default function HomePage() {
         <title>{PAGE_TITLE.PREFIX + PAGE_TITLE.HOME}</title>
       </Head>
       <NotificationWrapper />
-      <Box className="w-full flex flex-col h-screen overflow-y-auto overflow-x-hidden">
+      <Box className="w-full flex flex-col h-screen overflow-y-auto overflow-x-hidden text-black">
         <Header></Header>
         <SlideBanner />
         <div className="min-h-[calc(100vh-78px)]">

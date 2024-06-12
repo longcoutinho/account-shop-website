@@ -111,10 +111,9 @@ const ReSultSelectCard = ({ card, cardValue, amount, reset }: IProps) => {
         </div>
         <div className="flex gap-3">
           <Button
-            disabled
-            // onClick={handleAddtoCart}
+            onClick={handleAddtoCart}
             style={{ border: "1px solid #0e1522" }}
-            className={`w-full  !text-[#052d75] !min-h-11 !mt-4 !capitalize opacity-50
+            className={`w-full  !text-[#052d75] !min-h-11 !mt-4 !capitalize
                ${
                  amount &&
                  cardValue &&
