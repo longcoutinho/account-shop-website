@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { requestGetOrderInfo } from "@/services/rechargeGameCard";
+import {
+  requestGetOrderDetail,
+  requestGetOrderInfo,
+} from "@/services/rechargeGameCard";
 import { useRouter } from "next/router";
 import { HTTP_STATUS } from "@/constants";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { IconButton, Tooltip } from "@mui/material";
 import Iconify from "../Iconify";
 import ResultTransaction from "./ResultTransaction";
+import { useTranslation } from "next-i18next";
 
 interface IOrderDetail {
   cardItemId: string;
+  cardName: string;
   cards: {
     code: string;
     serial: string;
@@ -17,7 +22,11 @@ interface IOrderDetail {
     expiry: string;
   }[];
 }
-const OrderDetail = () => {
+interface IProps {
+  isDetail?: boolean;
+}
+const OrderDetail = ({ isDetail }: IProps) => {
+  const { t } = useTranslation("common");
   const router = useRouter();
   const { id } = router.query;
   const [data, setData] = useState<IOrderDetail[]>();
@@ -31,7 +40,12 @@ const OrderDetail = () => {
   }, []);
   const handleGetOrderDetail = async () => {
     try {
-      const response = await requestGetOrderInfo(id as string);
+      let response: any;
+      if (isDetail) {
+        response = await requestGetOrderDetail(id as string);
+      } else {
+        response = await requestGetOrderInfo(id as string);
+      }
       if (response?.status === HTTP_STATUS.OK) {
         setIsSuccess(true);
         setData(response?.data);
@@ -59,7 +73,7 @@ const OrderDetail = () => {
   };
   return (
     <>
-      {!isDone ? (
+      {!isDone && !isDetail ? (
         <>
           {isSuccess === true ? (
             <ResultTransaction isSuccess />
@@ -68,76 +82,82 @@ const OrderDetail = () => {
           ) : null}
         </>
       ) : (
-        <div className="flex flex-wrap w-full gap-4 items-center justify-center">
+        <div className="flex flex-col  w-full gap-4 items-center justify-center">
           {data &&
             data?.length > 0 &&
             data?.map((c, index) => (
-              <>
-                {c?.cards?.map((e) => (
-                  <div className="flex flex-col border border-dashed border-gray-700 px-4 py-6 rounded-md gap-4 w-full md:w-[calc((100%-16px)/2)] lg:w-[calc((100%-32px)/3)] items-center">
-                    <p>
-                      Code: <span className="font-bold">{e?.code}</span>{" "}
-                      <CopyToClipboard
-                        text={e?.code}
-                        onCopy={() => onCopy(e?.code)}
-                      >
-                        <Tooltip title="Copy">
-                          <IconButton>
-                            <Iconify
-                              icon={"eva:copy-fill"}
-                              width={20}
-                              height={20}
-                            />
-                          </IconButton>
-                        </Tooltip>
-                      </CopyToClipboard>
-                    </p>
-                    <p>
-                      Serial: <span className="font-bold">{e?.serial}</span>
-                      <CopyToClipboard
-                        text={e?.code}
-                        onCopy={() => onCopy(e?.serial)}
-                      >
-                        <Tooltip title="Copy">
-                          <IconButton>
-                            <Iconify
-                              icon={"eva:copy-fill"}
-                              width={20}
-                              height={20}
-                            />
-                          </IconButton>
-                        </Tooltip>
-                      </CopyToClipboard>
-                    </p>
-                    <p>
-                      Vendor: <span className="font-bold">{e?.vendor}</span>
-                      <CopyToClipboard
-                        text={e?.code}
-                        onCopy={() => onCopy(e?.vendor)}
-                      >
-                        <Tooltip title="Copy">
-                          <IconButton>
-                            <Iconify
-                              icon={"eva:copy-fill"}
-                              width={20}
-                              height={20}
-                            />
-                          </IconButton>
-                        </Tooltip>
-                      </CopyToClipboard>
-                    </p>
-                    <p>
-                      Value:{" "}
-                      <span className="font-bold">
-                        {e?.value?.toLocaleString("en-US")}
-                      </span>
-                    </p>
-                    <p>
-                      Expiry: <span className="font-bold">{e?.expiry}</span>
-                    </p>
-                  </div>
-                ))}
-              </>
+              <div className="w-full border border-dashed border-gray-700 px-4 py-6">
+                <p className="mb-2">
+                  <span className="font-bold">{c?.cardName}</span>:{" "}
+                  {c?.cards?.length} {t("CARD")}
+                </p>
+                <div className="flex gap-2 flex-wrap">
+                  {c?.cards?.map((e) => (
+                    <div className="flex flex-col shadow-xl border border-gray-300 px-4 py-4 rounded-md w-full sm:w-[calc((100%-8px)/2)] lg:w-[calc((100%-16px)/3)] xl:w-[calc((100%-24px)/4)] items-start">
+                      <p>
+                        Code: <span className="font-bold">{e?.code}</span>{" "}
+                        <CopyToClipboard
+                          text={e?.code}
+                          onCopy={() => onCopy(e?.code)}
+                        >
+                          <Tooltip title="Copy">
+                            <IconButton>
+                              <Iconify
+                                icon={"eva:copy-fill"}
+                                width={20}
+                                height={20}
+                              />
+                            </IconButton>
+                          </Tooltip>
+                        </CopyToClipboard>
+                      </p>
+                      <p>
+                        Serial: <span className="font-bold">{e?.serial}</span>
+                        <CopyToClipboard
+                          text={e?.code}
+                          onCopy={() => onCopy(e?.serial)}
+                        >
+                          <Tooltip title="Copy">
+                            <IconButton>
+                              <Iconify
+                                icon={"eva:copy-fill"}
+                                width={20}
+                                height={20}
+                              />
+                            </IconButton>
+                          </Tooltip>
+                        </CopyToClipboard>
+                      </p>
+                      <p>
+                        Vendor: <span className="font-bold">{e?.vendor}</span>
+                        <CopyToClipboard
+                          text={e?.code}
+                          onCopy={() => onCopy(e?.vendor)}
+                        >
+                          <Tooltip title="Copy">
+                            <IconButton>
+                              <Iconify
+                                icon={"eva:copy-fill"}
+                                width={20}
+                                height={20}
+                              />
+                            </IconButton>
+                          </Tooltip>
+                        </CopyToClipboard>
+                      </p>
+                      <p className="mt-1">
+                        Value:{" "}
+                        <span className="font-bold">
+                          {e?.value?.toLocaleString("en-US")}
+                        </span>
+                      </p>
+                      <p className="mt-2">
+                        Expiry: <span className="font-bold">{e?.expiry}</span>
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
             ))}
         </div>
       )}

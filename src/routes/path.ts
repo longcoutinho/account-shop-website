@@ -29,5 +29,6 @@ export const PATH_PAGE = {
   },
   history: {
     root: path(ROOTS_PAGE, "history"),
+    detail: path(ROOTS_PAGE, "history/detail"),
   },
 };

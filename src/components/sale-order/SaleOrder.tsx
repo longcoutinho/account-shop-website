@@ -12,6 +12,8 @@ import TableBody from "@mui/material/TableBody";
 import { getAllSaleOrders } from "@/services/sale-order";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
+import { Visibility } from "@mui/icons-material";
+import { PATH_PAGE } from "@/routes/path";
 
 export default function AllSaleOrder() {
   const pageSize = 15;
@@ -40,6 +42,10 @@ export default function AllSaleOrder() {
     setPage(value);
   };
 
+  const handleClickDetail = (id: string) => {
+    router.push(PATH_PAGE.history.detail + `/${id}`);
+  };
+
   return (
     <Box className="flex flex-row gap-5 flex-wrap justify-items-center bg-white rounded-2xl box-shadow p-5">
       {listOrderHistory && listOrderHistory?.length > 0 ? (
@@ -51,6 +57,7 @@ export default function AllSaleOrder() {
                 <TableCell>{t("AMOUNT")}</TableCell>
                 <TableCell>{t("CREATED_AT")}</TableCell>
                 <TableCell>{t("STATUS")}</TableCell>
+                <TableCell>{t("ACTION")}</TableCell>
               </TableRow>
             </TableHead>
 
@@ -58,7 +65,10 @@ export default function AllSaleOrder() {
               {listOrderHistory
                 ?.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize)
                 ?.map((request, index) => (
-                  <TableRow>
+                  <TableRow
+                    sx={{ cursor: "pointer" }}
+                    onClick={() => handleClickDetail(request.id)}
+                  >
                     <TableCell>{request.id}</TableCell>
                     <TableCell>
                       {request.price.toLocaleString("vi-VN")}đ
@@ -84,6 +94,9 @@ export default function AllSaleOrder() {
                           variant="outlined"
                         />
                       )}
+                    </TableCell>
+                    <TableCell>
+                      <Visibility />
                     </TableCell>
                   </TableRow>
                 ))}
