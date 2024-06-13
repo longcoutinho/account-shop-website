@@ -19,6 +19,7 @@ import { LOGIN_METHOD } from "@/constants/Login";
 interface ILogin {
   loginMethod?: LOGIN_METHOD;
   accessToken?: string | number;
+  id?: string;
 }
 
 export default function Login() {
@@ -41,10 +42,11 @@ export default function Login() {
       );
     };
 
-    const doSignIn = async ({ loginMethod, accessToken }: ILogin) => {
+    const doSignIn = async ({ loginMethod, accessToken, id }: ILogin) => {
       const request = {
         loginMethod: loginMethod,
         accessToken: accessToken,
+        id: id,
         username: username,
         password: password,
       };
@@ -65,11 +67,10 @@ export default function Login() {
         });
     };
     const responseFacebook = (response: any) => {
-      console.log(response);
       if (response && response?.userID) {
         doSignIn({
           loginMethod: LOGIN_METHOD.FACEBOOK,
-          accessToken: response?.userID?.toString(),
+          id: response?.userID?.toString(),
         });
       }
     };
@@ -189,7 +190,7 @@ export default function Login() {
             dataOnauth={(user: TelegramUser) =>
               doSignIn({
                 loginMethod: LOGIN_METHOD.TELEGRAM,
-                accessToken: user.id.toString(),
+                id: user.id.toString(),
               })
             }
           />

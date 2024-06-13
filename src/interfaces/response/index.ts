@@ -39,7 +39,7 @@ export interface IOrderHistory {
   createUser: string;
   createDate: string;
   price: number;
-  status: number;
+  status: string;
 }
 
 export interface Course {
