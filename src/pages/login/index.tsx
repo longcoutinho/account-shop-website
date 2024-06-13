@@ -65,10 +65,13 @@ export default function Login() {
         });
     };
     const responseFacebook = (response: any) => {
-      doSignIn({
-        loginMethod: LOGIN_METHOD.FACEBOOK,
-        accessToken: response?.userID?.toString(),
-      });
+      console.log(response);
+      if (response && response?.userID) {
+        doSignIn({
+          loginMethod: LOGIN_METHOD.FACEBOOK,
+          accessToken: response?.userID?.toString(),
+        });
+      }
     };
 
     const handleLoginWithGG = useGoogleLogin({
