@@ -1,4 +1,4 @@
-import { Box, Button, Chip } from "@mui/material";
+import { Box, Button, Chip, Pagination } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { IOrderHistory } from "@/interfaces/response";
 import { HTTP_STATUS, PageURL } from "@/constants";
@@ -14,13 +14,11 @@ import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 
 export default function AllSaleOrder() {
+  const pageSize = 15;
   const { t } = useTranslation("common");
   const router = useRouter();
   const [listOrderHistory, setOrderHistory] = useState<IOrderHistory[]>([]);
   const [page, setPage] = React.useState(1);
-  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    setPage(value);
-  };
 
   useEffect(() => {
     renderListSaleOrder();
@@ -38,6 +36,10 @@ export default function AllSaleOrder() {
       });
   };
 
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+  };
+
   return (
     <Box className="flex flex-row gap-5 flex-wrap justify-items-center bg-white rounded-2xl box-shadow p-5">
       {listOrderHistory && listOrderHistory?.length > 0 ? (
@@ -53,32 +55,38 @@ export default function AllSaleOrder() {
             </TableHead>
 
             <TableBody>
-              {listOrderHistory?.map((request, index) => (
-                <TableRow>
-                  <TableCell>{request.id}</TableCell>
-                  <TableCell>
-                    {request.price.toLocaleString("vi-VN")}đ
-                  </TableCell>
-                  <TableCell>{formatDateTime(request.createDate)}</TableCell>
-                  <TableCell>
-                    {request.status === "SUCCESS" ? (
-                      <Chip
-                        label="Thành công"
-                        color="success"
-                        variant="outlined"
-                      />
-                    ) : request.status === "FAIL" ? (
-                      <Chip label="Thất bại" color="error" variant="outlined" />
-                    ) : (
-                      <Chip
-                        label="Đang tiến hành"
-                        color="warning"
-                        variant="outlined"
-                      />
-                    )}
-                  </TableCell>
-                </TableRow>
-              ))}
+              {listOrderHistory
+                ?.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize)
+                ?.map((request, index) => (
+                  <TableRow>
+                    <TableCell>{request.id}</TableCell>
+                    <TableCell>
+                      {request.price.toLocaleString("vi-VN")}đ
+                    </TableCell>
+                    <TableCell>{formatDateTime(request.createDate)}</TableCell>
+                    <TableCell>
+                      {request.status === "SUCCESS" ? (
+                        <Chip
+                          label="Thành công"
+                          color="success"
+                          variant="outlined"
+                        />
+                      ) : request.status === "FAIL" ? (
+                        <Chip
+                          label="Thất bại"
+                          color="error"
+                          variant="outlined"
+                        />
+                      ) : (
+                        <Chip
+                          label="Đang tiến hành"
+                          color="warning"
+                          variant="outlined"
+                        />
+                      )}
+                    </TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </TableContainer>
@@ -97,13 +105,14 @@ export default function AllSaleOrder() {
           </Button>
         </div>
       )}
-
-      {/* <Pagination
-        count={10}
-        page={page}
-        onChange={handleChange}
-        className="custom-pagination"
-      /> */}
+      {listOrderHistory && listOrderHistory?.length > pageSize && (
+        <Pagination
+          count={Math.ceil(listOrderHistory?.length / pageSize)}
+          page={page}
+          onChange={handleChange}
+          className="custom-pagination"
+        />
+      )}
     </Box>
   );
 }
