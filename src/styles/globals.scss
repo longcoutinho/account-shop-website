@@ -78,7 +78,10 @@
   }
 }
 #telegram-login-game_card_bot {
-  width: 240px;
+  width: 240px !important;
+}
+iframe {
+  width: 240px !important;
 }
 * {
   font-family: "Roboto", sans-serif;
