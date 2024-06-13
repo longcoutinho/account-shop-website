@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, Chip } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { IOrderHistory } from "@/interfaces/response";
 import { HTTP_STATUS, PageURL } from "@/constants";
@@ -61,11 +61,21 @@ export default function AllSaleOrder() {
                   </TableCell>
                   <TableCell>{formatDateTime(request.createDate)}</TableCell>
                   <TableCell>
-                    {request.status === 2
-                      ? "Thành công"
-                      : request.status === 3
-                      ? "Thất bại"
-                      : "Đang tiến hành"}
+                    {request.status === "SUCCESS" ? (
+                      <Chip
+                        label="Thành công"
+                        color="success"
+                        variant="outlined"
+                      />
+                    ) : request.status === "FAIL" ? (
+                      <Chip label="Thất bại" color="error" variant="outlined" />
+                    ) : (
+                      <Chip
+                        label="Đang tiến hành"
+                        color="warning"
+                        variant="outlined"
+                      />
+                    )}
                   </TableCell>
                 </TableRow>
               ))}
