@@ -1,6 +1,7 @@
 {
   "LOGIN": "Авторизоваться",
   "LOGIN_WITH_FB": "Đăng nhập bằng facebook",
+  "LOGIN_WITH_GG": "Login with Google",
   "SIGNUP": "регистр",
   "LOGIN_DES": "Войдите для полного доступа",
   "SIGNUP_DES": "Создайте учетную запись для полного доступа",
@@ -51,5 +52,6 @@
   "RETURN_HOME": "Вернуться на главную",
   "BUSINESS_REGISTER": "Зарегистрировать бизнес",
   "TRANSACTION_SUCCESS": "транзакция успешно",
-  "TRANSACTION_FAIL": "транзакция не удалась"
+  "TRANSACTION_FAIL": "транзакция не удалась",
+  "ACTION": "Action"
 }

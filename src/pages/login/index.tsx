@@ -146,7 +146,7 @@ export default function Login() {
         </Box>
         <div className="flex gap-2 items-center flex-col mt-4 ">
           <p>Other login methods</p>
-          <div className="flex gap-4">
+          <div className="w-60 h-10 border border-blue-800 flex rounded-[20px] py-[8px] px-4 gap-1.5">
             <FacebookLogin
               appId={ENVIROMENTS.FB_APP_ID}
               autoLoad={loginWithFB}
@@ -160,20 +160,26 @@ export default function Login() {
                   alt=""
                   id="logo"
                   src="/img/fb.png"
-                  height={50}
-                  width={50}
+                  height={24}
+                  width={24}
                 />
               }
             />
+
+            <p className="text-blue-800 ">{t("LOGIN_WITH_FB")}</p>
+          </div>
+          <div className="w-60 h-10 border border-black flex rounded-[20px] py-[8px] px-4 gap-1.5">
             <Image
               onClick={() => handleLoginWithGG()}
               src={"/img/gg.png"}
               alt="logo-gg"
-              width={50}
-              height={50}
+              width={24}
+              height={24}
               className=" cursor-pointer"
             />
-            {/* <Image
+            <p>{t("LOGIN_WITH_GG")}</p>
+          </div>
+          {/* <Image
               onClick={() =>
                 signInX("twitter", { callbackUrl: "https://elitagame.com" })
               }
@@ -183,7 +189,7 @@ export default function Login() {
               height={50}
               className=" cursor-pointer"
             /> */}
-          </div>
+
           <TelegramLoginButton
             botName="game_card_bot"
             cornerRadius={500}

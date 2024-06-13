@@ -1,6 +1,7 @@
 {
   "LOGIN": "Login",
-  "LOGIN_WITH_FB": "Login with facebook",
+  "LOGIN_WITH_FB": "Login with Facebook",
+  "LOGIN_WITH_GG": "Login with Google",
   "SIGNUP": "Sign up",
   "LOGIN_DES": "Enter Login details to get access",
   "SIGNUP_DES": "Create Your Account To Get Full Access",
@@ -51,5 +52,6 @@
   "RETURN_HOME": "Return to home page",
   "BUSINESS_REGISTER": "Business registration number",
   "TRANSACTION_SUCCESS": "Transaction successfully",
-  "TRANSACTION_FAIL": "Transaction failed"
+  "TRANSACTION_FAIL": "Transaction failed",
+  "ACTION": "Action"
 }

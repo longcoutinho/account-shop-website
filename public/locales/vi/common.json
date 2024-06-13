@@ -1,6 +1,7 @@
 {
   "LOGIN": "Đăng nhập",
-  "LOGIN_WITH_FB": "Đăng nhập bằng facebook",
+  "LOGIN_WITH_FB": "Đăng nhập với Facebook",
+  "LOGIN_WITH_GG": "Đăng nhập với Google",
   "SIGNUP": "Đăng ký",
   "LOGIN_DES": "Đăng nhập để có toàn quyền truy cập",
   "SIGNUP_DES": "Tạo tài khoản để có toàn quyền truy cập",
@@ -51,5 +52,6 @@
   "RETURN_HOME": "Trở về trang chủ",
   "BUSINESS_REGISTER": "Đăng ký kinh doanh số",
   "TRANSACTION_SUCCESS": "Giao dịch thành công",
-  "TRANSACTION_FAIL": "Giao dịch thất bại"
+  "TRANSACTION_FAIL": "Giao dịch thất bại",
+  "ACTION": "Xem"
 }

@@ -64,6 +64,9 @@ export default function SignUp() {
               setNotify(COMMON_TEXT.SUCCESS);
               routers.push(PageURL.LOGIN);
               setNotifyColor("green");
+            } else {
+              setNotify(res?.response?.data);
+              setNotifyColor("red");
             }
           })
           .catch((err) => {
