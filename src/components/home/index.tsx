@@ -7,10 +7,24 @@ import NotificationWrapper from "@/components/NotificationWrapper";
 import Footer from "@/components/Footer";
 import SlideBanner from "./SlideBanner";
 import { useSession } from "next-auth/react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/redux/store";
+import { useEffect } from "react";
+import { getUserInfo } from "@/constants/FnCommon";
+import { fetchInfoUser, setIsLogin } from "@/redux/slices/user";
 
 export default function HomePage() {
   const { data: session, status } = useSession();
-  console.log(status, session);
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    const userInfo = getUserInfo();
+    if (userInfo !== null) {
+      dispatch(setIsLogin(true));
+      dispatch(fetchInfoUser(userInfo?.id));
+    }
+  }, []);
+
   return (
     <div style={{ display: "flex", flexDirection: "row" }}>
       <Head>

@@ -59,7 +59,7 @@ export default function Profile() {
               onClick={() => {
                 router.push(PageURL.HOME);
               }}
-              className={`w-[200px] bg-[#052d75] text-white min-h-11 mt-4 mx-auto cursor-pointer hover:bg-[#30466b] capitalize`}
+              className={`!w-[200px] !bg-[#052d75] !text-white !min-h-11 !mt-4 !mx-auto !cursor-pointer !hover:bg-[#30466b] !capitalize`}
             >
               {t("RETURN_HOME")}
             </Button>

@@ -144,16 +144,18 @@ export default function Login() {
             {t("LOGIN")}
           </Button>
         </Box>
-        <div className="flex gap-2 items-center flex-col mt-4 ">
+        <div className="flex gap-2 items-center flex-col mt-4 text-black ">
           <p>Other login methods</p>
-          <div className="w-60 h-10 border border-blue-800 flex rounded-[20px] py-[8px] px-4 gap-1.5">
+          <div
+            className="w-60 h-10 border border-blue-800 flex rounded-[20px] py-[8px] px-4 gap-1.5 cursor-pointer"
+            onClick={() => setLoginWithFB(true)}
+          >
             <FacebookLogin
               appId={ENVIROMENTS.FB_APP_ID}
               autoLoad={loginWithFB}
               textButton=""
               fields="name,email,picture"
               callback={responseFacebook}
-              onClick={() => setLoginWithFB(true)}
               cssClass="w-fit h-fit flex items-center"
               icon={
                 <img
@@ -168,9 +170,11 @@ export default function Login() {
 
             <p className="text-blue-800 ">{t("LOGIN_WITH_FB")}</p>
           </div>
-          <div className="w-60 h-10 border border-black flex rounded-[20px] py-[8px] px-4 gap-1.5">
+          <div
+            className="w-60 h-10 border border-black flex rounded-[20px] py-[8px] px-4 gap-1.5 cursor-pointer"
+            onClick={() => handleLoginWithGG()}
+          >
             <Image
-              onClick={() => handleLoginWithGG()}
               src={"/img/gg.png"}
               alt="logo-gg"
               width={24}

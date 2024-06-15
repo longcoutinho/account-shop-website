@@ -12,6 +12,7 @@ import {
   Button,
   CircularProgress,
   IconButton,
+  Input,
   Modal,
   Tooltip,
 } from "@mui/material";
@@ -173,7 +174,7 @@ const TopupTab = ({ isQuick }: IProps) => {
         <div className="flex mt-8 gap-4 items-center">
           <p className="text-base font-semibold min-w-16">IGG ID: </p>
           <div className="relative w-fit h-fit">
-            <input
+            <Input
               className="border border-gray-300 rounded h-10 w-60 pl-2 pr-10"
               value={cardCode}
               onChange={(e) => setCardCode(e.target.value)}
@@ -193,11 +194,11 @@ const TopupTab = ({ isQuick }: IProps) => {
           <div className="flex mt-4 sm:mt-8 gap-4 items-center flex-wrap">
             <p className="text-base font-semibold min-w-16">OTP: </p>
             <div className="relative">
-              <input
+              <Input
                 className="border border-gray-300 rounded h-10"
                 type="text"
                 value={otp}
-                maxLength={6}
+                // maxLength={6}
                 onChange={(e) => setOtp(e.target.value)}
               />{" "}
               <p className="absolute -bottom-6 left-0 whitespace-nowrap text-xs text-blue-600 mt-3">
