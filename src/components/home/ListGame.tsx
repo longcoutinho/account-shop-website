@@ -37,7 +37,7 @@ const ListGames = () => {
           href={g?.router ? g.router : PageURL.HOME}
           key={g.id}
           className={`  rounded-lg cursor-pointerborder-[#00000038] border-2 hover:scale-105  hover:shadow-lg transition-all hover:text-[#f3a44a] 
-               hover:border-[#f3a44a]
+               hover:border-[#f3a44a] 
             `}
         >
           <Image

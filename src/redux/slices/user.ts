@@ -7,6 +7,7 @@ interface IState {
   user: Partial<User>;
   loading: boolean;
   error: string;
+  isLogin: boolean;
 }
 
 export const fetchInfoUser = createAsyncThunk("/user", async (id: string) => {
@@ -18,11 +19,19 @@ const initialState: IState = {
   loading: false,
   user: {},
   error: "",
+  isLogin: false,
 };
 const slice = createSlice({
   name: "user",
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    setIsLogin: (
+      state: WritableDraft<IState>,
+      action: PayloadAction<boolean>
+    ) => {
+      state.isLogin = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchInfoUser.pending, (state: WritableDraft<IState>) => {
       state.loading = true;
@@ -41,5 +50,6 @@ const slice = createSlice({
     });
   },
 });
+export const { setIsLogin } = slice.actions;
 
 export default slice.reducer;

@@ -40,12 +40,8 @@ const Payment = () => {
   const [paymentMethod, setPaymentMethod] = useState<IPaymentMethodRes>();
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [loading, setLoading] = useState(false);
-  const userInfo = getUserInfo();
 
   useEffect(() => {
-    if (userInfo !== null) {
-      dispatch(fetchInfoUser(userInfo?.id));
-    }
     renderListPaymentMethod();
     const list: IListOrder[] = buyNow
       ? orderDetail

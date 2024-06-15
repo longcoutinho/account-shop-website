@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Head from "next/head";
-import { PAGE_TITLE, PageURL } from "@/constants";
+import { PAGE_TITLE } from "@/constants";
 import Header from "@/components/header/Header";
 import { Box } from "@mui/material";
 import NotificationWrapper from "@/components/NotificationWrapper";
 import Footer from "@/components/Footer";
-import SlideBanner from "@/components/home/SlideBanner";
 import { useRouter } from "next/router";
+import { getUserInfo } from "@/constants/FnCommon";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/redux/store";
+import { fetchInfoUser, setIsLogin } from "@/redux/slices/user";
 
 const Page = (props: any) => {
   const {
@@ -18,6 +21,15 @@ const Page = (props: any) => {
     isHome,
   } = props;
   const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    const userInfo = getUserInfo();
+    if (userInfo !== null) {
+      dispatch(setIsLogin(true));
+      dispatch(fetchInfoUser(userInfo?.id));
+    }
+  }, []);
 
   return (
     <div style={{ display: "flex", flexDirection: "row" }}>
