@@ -15,7 +15,7 @@ export const menuBar = [
   {
     title: "PRODUCT",
     icon: faHand,
-    url: PageURL.CASTLE_CLASH,
+    url: PageURL.PRODUCTS,
   },
   {
     title: "GAME_CARD",

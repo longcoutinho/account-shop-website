@@ -40,6 +40,7 @@ export enum PAGE_TITLE {
   LORDS_MOBILE = "Lords mobile",
   CASTLE_CLASH = "Castle clash",
   ORDER = "Order",
+  PRODUCTS = "Products",
 }
 
 export const HomePage = {
@@ -147,6 +148,8 @@ export enum PageURL {
   GAME_TOP_UP = "/game-topup",
   CASTLE_CLASH = "/game-topup/castle-clash",
   LORDS_MOBILE = "/game-topup/lords-mobile",
+  PRODUCTS = "/products",
+  PRODUCT = "/product",
 }
 
 export const MenuTitle: any = [
