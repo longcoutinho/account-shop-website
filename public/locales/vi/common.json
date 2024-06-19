@@ -5,7 +5,7 @@
   "SIGNUP": "Đăng ký",
   "LOGIN_DES": "Đăng nhập để có toàn quyền truy cập",
   "SIGNUP_DES": "Tạo tài khoản để có toàn quyền truy cập",
-  "GAME_CARD": "Game Card",
+  "GAME_CARD": "Thẻ game",
   "PICK_CARD": "Chọn loại thẻ",
   "PICK_DENOM": "Chọn mệnh giá",
   "QUANTITY": "Số lượng",
@@ -53,5 +53,7 @@
   "BUSINESS_REGISTER": "Đăng ký kinh doanh số",
   "TRANSACTION_SUCCESS": "Giao dịch thành công",
   "TRANSACTION_FAIL": "Giao dịch thất bại",
-  "ACTION": "Xem"
+  "ACTION": "Xem",
+  "GAME_TOP_UP": "Game top up",
+  "PRODUCT": "Sản phẩm"
 }
