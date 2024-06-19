@@ -199,6 +199,7 @@ $gray-color: rgb(160, 167, 179);
       margin-top: 15px;
       flex-direction: row;
       align-items: center;
+      justify-content: space-between;
       text-decoration: none;
       svg:first-child {
         font-size: 17px;
@@ -214,8 +215,10 @@ $gray-color: rgb(160, 167, 179);
         }
       }
       svg:last-child {
-        font-size: 10px;
-        margin-top: 5px;
+        font-size: 18px;
+        color: #000;
+        text-align: end;
+        // margin-top: 5px;
       }
       svg {
         color: $gray-color;

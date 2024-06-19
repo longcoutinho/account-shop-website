@@ -8,27 +8,33 @@ import { PageURL } from ".";
 
 export const menuBar = [
   {
-    title: "Home",
+    title: "HOME",
     icon: faHouse,
     url: PageURL.HOME,
   },
   {
-    title: "Game Card",
+    title: "PRODUCT",
+    icon: faHand,
+    url: PageURL.CASTLE_CLASH,
+  },
+  {
+    title: "GAME_CARD",
     icon: faCartShopping,
     url: PageURL.BUY_CARD,
   },
   {
-    title: "Lords mobile",
-    icon: faHand,
-    url: PageURL.LORDS_MOBILE,
-  },
-  {
-    title: "Castle clash",
+    title: "GAME_TOP_UP",
     icon: faCreditCard,
-    url: PageURL.CASTLE_CLASH,
+    // url: PageURL.GAME_TOP_UP,
+    child: [
+      {
+        title: "Lords mobile",
+        url: PageURL.LORDS_MOBILE,
+      },
+      {
+        title: "Castle clash",
+        url: PageURL.CASTLE_CLASH,
+      },
+    ],
   },
-  // {
-  //   title: "Liên hệ",
-  //   icon: faContactBook,
-  // },
 ];

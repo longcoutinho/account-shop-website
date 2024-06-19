@@ -53,5 +53,7 @@
   "BUSINESS_REGISTER": "Business registration number",
   "TRANSACTION_SUCCESS": "Transaction successfully",
   "TRANSACTION_FAIL": "Transaction failed",
-  "ACTION": "Action"
+  "ACTION": "Action",
+  "GAME_TOP_UP": "Game top up",
+  "PRODUCT": "Product"
 }

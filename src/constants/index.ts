@@ -144,8 +144,9 @@ export enum PageURL {
   BUY_CARD = "/buy-card",
   PAYMENT = "/payment",
   HISTORY = "/history",
-  CASTLE_CLASH = "/castle-clash",
-  LORDS_MOBILE = "/lords-mobile",
+  GAME_TOP_UP = "/game-topup",
+  CASTLE_CLASH = "/game-topup/castle-clash",
+  LORDS_MOBILE = "/game-topup/lords-mobile",
 }
 
 export const MenuTitle: any = [

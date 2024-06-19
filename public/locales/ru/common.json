@@ -53,5 +53,7 @@
   "BUSINESS_REGISTER": "Зарегистрировать бизнес",
   "TRANSACTION_SUCCESS": "транзакция успешно",
   "TRANSACTION_FAIL": "транзакция не удалась",
-  "ACTION": "Action"
+  "ACTION": "Action",
+  "GAME_TOP_UP": "Game top up",
+  "PRODUCT": "Product"
 }
