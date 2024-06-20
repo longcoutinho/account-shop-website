@@ -25,8 +25,8 @@ const CardProduct = ({ item }: IProps) => {
         height={140}
         className="rounded-2xl absolute -top-7 h-28 w-28 mg:h-36 mg:w-36"
       />
-      <div>{item.des}</div>
-      <div className="text-lg font-semibold">{item.title}</div>
+      <p>{item.des}</p>
+      <p className="text-lg font-semibold">{item.title}</p>
     </div>
   );
 };

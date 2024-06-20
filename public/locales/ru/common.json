@@ -1,7 +1,7 @@
 {
   "LOGIN": "Авторизоваться",
-  "LOGIN_WITH_FB": "Đăng nhập bằng facebook",
-  "LOGIN_WITH_GG": "Login with Google",
+  "LOGIN_WITH_FB": "Войти через Facebook",
+  "LOGIN_WITH_GG": "Войти через Google",
   "SIGNUP": "регистр",
   "LOGIN_DES": "Войдите для полного доступа",
   "SIGNUP_DES": "Создайте учетную запись для полного доступа",
@@ -54,6 +54,8 @@
   "TRANSACTION_SUCCESS": "транзакция успешно",
   "TRANSACTION_FAIL": "транзакция не удалась",
   "ACTION": "Action",
-  "GAME_TOP_UP": "Game top up",
-  "PRODUCT": "Product"
+  "GAME_TOP_UP": "Пополнение игры",
+  "PRODUCT": "Продукт",
+  "CATEGORY": "категорию",
+  "REMAINING": "оставшийся"
 }
