@@ -1,23 +1,26 @@
-import { ItemProductMock } from "@/components/Products/mock";
-import { PAGE_TITLE } from "@/constants";
+import LeftInfo from "@/components/Products/Product/LeftInfo";
+import RightInfo from "@/components/Products/Product/RightInfo";
+import { PAGE_TITLE, PageURL } from "@/constants";
 import Page from "@/layouts";
+import { ArrowBack } from "@mui/icons-material";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import Image from "next/image";
+import { useRouter } from "next/router";
 
 const DetailProduct = () => {
-  const item = ItemProductMock[0];
+  const router = useRouter();
+
   return (
     <Page title={PAGE_TITLE.PRODUCTS} menuIndex={1}>
-      <div className=" relative border rounded-2xl shadow-md h-52 pt-32 flex flex-col items-center gap-2 hover:border-orange-300">
-        <Image
-          src={item?.image}
-          alt=""
-          width={140}
-          height={140}
-          className="rounded-2xl absolute -top-7 "
-        />
-        <div>{item.des}</div>
-        <div className="text-lg font-semibold">{item.title}</div>
+      <div
+        onClick={() => router.push(PageURL.PRODUCTS)}
+        className="flex gap-2 mb-4 cursor-pointer"
+      >
+        <ArrowBack />
+        <p className="hover:underline">Back</p>
+      </div>
+      <div className="flex gap-8">
+        <LeftInfo />
+        <RightInfo />
       </div>
     </Page>
   );

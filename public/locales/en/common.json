@@ -55,5 +55,7 @@
   "TRANSACTION_FAIL": "Transaction failed",
   "ACTION": "Action",
   "GAME_TOP_UP": "Game top up",
-  "PRODUCT": "Product"
+  "PRODUCT": "Product",
+  "CATEGORY": "category",
+  "REMAINING": "Remaining"
 }
