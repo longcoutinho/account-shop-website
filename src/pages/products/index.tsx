@@ -5,12 +5,13 @@ import Products from "@/components/Products";
 import Category from "@/components/Products/Category";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchCategory } from "@/redux/slices/typeProduct";
 import { fetchListProduct } from "@/redux/slices/product";
 
 const ProductsPage = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const [type, setType] = useState<number>();
 
   useEffect(() => {
     GetData();
@@ -24,11 +25,12 @@ const ProductsPage = () => {
       console.log(e);
     }
   };
+
   return (
     <Page title={PAGE_TITLE.PRODUCTS} menuIndex={1}>
-      <Category />
+      <Category type={type} setType={setType} />
       <p className="font-bold text-2xl mb-4 ">{PAGE_TITLE.PRODUCTS}</p>
-      <Products />
+      <Products type={type} />
     </Page>
   );
 };
