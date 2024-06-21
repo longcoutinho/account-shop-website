@@ -2,6 +2,7 @@ import LeftInfo from "@/components/Products/Product/LeftInfo";
 import RightInfo from "@/components/Products/Product/RightInfo";
 import { PAGE_TITLE, PageURL } from "@/constants";
 import Page from "@/layouts";
+import { fetchListPaymentMethod } from "@/redux/slices/payment";
 import { fetchDetailProduct } from "@/redux/slices/product";
 import { AppDispatch } from "@/redux/store";
 import { ArrowBack } from "@mui/icons-material";
@@ -19,6 +20,7 @@ const DetailProduct = () => {
     if (id) {
       dispatch(fetchDetailProduct(id as string));
     }
+    dispatch(fetchListPaymentMethod());
   }, [id]);
   return (
     <Page title={PAGE_TITLE.PRODUCTS} menuIndex={1}>

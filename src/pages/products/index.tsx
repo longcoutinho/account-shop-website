@@ -11,7 +11,7 @@ import { fetchListProduct } from "@/redux/slices/product";
 
 const ProductsPage = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const [type, setType] = useState<number>();
+  const [type, setType] = useState<number>(0);
 
   useEffect(() => {
     GetData();
@@ -28,7 +28,7 @@ const ProductsPage = () => {
 
   return (
     <Page title={PAGE_TITLE.PRODUCTS} menuIndex={1}>
-      <Category type={type} setType={setType} />
+      <Category type={type ? type : 0} setType={setType} />
       <p className="font-bold text-2xl mb-4 ">{PAGE_TITLE.PRODUCTS}</p>
       <Products type={type} />
     </Page>

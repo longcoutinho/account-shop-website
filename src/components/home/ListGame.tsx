@@ -4,16 +4,25 @@ import { requestGetListGames } from "@/services/rechargeGameCard";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-const gameCard = [
-  {
-    id: 9999999,
-    name: "Game Card",
-    image: "/img/buy_card.png",
-    router: PageURL.BUY_CARD,
-  },
-];
+import { useTranslation } from "next-i18next";
+
 const ListGames = () => {
+  const { t } = useTranslation("common");
   const [listGames, setListGames] = useState<IGamesRes[]>([]);
+  const gameCard = [
+    {
+      id: 999999999,
+      name: t("GAME_CARD"),
+      image: "/img/card.jpg",
+      router: PageURL.BUY_CARD,
+    },
+    {
+      id: 9999999,
+      name: t("PRODUCT"),
+      image: "/img/buy_card.png",
+      router: PageURL.PRODUCTS,
+    },
+  ];
 
   useEffect(() => {
     renderListGames();
@@ -31,7 +40,7 @@ const ListGames = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 xxs:grid-cols-2 sm:grid-cols-3 xl:grid-cols-3 gap-3 w-full mt-10">
+    <div className="grid grid-cols-1 xxs:grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3 w-full mt-10">
       {[...gameCard, ...listGames]?.map((g) => (
         <Link
           href={g?.router ? g.router : PageURL.HOME}
@@ -49,7 +58,7 @@ const ListGames = () => {
               g.id === 9999999 && "object-contain"
             }`}
           />
-          <p className="text-center text-sm my-2 hover:text-[#f3a44a]">
+          <p className="text-center text-xl my-2 hover:text-[#f3a44a]">
             {g.name}
           </p>
         </Link>
