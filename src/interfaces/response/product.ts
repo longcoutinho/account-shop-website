@@ -1,12 +1,13 @@
 export interface ICategoryRes {
   id: number;
   name: string;
-  create_date: string;
-  create_user: string;
+  create_date?: string;
+  create_user?: string;
 }
 export interface IProductRes {
   name: string;
   id: number;
+  typeId: number;
   imagePath: string;
 }
 export interface IPaymentMethodRes {
@@ -17,7 +18,9 @@ export interface IPaymentMethodRes {
   code: string;
 }
 export interface IProductDetailRes {
+  name: string;
   description: string;
+  typeId: number;
   imagePathList: string[];
   categoryList: {
     id: number;
