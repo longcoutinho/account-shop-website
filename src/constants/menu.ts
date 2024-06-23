@@ -13,7 +13,7 @@ export const menuBar = [
     url: PageURL.HOME,
   },
   {
-    title: "PRODUCT",
+    title: "ELITA_SHOP",
     icon: faHand,
     url: PageURL.PRODUCTS,
   },
