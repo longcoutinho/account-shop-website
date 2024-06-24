@@ -41,6 +41,7 @@ export enum PAGE_TITLE {
   CASTLE_CLASH = "Castle clash",
   ORDER = "Order",
   PRODUCTS = "Products",
+  ELITA_SHOP = "ELITA_SHOP",
 }
 
 export const HomePage = {
