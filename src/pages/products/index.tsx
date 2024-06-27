@@ -8,10 +8,12 @@ import { AppDispatch } from "@/redux/store";
 import { useEffect, useState } from "react";
 import { fetchCategory } from "@/redux/slices/typeProduct";
 import { fetchListProduct } from "@/redux/slices/product";
+import { useTranslation } from "next-i18next";
 
 const ProductsPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [type, setType] = useState<number>(0);
+  const { t } = useTranslation("common");
 
   useEffect(() => {
     GetData();
@@ -27,9 +29,9 @@ const ProductsPage = () => {
   };
 
   return (
-    <Page title={PAGE_TITLE.PRODUCTS} menuIndex={1}>
+    <Page title={t(PAGE_TITLE.ELITA_SHOP)} menuIndex={1}>
       <Category type={type ? type : 0} setType={setType} />
-      <p className="font-bold text-2xl mb-4 ">{PAGE_TITLE.PRODUCTS}</p>
+      <p className="font-bold text-2xl mb-4 ">{t(PAGE_TITLE.ELITA_SHOP)}</p>
       <Products type={type} />
     </Page>
   );
