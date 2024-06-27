@@ -79,7 +79,14 @@ const RightInfo = () => {
                     <FormControlLabel
                       value={e?.paymentCode}
                       control={<Radio />}
-                      label={e?.paymentCode}
+                      label={
+                        paymentMethods &&
+                        paymentMethods?.find((p) => p?.code === e?.paymentCode)
+                          ? paymentMethods?.find(
+                              (p) => p?.code === e?.paymentCode
+                            )?.name
+                          : e?.paymentCode
+                      }
                     />
                     <p>{e?.price?.toLocaleString("vi-VN") + " VND"}</p>
                   </div>
