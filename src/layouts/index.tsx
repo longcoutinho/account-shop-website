@@ -35,6 +35,7 @@ const Page = (props: any) => {
     <div style={{ display: "flex", flexDirection: "row" }}>
       <Head>
         <title>{PAGE_TITLE.PREFIX + title}</title>
+        <link rel="icon" type="image/x-icon" href="/img/logo.png" />
         <meta
           name="facebook-domain-verification"
           content="53vm0p6q4svrormxgulw8etr59u84l"
