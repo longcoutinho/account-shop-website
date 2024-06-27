@@ -32,7 +32,7 @@ export default function AllSaleOrder() {
     getAllSaleOrders()
       .then((res) => {
         if (res.status == HTTP_STATUS.OK) {
-          setOrderHistory(res.data);
+          setOrderHistory(res.data?.listData);
           setLoading(false);
         }
       })
