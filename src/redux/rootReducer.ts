@@ -4,6 +4,7 @@ import user from "./slices/user";
 import product from "./slices/product";
 import typeProduct from "./slices/typeProduct";
 import payment from "./slices/payment";
+import card from "./slices/card";
 
 const rootReducer = combineReducers({
   cart: cart,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   product,
   typeProduct,
   payment,
+  card,
 });
 
 export default rootReducer;

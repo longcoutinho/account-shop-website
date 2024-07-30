@@ -16,10 +16,10 @@ const ProductsPage = () => {
   const { t } = useTranslation("common");
 
   useEffect(() => {
-    GetData();
+    getData();
   }, []);
 
-  const GetData = () => {
+  const getData = () => {
     try {
       dispatch(fetchCategory());
       dispatch(fetchListProduct());

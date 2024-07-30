@@ -23,7 +23,19 @@ export interface IPaymentMethodRes {
 
 export interface IItemCardRes {
   id: number;
-  price: number;
+  name: string;
   cardId: number;
   code: string;
+}
+export interface IPriceItem {
+  id: number;
+  cardId: number;
+  name: string;
+  listFees: {
+    id: number;
+    cardItemId: number;
+    paymentMethodCode: string;
+    currency?: string;
+    price: number;
+  }[];
 }

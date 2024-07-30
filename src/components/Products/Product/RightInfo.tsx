@@ -22,7 +22,7 @@ const RightInfo = () => {
   const handleChangeMethod = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMethod((event.target as HTMLInputElement).value);
   };
-  console.log(paymentMethods);
+
   return (
     <div className="w-full mg:w-1/2 flex flex-col gap-3 xs:gap-6">
       <div className=" w-full border rounded-2xl shadow-md h-fit flex flex-col p-3 xs:p-6 gap-6">

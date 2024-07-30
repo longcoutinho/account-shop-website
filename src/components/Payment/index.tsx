@@ -127,6 +127,11 @@ const Payment = () => {
     const newList = listOder?.filter((item) => !itemRemove?.includes(item));
 
     if (newList) {
+      let totalCost = 0;
+      newList?.map((o: IListOrder) => {
+        totalCost += o?.amount * o?.price;
+      });
+      setTotalPrice(totalCost);
       localStorage.setItem(
         LOCALSTORAGE_KEY.SHOPPING_CART,
         JSON.stringify(newList)
