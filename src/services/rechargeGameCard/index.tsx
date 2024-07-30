@@ -17,6 +17,11 @@ export const requestGetItemCard = async (id: string): Promise<any> => {
   return doGetRequest(url, null);
 };
 
+export const requestGetPriceItem = async (id: number): Promise<any> => {
+  const url = Backend.ITEM_SERVICE + `/${id}`;
+  return doGetRequest(url, null);
+};
+
 export const requestCreateOrder = async (
   body: ICreateOrderReq
 ): Promise<any> => {

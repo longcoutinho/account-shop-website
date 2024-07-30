@@ -28,31 +28,7 @@ const LeftInfo = ({ item }: IProps) => {
   return (
     <>
       {item && (
-        <div className=" w-full mg:w-1/2 border rounded-2xl shadow-md h-fit flex flex-col p-6 gap-2">
-          <div className=" flex gap-6">
-            {/* {productDetail?.imagePathList && (
-              <Box
-                component={"img"}
-                src={Backend.BASE_URL + productDetail?.imagePathList[0]}
-                alt=""
-                className="rounded-2xl "
-                sx={{
-                  width: 150,
-                  height: 100,
-                  objectFit: "cover",
-                  border: "2px solid #80808079",
-                }}
-              />
-            )} */}
-            <div>
-              {/* {category && (
-                <p className=" text-gray-500 text-sm">
-                  {category?.find((e) => e.id === productDetail?.typeId)?.name}
-                </p>
-              )} */}
-              <p className="text-xl font-semibold">{item?.name}</p>
-            </div>
-          </div>
+        <div className=" w-fulls border rounded-2xl shadow-md h-fit flex items-center py-2 px-6 gap-2">
           <div className="flex flex-wrap gap-2 my-4 ">
             {
               item && (
@@ -77,6 +53,31 @@ const LeftInfo = ({ item }: IProps) => {
               // ))
             }
           </div>
+          <div className=" flex gap-6">
+            {/* {productDetail?.imagePathList && (
+              <Box
+                component={"img"}
+                src={Backend.BASE_URL + productDetail?.imagePathList[0]}
+                alt=""
+                className="rounded-2xl "
+                sx={{
+                  width: 150,
+                  height: 100,
+                  objectFit: "cover",
+                  border: "2px solid #80808079",
+                }}
+              />
+            )} */}
+            <div>
+              {/* {category && (
+                <p className=" text-gray-500 text-sm">
+                  {category?.find((e) => e.id === productDetail?.typeId)?.name}
+                </p>
+              )} */}
+              <p className="text-xl font-semibold">{item?.name}</p>
+            </div>
+          </div>
+
           {/* {productDetail?.description && (
             <>
               <div

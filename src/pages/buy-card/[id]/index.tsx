@@ -3,6 +3,7 @@ import RightInfo from "@/components/BuyCard/RightInfo";
 import { PAGE_TITLE, PageURL } from "@/constants";
 import Page from "@/layouts";
 import { fetchListCard } from "@/redux/slices/card";
+import { fetchListPaymentMethod } from "@/redux/slices/payment";
 import { AppDispatch, RootState } from "@/redux/store";
 import { ArrowBack } from "@mui/icons-material";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -23,6 +24,7 @@ const DetailCardGame = () => {
   const getData = () => {
     try {
       dispatch(fetchListCard());
+      dispatch(fetchListPaymentMethod());
     } catch (e) {
       console.log(e);
     }
@@ -31,13 +33,13 @@ const DetailCardGame = () => {
   return (
     <Page title={PAGE_TITLE.PRODUCTS} menuIndex={1}>
       <div
-        onClick={() => router.push(PageURL.PRODUCTS)}
+        onClick={() => router.push(PageURL.BUY_CARD)}
         className="flex gap-2 mb-4 cursor-pointer"
       >
         <ArrowBack />
         <p className="hover:underline">Back</p>
       </div>
-      <div className="flex gap-8 flex-col mg:flex-row">
+      <div className="flex gap-8 flex-col">
         {cards && cards?.find((e) => e?.id === Number(id)) && (
           <LeftInfo item={cards?.find((e) => e?.id === Number(id))} />
         )}
