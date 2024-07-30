@@ -39,7 +39,7 @@ export const doPostRequest = (url: string, data: any): any => {
       return res;
     },
     (err) => {
-      if (err.response.status == "401") {
+      if (err?.response?.status == "401") {
         deleteUserInfo();
         // const router = useRouter();
         // redirectUrl(router, '/login', null);
@@ -66,7 +66,7 @@ export const doFileRequest = (url: string, data: any): any => {
       return res;
     },
     (err) => {
-      if (err.response.status == "401") {
+      if (err?.response?.status == "401") {
         deleteUserInfo();
         // const router = useRouter();
         // redirectUrl(router, '/login', null);
@@ -92,7 +92,7 @@ export const doGetRequest = (url: string, params: any): any => {
       return res;
     },
     (err) => {
-      if (err.response.status == "401") {
+      if (err?.response?.status == "401") {
         deleteUserInfo();
         // console.log('kk');
         // redirectUrl(router, '/login', null);

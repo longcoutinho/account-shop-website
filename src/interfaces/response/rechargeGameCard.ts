@@ -31,11 +31,12 @@ export interface IPriceItem {
   id: number;
   cardId: number;
   name: string;
-  listFees: {
-    id: number;
-    cardItemId: number;
-    paymentMethodCode: string;
-    currency?: string;
-    price: number;
-  }[];
+  listFees: IFee[];
+}
+export interface IFee {
+  id: number;
+  cardItemId: number;
+  paymentMethodCode: string;
+  currency?: string;
+  price: number;
 }
