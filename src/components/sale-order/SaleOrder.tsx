@@ -89,9 +89,7 @@ export default function AllSaleOrder() {
                         <TableCell>
                           {request.price.toLocaleString("vi-VN")}đ
                         </TableCell>
-                        <TableCell>
-                          {formatDateTime(request.createDate)}
-                        </TableCell>
+                        <TableCell>{request.createDate}</TableCell>
                         <TableCell>
                           {request.status === "SUCCESS" ? (
                             <Chip
