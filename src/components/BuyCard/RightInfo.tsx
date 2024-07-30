@@ -2,6 +2,7 @@ import { NumberInput } from "@/components/NumberInput";
 import { HTTP_STATUS, LOCALSTORAGE_KEY, PageURL } from "@/constants";
 import {
   ICardsRes,
+  IFee,
   IItemCardRes,
   IPriceItem,
 } from "@/interfaces/response/rechargeGameCard";
@@ -23,9 +24,9 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-interface ICardValue {
-  value: number;
-  id: number;
+interface ITotalPriceWithPayment {
+  totalPrice: number;
+  paymentCode: string;
 }
 
 interface IProps {
@@ -40,7 +41,10 @@ const RightInfo = ({ id, card }: IProps) => {
   const [listItems, setListItems] = useState<IItemCardRes[]>([]);
   const [priceItem, setPriceItem] = useState<IPriceItem>();
   const dispatch = useDispatch<AppDispatch>();
-  const [method, setMethod] = useState("");
+  const [method, setMethod] = useState<string>("");
+  const [listPriceWithPaymentCode, setListPriceWithPaymentCode] = useState<
+    ITotalPriceWithPayment[]
+  >([]);
   const { paymentMethods } = useSelector((state: RootState) => state.payment);
 
   useEffect(() => {
@@ -51,6 +55,16 @@ const RightInfo = ({ id, card }: IProps) => {
   useEffect(() => {
     handleGetListPriceItem();
   }, [cardId]);
+
+  useEffect(() => {
+    const data = priceItem?.listFees?.map((e) => {
+      return {
+        paymentCode: e?.paymentMethodCode,
+        totalPrice: amount ? e?.price * amount : 0,
+      };
+    }) as ITotalPriceWithPayment[];
+    setListPriceWithPaymentCode(data);
+  }, [priceItem, amount]);
 
   const handleGetListItemCard = async () => {
     try {
@@ -86,7 +100,9 @@ const RightInfo = ({ id, card }: IProps) => {
       const data = {
         item: card,
         cardId: cardId,
-        price: 0,
+        price:
+          listPriceWithPaymentCode?.find((e) => e?.paymentCode === method)
+            ?.totalPrice || 0,
         amount: amount,
       };
       let newData: any;
@@ -119,7 +135,9 @@ const RightInfo = ({ id, card }: IProps) => {
       const data = {
         item: card,
         cardId: cardId,
-        price: 0,
+        price:
+          listPriceWithPaymentCode?.find((e) => e?.paymentCode === method)
+            ?.totalPrice || 0,
         amount: amount || 0,
       };
       dispatch(setBuyNow(true));
@@ -187,10 +205,10 @@ const RightInfo = ({ id, card }: IProps) => {
                 onChange={handleChangeMethod}
               >
                 {priceItem?.listFees &&
-                  priceItem?.listFees?.map((e) => (
+                  priceItem?.listFees?.map((e: IFee) => (
                     <div className="flex items-center justify-between w-full">
                       <FormControlLabel
-                        value={e?.id}
+                        value={e?.paymentMethodCode}
                         control={<Radio />}
                         label={
                           paymentMethods &&
