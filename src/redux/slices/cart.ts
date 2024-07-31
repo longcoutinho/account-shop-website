@@ -1,3 +1,4 @@
+import { ITotalPriceWithPayment } from "@/components/BuyCard/RightInfo";
 import { IListOrder } from "@/components/Payment";
 import { ICardsRes } from "@/interfaces/response/rechargeGameCard";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
@@ -5,7 +6,7 @@ import { WritableDraft } from "immer/dist/internal";
 
 interface IOrderDetail {
   item?: ICardsRes;
-  price: number;
+  price: ITotalPriceWithPayment[];
   amount: number;
 }
 interface IState {
