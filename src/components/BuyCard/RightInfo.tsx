@@ -24,7 +24,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-interface ITotalPriceWithPayment {
+export interface ITotalPriceWithPayment {
   totalPrice: number;
   paymentCode: string;
 }
@@ -37,11 +37,11 @@ const RightInfo = ({ id, card }: IProps) => {
   const { t } = useTranslation("common");
   const router = useRouter();
   const [amount, setAmount] = useState<number | null>(1);
-  const [cardId, setCardId] = useState<number | undefined>();
+  const [item, setItem] = useState<IItemCardRes>();
   const [listItems, setListItems] = useState<IItemCardRes[]>([]);
   const [priceItem, setPriceItem] = useState<IPriceItem>();
   const dispatch = useDispatch<AppDispatch>();
-  const [method, setMethod] = useState<string>("");
+  // const [method, setMethod] = useState<string>("");
   const [listPriceWithPaymentCode, setListPriceWithPaymentCode] = useState<
     ITotalPriceWithPayment[]
   >([]);
@@ -54,7 +54,7 @@ const RightInfo = ({ id, card }: IProps) => {
 
   useEffect(() => {
     handleGetListPriceItem();
-  }, [cardId]);
+  }, [item]);
 
   useEffect(() => {
     const data = priceItem?.listFees?.map((e) => {
@@ -80,9 +80,8 @@ const RightInfo = ({ id, card }: IProps) => {
   };
   const handleGetListPriceItem = async () => {
     try {
-      if (cardId) {
-        const res = await requestGetPriceItem(cardId);
-        console.log(res);
+      if (item) {
+        const res = await requestGetPriceItem(item?.id);
         if (res?.status === HTTP_STATUS.OK) {
           setPriceItem(res?.data);
         }
@@ -93,23 +92,23 @@ const RightInfo = ({ id, card }: IProps) => {
   };
 
   const handleAddtoCart = () => {
-    if (amount && cardId && method) {
+    if (amount && item?.id) {
       const oldData = JSON.parse(
         (localStorage.getItem(LOCALSTORAGE_KEY.SHOPPING_CART) as string) ?? "[]"
       );
       const data = {
         item: card,
-        cardId: cardId,
-        price:
-          listPriceWithPaymentCode?.find((e) => e?.paymentCode === method)
-            ?.totalPrice || 0,
+        cardId: item?.id,
+        cardName: item?.name,
+        price: listPriceWithPaymentCode,
         amount: amount,
       };
       let newData: any;
       if (oldData) {
         newData = oldData
           .filter(
-            (e: any) => e.item && e.item.id === card?.id && e.cardId === cardId
+            (e: any) =>
+              e.item && e.item.id === card?.id && e.cardId === item?.id
           )
           .map((e: any) => ({ ...e, amount: e.amount + amount }));
       } else {
@@ -131,13 +130,12 @@ const RightInfo = ({ id, card }: IProps) => {
     }
   };
   const handleClickBuyNow = () => {
-    if (amount && cardId && method) {
+    if (amount && item?.id) {
       const data = {
         item: card,
-        cardId: cardId,
-        price:
-          listPriceWithPaymentCode?.find((e) => e?.paymentCode === method)
-            ?.totalPrice || 0,
+        cardId: item?.id,
+        cardName: item?.name,
+        price: listPriceWithPaymentCode,
         amount: amount || 0,
       };
       dispatch(setBuyNow(true));
@@ -147,13 +145,13 @@ const RightInfo = ({ id, card }: IProps) => {
   };
 
   const handleReset = () => {
-    setCardId(undefined);
+    setItem(undefined);
     setAmount(1);
   };
 
-  const handleChangeMethod = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setMethod((event.target as HTMLInputElement).value);
-  };
+  // const handleChangeMethod = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setMethod((event.target as HTMLInputElement).value);
+  // };
   return (
     <div className="w-full flex flex-col gap-3 xs:gap-6">
       <div className=" w-full border rounded-2xl shadow-md h-fit flex flex-col p-3 xs:p-6 gap-6">
@@ -164,9 +162,9 @@ const RightInfo = ({ id, card }: IProps) => {
               listItems?.map((e) => (
                 <p
                   key={e.id}
-                  onClick={() => setCardId(e.id)}
+                  onClick={() => setItem(e)}
                   className={`border rounded-lg px-2 xs:px-4 py-2 text-xs xs:text-base w-16 xs:w-32 text-center cursor-pointer hover:border-orange-300 ${
-                    cardId === e?.id
+                    item?.id === e?.id
                       ? "border-orange-300 text-orange-600"
                       : "border-gray-400"
                   }`}
@@ -202,13 +200,14 @@ const RightInfo = ({ id, card }: IProps) => {
               <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
                 name="radio-buttons-group"
-                onChange={handleChangeMethod}
+                // onChange={handleChangeMethod}
               >
                 {priceItem?.listFees &&
                   priceItem?.listFees?.map((e: IFee) => (
                     <div className="flex items-center justify-between w-full">
                       <FormControlLabel
-                        value={e?.paymentMethodCode}
+                        // value={e?.paymentMethodCode}
+                        className="cursor-default"
                         control={<Radio />}
                         label={
                           paymentMethods &&
@@ -241,7 +240,7 @@ const RightInfo = ({ id, card }: IProps) => {
           style={{ border: "1px solid #0e1522" }}
           className={`w-full  !text-[#052d75] !min-h-11 !mt-4 !capitalize
                ${
-                 amount && cardId && method
+                 amount && item?.id
                    ? "!cursor-pointer !hover:bg-[#052d751f]"
                    : "!cursor-not-allowed !opacity-50 !hover:bg-white"
                }
@@ -252,7 +251,7 @@ const RightInfo = ({ id, card }: IProps) => {
         <Button
           onClick={handleClickBuyNow}
           className={`w-full !bg-[#052d75] !text-white !min-h-11 !mt-4 !capitalize ${
-            amount && cardId && method
+            amount && item?.id
               ? "!cursor-pointer !hover:bg-[#30466b]"
               : "!cursor-not-allowed !opacity-50 !hover:bg-[#052d75] !hover:text-white"
           }`}

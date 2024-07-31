@@ -12,10 +12,9 @@ import { useRouter } from "next/router";
 import { AppDispatch, RootState } from "@/redux/store";
 import { setItemInCart } from "@/redux/slices/cart";
 import { useTranslation } from "next-i18next";
-import { getUserInfo } from "@/constants/FnCommon";
 import { useDispatch, useSelector } from "react-redux";
 import { PATH_PAGE } from "@/routes/path";
-import { fetchInfoUser } from "@/redux/slices/user";
+import { ITotalPriceWithPayment } from "../BuyCard/RightInfo";
 export interface IListOrder {
   item: {
     id: number;
@@ -24,7 +23,8 @@ export interface IListOrder {
   };
 
   cardId: number;
-  price: number;
+  cardName: string;
+  price: ITotalPriceWithPayment[];
   amount: number;
 }
 const Payment = () => {
@@ -43,6 +43,14 @@ const Payment = () => {
 
   useEffect(() => {
     renderListPaymentMethod();
+  }, []);
+
+  useEffect(() => {
+    const method = listPaymentMethod?.find((e) => e?.code === "EP");
+    setPaymentMethod(method);
+  }, [listPaymentMethod]);
+
+  useEffect(() => {
     const list: IListOrder[] = buyNow
       ? orderDetail
       : JSON.parse(
@@ -51,12 +59,14 @@ const Payment = () => {
     if (list && list?.length > 0) {
       let totalCost = 0;
       list?.map((o: IListOrder) => {
-        totalCost += o?.amount * o?.price;
+        totalCost +=
+          o?.price?.find((pric) => pric?.paymentCode === paymentMethod?.code)
+            ?.totalPrice || 0;
       });
       setTotalPrice(totalCost);
     }
     setListOrder(list);
-  }, [buyNow, orderDetail]);
+  }, [buyNow, orderDetail, paymentMethod]);
 
   const renderListPaymentMethod = async () => {
     try {
@@ -129,7 +139,9 @@ const Payment = () => {
     if (newList) {
       let totalCost = 0;
       newList?.map((o: IListOrder) => {
-        totalCost += o?.amount * o?.price;
+        totalCost +=
+          o?.price?.find((pric) => pric?.paymentCode === paymentMethod?.code)
+            ?.totalPrice || 0;
       });
       setTotalPrice(totalCost);
       localStorage.setItem(
@@ -161,7 +173,7 @@ const Payment = () => {
                           height={50}
                           className="h-[50px]"
                         />
-                        <p>{o?.item?.name}</p>
+                        <p>{o?.cardName}</p>
                       </div>
                       <div className="w-full md:w-1/2 flex justify-between items-start xxs:items-center flex-col xxs:flex-row">
                         <p className="">
@@ -171,7 +183,13 @@ const Payment = () => {
                         <p>
                           {t("PRICE")}:{" "}
                           <span className=" font-semibold">
-                            {(o.price * o.amount).toLocaleString("vi-VN")}đ
+                            {(
+                              o?.price?.find(
+                                (pric) =>
+                                  pric?.paymentCode === paymentMethod?.code
+                              )?.totalPrice || 0
+                            ).toLocaleString("vi-VN")}
+                            đ
                           </span>
                         </p>
                       </div>
@@ -210,7 +228,7 @@ const Payment = () => {
                     className={` p-0.5 max-w-36 rounded-lg cursor-pointer hover:scale-105  hover:shadow-lg transition-all ${
                       g.id === paymentMethod?.id
                         ? " border-[#f3a44a] shadow-md border-2"
-                        : " border-[#1b1b1b1f] border-2"
+                        : " border-[#1b1b1b1f] border-2 opacity-50"
                     }`}
                   >
                     <Image
