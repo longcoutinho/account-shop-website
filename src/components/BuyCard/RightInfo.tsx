@@ -191,7 +191,7 @@ const RightInfo = ({ id, card }: IProps) => {
           </div>
         </div>
       </div>
-      <div className="flex gap-4">
+      <div className="flex gap-4 flex-col sm:flex-row">
         <div className=" w-full border rounded-2xl shadow-md flex flex-col p-3 xs:p-6 gap-6 h-[106px] justify-center">
           <div className="flex items-center justify-between">
             <p>{t("QUANTITY")}</p>
