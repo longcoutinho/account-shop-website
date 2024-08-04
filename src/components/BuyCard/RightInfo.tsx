@@ -55,11 +55,13 @@ const RightInfo = ({ id, card }: IProps) => {
     }
   }, [listItems]);
   useEffect(() => {
-    if (item && priceItem && priceItem?.listFees[0]?.currency) {
+    if (item && priceItem && priceItem?.listFees[0]?.currency && amount) {
       setCurrency(priceItem?.listFees[0]?.currency);
-      setDisplayPrice(priceItem?.listFees[0]?.price?.toLocaleString());
+      setDisplayPrice(
+        (priceItem?.listFees[0]?.price * amount)?.toLocaleString()
+      );
     }
-  }, [item, priceItem]);
+  }, [item, priceItem, amount]);
 
   useEffect(() => {
     const data = priceItem?.listFees?.map((e) => {
@@ -159,8 +161,8 @@ const RightInfo = ({ id, card }: IProps) => {
     const selected = priceItem?.listFees?.find(
       (e) => e?.id.toString() === event.target.value?.toString()
     );
-    if (selected) {
-      setDisplayPrice(selected?.price?.toLocaleString());
+    if (selected && amount) {
+      setDisplayPrice((selected?.price * amount)?.toLocaleString());
     }
   };
 
