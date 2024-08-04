@@ -147,8 +147,8 @@ export enum PageURL {
   PAYMENT = "/payment",
   HISTORY = "/history",
   GAME_TOP_UP = "/game-topup",
-  CASTLE_CLASH = "/game-topup/castle-clash",
-  LORDS_MOBILE = "/game-topup/lords-mobile",
+  CASTLE_CLASH = "/castle-clash",
+  LORDS_MOBILE = "/lords-mobile",
   PRODUCTS = "/products",
   PRODUCT = "/product",
 }

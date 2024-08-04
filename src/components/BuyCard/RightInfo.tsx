@@ -2,27 +2,20 @@ import { NumberInput } from "@/components/NumberInput";
 import { HTTP_STATUS, LOCALSTORAGE_KEY, PageURL } from "@/constants";
 import {
   ICardsRes,
-  IFee,
   IItemCardRes,
   IPriceItem,
 } from "@/interfaces/response/rechargeGameCard";
 import { setBuyNow, setItemInCart, setOrderDetail } from "@/redux/slices/cart";
-import { AppDispatch, RootState } from "@/redux/store";
+import { AppDispatch } from "@/redux/store";
 import {
   requestGetItemCard,
   requestGetPriceItem,
 } from "@/services/rechargeGameCard";
-import {
-  Button,
-  FormControl,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
-} from "@mui/material";
+import { Button, FormControl, NativeSelect } from "@mui/material";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 export interface ITotalPriceWithPayment {
   totalPrice: number;
@@ -41,11 +34,11 @@ const RightInfo = ({ id, card }: IProps) => {
   const [listItems, setListItems] = useState<IItemCardRes[]>([]);
   const [priceItem, setPriceItem] = useState<IPriceItem>();
   const dispatch = useDispatch<AppDispatch>();
-  // const [method, setMethod] = useState<string>("");
+  const [currency, setCurrency] = useState<string>("1");
+  const [displayPrice, setDisplayPrice] = useState("");
   const [listPriceWithPaymentCode, setListPriceWithPaymentCode] = useState<
     ITotalPriceWithPayment[]
   >([]);
-  const { paymentMethods } = useSelector((state: RootState) => state.payment);
 
   useEffect(() => {
     setAmount(1);
@@ -57,9 +50,21 @@ const RightInfo = ({ id, card }: IProps) => {
   }, [item]);
 
   useEffect(() => {
+    if (listItems) {
+      setItem(listItems[0]);
+    }
+  }, [listItems]);
+  useEffect(() => {
+    if (item && priceItem && priceItem?.listFees[0]?.currency) {
+      setCurrency(priceItem?.listFees[0]?.currency);
+      setDisplayPrice(priceItem?.listFees[0]?.price?.toLocaleString());
+    }
+  }, [item, priceItem]);
+
+  useEffect(() => {
     const data = priceItem?.listFees?.map((e) => {
       return {
-        paymentCode: e?.paymentMethodCode,
+        paymentCode: e?.currency,
         totalPrice: amount ? e?.price * amount : 0,
       };
     }) as ITotalPriceWithPayment[];
@@ -149,9 +154,16 @@ const RightInfo = ({ id, card }: IProps) => {
     setAmount(1);
   };
 
-  // const handleChangeMethod = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setMethod((event.target as HTMLInputElement).value);
-  // };
+  const handleChangeCurrency = (event: any) => {
+    setCurrency(event.target.value);
+    const selected = priceItem?.listFees?.find(
+      (e) => e?.id.toString() === event.target.value?.toString()
+    );
+    if (selected) {
+      setDisplayPrice(selected?.price?.toLocaleString());
+    }
+  };
+
   return (
     <div className="w-full flex flex-col gap-3 xs:gap-6">
       <div className=" w-full border rounded-2xl shadow-md h-fit flex flex-col p-3 xs:p-6 gap-6">
@@ -175,76 +187,54 @@ const RightInfo = ({ id, card }: IProps) => {
           </div>
         </div>
       </div>
-      <div className=" w-full border rounded-2xl shadow-md h-fit flex flex-col p-3 xs:p-6 gap-6">
-        <div className="flex items-center justify-between">
-          <p>{t("QUANTITY")}</p>
-          <NumberInput
-            defaultValue={1}
-            value={amount}
-            min={1}
-            onChange={(event, newValue) => setAmount(newValue)}
-          />
-        </div>
-      </div>
-      {/* <div className=" w-full border rounded-2xl shadow-md h-fit flex flex-col p-3 xs:p-6 gap-6">
-        <div className="flex items-center justify-between">
-          <p>{t("REMAINING")}</p>
-          <p>{item?.remaining + " " + t("PRODUCT")}</p>
-        </div>
-      </div> */}
-      {priceItem && (
-        <div className=" w-full border rounded-2xl shadow-md h-fit flex flex-col p-3 xs:p-6 gap-6">
-          <div className="flex flex-col justify-between">
-            <p>{t("PRICE")}</p>
-            <FormControl className="w-full">
-              <RadioGroup
-                aria-labelledby="demo-radio-buttons-group-label"
-                name="radio-buttons-group"
-                // onChange={handleChangeMethod}
-              >
-                {priceItem?.listFees &&
-                  priceItem?.listFees?.map((e: IFee) => (
-                    <div className="flex items-center justify-between w-full">
-                      <FormControlLabel
-                        // value={e?.paymentMethodCode}
-                        className="cursor-default"
-                        control={<Radio />}
-                        label={
-                          paymentMethods &&
-                          paymentMethods?.find(
-                            (p) => p?.code === e?.paymentMethodCode
-                          )
-                            ? paymentMethods?.find(
-                                (p) => p?.code === e?.paymentMethodCode
-                              )?.name + ` (${e?.paymentMethodCode})`
-                            : e?.paymentMethodCode
-                        }
-                      />
-                      <p>
-                        {(amount ? e?.price * amount : 0)?.toLocaleString(
-                          "vi-VN"
-                        ) +
-                          " " +
-                          (e?.currency || "VND")}
-                      </p>
-                    </div>
-                  ))}
-              </RadioGroup>
-            </FormControl>
+      <div className="flex gap-4">
+        <div className=" w-full border rounded-2xl shadow-md flex flex-col p-3 xs:p-6 gap-6 h-[106px] justify-center">
+          <div className="flex items-center justify-between">
+            <p>{t("QUANTITY")}</p>
+            <NumberInput
+              defaultValue={1}
+              value={amount}
+              min={1}
+              onChange={(event, newValue) => setAmount(newValue)}
+            />
           </div>
         </div>
-      )}
+        <div className=" w-full border rounded-2xl shadow-md flex flex-col p-3 xs:p-6 gap-6 h-[106px] justify-center">
+          <div className="flex items-center justify-between">
+            <p>{t("PRICE")}</p>
+            <div className="flex items-center gap-3">
+              <p>{displayPrice}</p>
+              <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+                <NativeSelect
+                  defaultValue={currency}
+                  onChange={handleChangeCurrency}
+                  inputProps={{
+                    name: "currency",
+                    id: "uncontrolled-native",
+                  }}
+                >
+                  {priceItem?.listFees &&
+                    priceItem?.listFees?.map((e) => (
+                      <option value={e?.id}>{e?.currency}</option>
+                    ))}
+                </NativeSelect>
+              </FormControl>
+            </div>
+          </div>
+        </div>
+      </div>
       <div className=" w-full flex gap-6">
         <Button
-          onClick={handleAddtoCart}
+          // onClick={handleAddtoCart}
           style={{ border: "1px solid #0e1522" }}
-          className={`w-full  !text-[#052d75] !min-h-11 !mt-4 !capitalize
-               ${
-                 amount && item?.id
-                   ? "!cursor-pointer !hover:bg-[#052d751f]"
-                   : "!cursor-not-allowed !opacity-50 !hover:bg-white"
-               }
-            `}
+          className="!opacity-50 !cursor-not-allowed w-full  !text-[#052d75] !min-h-11 !mt-4 !capitalize"
+          // className={`w-full  !text-[#052d75] !min-h-11 !mt-4 !capitalize
+          //      ${
+          //        amount && item?.id
+          //          ? "!cursor-pointer !hover:bg-[#052d751f]"
+          //          : "!cursor-not-allowed !opacity-50 !hover:bg-white"
+          //      }
+          //   `}
         >
           {t("ADD_TO_CART")}
         </Button>
