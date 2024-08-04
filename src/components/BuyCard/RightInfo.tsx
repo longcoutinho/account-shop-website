@@ -12,6 +12,7 @@ import {
   requestGetPriceItem,
 } from "@/services/rechargeGameCard";
 import { Button, FormControl, NativeSelect } from "@mui/material";
+import { isUndefined } from "lodash";
 import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -34,36 +35,38 @@ const RightInfo = ({ id, card }: IProps) => {
   const [listItems, setListItems] = useState<IItemCardRes[]>([]);
   const [priceItem, setPriceItem] = useState<IPriceItem>();
   const dispatch = useDispatch<AppDispatch>();
-  const [currency, setCurrency] = useState<string>("1");
-  const [displayPrice, setDisplayPrice] = useState("");
+  const [currency, setCurrency] = useState<string>("");
+  const [displayPrice, setDisplayPrice] = useState(0);
   const [listPriceWithPaymentCode, setListPriceWithPaymentCode] = useState<
     ITotalPriceWithPayment[]
   >([]);
 
   useEffect(() => {
-    setAmount(1);
     handleGetListItemCard();
+    setCurrency("EP");
   }, []);
 
   useEffect(() => {
-    handleGetListPriceItem();
-  }, [item]);
+    if (listItems) handleGetListPriceItem(listItems[0]);
+  }, [listItems]);
 
   useEffect(() => {
-    if (listItems) {
-      setItem(listItems[0]);
-    }
-  }, [listItems]);
-  useEffect(() => {
-    if (item && priceItem && priceItem?.listFees[0]?.currency && amount) {
+    if (currency && priceItem) {
       const itemDefault = priceItem?.listFees?.find(
-        (e) => e?.id.toString() === currency
+        (e: any) => e?.currency.toString() === currency
       );
-      if (itemDefault) {
-        setDisplayPrice((itemDefault?.price * amount)?.toLocaleString());
+      if (itemDefault && amount) {
+        setDisplayPrice(itemDefault?.price * amount);
+      } else if (isUndefined(itemDefault)) {
+        setDisplayPrice(priceItem?.listFees[0]?.price);
+        setCurrency(
+          priceItem?.listFees[0]?.currency
+            ? priceItem?.listFees[0]?.currency
+            : "EP"
+        );
       }
     }
-  }, [item, priceItem, amount, currency]);
+  }, [currency, priceItem]);
 
   useEffect(() => {
     const data = priceItem?.listFees?.map((e) => {
@@ -81,18 +84,25 @@ const RightInfo = ({ id, card }: IProps) => {
         const res = await requestGetItemCard(id);
         if (res?.status === HTTP_STATUS.OK) {
           setListItems(res?.data);
+          setItem(res?.data[0]);
         }
       }
     } catch (e) {
       console.log(e);
     }
   };
-  const handleGetListPriceItem = async () => {
+  const handleGetListPriceItem = async (item: IItemCardRes) => {
     try {
       if (item) {
         const res = await requestGetPriceItem(item?.id);
         if (res?.status === HTTP_STATUS.OK) {
           setPriceItem(res?.data);
+          const itemDefault = res?.data?.listFees?.find(
+            (e: any) => e?.currency.toString() === currency
+          );
+          if (itemDefault && amount) {
+            setDisplayPrice(itemDefault?.price * amount);
+          }
         }
       }
     } catch (e) {
@@ -161,10 +171,10 @@ const RightInfo = ({ id, card }: IProps) => {
   const handleChangeCurrency = (event: any) => {
     setCurrency(event.target.value);
     const selected = priceItem?.listFees?.find(
-      (e) => e?.id.toString() === event.target.value?.toString()
+      (e) => e?.currency?.toString() === event.target.value?.toString()
     );
     if (selected && amount) {
-      setDisplayPrice((selected?.price * amount)?.toLocaleString());
+      setDisplayPrice(selected?.price * amount);
     }
   };
 
@@ -178,7 +188,10 @@ const RightInfo = ({ id, card }: IProps) => {
               listItems?.map((e) => (
                 <p
                   key={e.id}
-                  onClick={() => setItem(e)}
+                  onClick={() => {
+                    setItem(e);
+                    handleGetListPriceItem(e);
+                  }}
                   className={`border rounded-lg px-2 xs:px-4 py-2 text-xs xs:text-base w-16 xs:w-32 text-center cursor-pointer hover:border-orange-300 ${
                     item?.id === e?.id
                       ? "border-orange-300 text-orange-600"
@@ -207,7 +220,7 @@ const RightInfo = ({ id, card }: IProps) => {
           <div className="flex items-center justify-between">
             <p>{t("PRICE")}</p>
             <div className="flex items-center gap-3">
-              <p>{displayPrice}</p>
+              <p>{displayPrice?.toLocaleString()}</p>
               <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
                 <NativeSelect
                   defaultValue={currency}
@@ -219,7 +232,7 @@ const RightInfo = ({ id, card }: IProps) => {
                 >
                   {priceItem?.listFees &&
                     priceItem?.listFees?.map((e) => (
-                      <option value={e?.id}>{e?.currency}</option>
+                      <option value={e?.currency}>{e?.currency}</option>
                     ))}
                 </NativeSelect>
               </FormControl>
