@@ -38,7 +38,7 @@ const Payment = () => {
     IPaymentMethodRes[]
   >([]);
   const [paymentMethod, setPaymentMethod] = useState<IPaymentMethodRes>();
-  const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [totalPrice, setTotalPrice] = useState<string>("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -60,10 +60,11 @@ const Payment = () => {
       let totalCost = 0;
       list?.map((o: IListOrder) => {
         totalCost +=
-          o?.price?.find((pric) => pric?.paymentCode === paymentMethod?.code)
-            ?.totalPrice || 0;
+          o?.price?.find(
+            (pric) => pric?.paymentCode === paymentMethod?.currency
+          )?.totalPrice || 0;
       });
-      setTotalPrice(totalCost);
+      setTotalPrice(totalCost?.toLocaleString() + paymentMethod?.currency);
     }
     setListOrder(list);
   }, [buyNow, orderDetail, paymentMethod]);
@@ -143,7 +144,7 @@ const Payment = () => {
           o?.price?.find((pric) => pric?.paymentCode === paymentMethod?.code)
             ?.totalPrice || 0;
       });
-      setTotalPrice(totalCost);
+      setTotalPrice(totalCost?.toLocaleString() + paymentMethod?.currency);
       localStorage.setItem(
         LOCALSTORAGE_KEY.SHOPPING_CART,
         JSON.stringify(newList)
@@ -186,10 +187,15 @@ const Payment = () => {
                             {(
                               o?.price?.find(
                                 (pric) =>
-                                  pric?.paymentCode === paymentMethod?.code
+                                  pric?.paymentCode === paymentMethod?.currency
                               )?.totalPrice || 0
-                            ).toLocaleString("vi-VN")}
-                            đ
+                            ).toLocaleString()}
+                            {
+                              o?.price?.find(
+                                (pric) =>
+                                  pric?.paymentCode === paymentMethod?.currency
+                              )?.paymentCode
+                            }
                           </span>
                         </p>
                       </div>
@@ -209,7 +215,7 @@ const Payment = () => {
             <p className="text-right w-full text-xl font-semibold mt-4">
               {t("TOTAL")}:{" "}
               <span className=" font-semibold text-2xl text-red-500">
-                {totalPrice.toLocaleString("vi-VN")}đ
+                {totalPrice}
               </span>
             </p>
           </div>
@@ -219,27 +225,33 @@ const Payment = () => {
             </p>
             <div className=" w-full flex justify-center flex-wrap gap-3">
               {listPaymentMethod &&
-                listPaymentMethod?.map((g) => (
-                  <div
-                    key={g?.id}
-                    onClick={() => {
-                      setPaymentMethod(g);
-                    }}
-                    className={` p-0.5 max-w-36 rounded-lg cursor-pointer hover:scale-105  hover:shadow-lg transition-all ${
-                      g.id === paymentMethod?.id
-                        ? " border-[#f3a44a] shadow-md border-2"
-                        : " border-[#1b1b1b1f] border-2 opacity-50"
-                    }`}
-                  >
-                    <Image
-                      src={g?.image ? g?.image : ""}
-                      alt="card"
-                      width={150}
-                      height={100}
-                      className=" mx-auto h-[100px] "
-                    />
-                  </div>
-                ))}
+                listPaymentMethod
+                  ?.filter((a) =>
+                    listOder[0]?.price?.some(
+                      (b) => a.currency === b.paymentCode
+                    )
+                  )
+                  ?.map((g) => (
+                    <div
+                      key={g?.id}
+                      onClick={() => {
+                        setPaymentMethod(g);
+                      }}
+                      className={` p-0.5 max-w-36 rounded-lg cursor-pointer hover:scale-105  hover:shadow-lg transition-all ${
+                        g.id === paymentMethod?.id
+                          ? " border-[#f3a44a] shadow-md border-2"
+                          : " border-[#1b1b1b1f] border-2 opacity-50"
+                      }`}
+                    >
+                      <Image
+                        src={g?.image ? g?.image : ""}
+                        alt="card"
+                        width={150}
+                        height={100}
+                        className=" mx-auto h-[100px] "
+                      />
+                    </div>
+                  ))}
             </div>
             <div className="w-full flex justify-center mt-4">
               <Button
