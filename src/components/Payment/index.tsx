@@ -106,8 +106,6 @@ const Payment = () => {
             }
             if (paymentMethod?.code === "EP") {
               router.push(PATH_PAGE.history.root + `/${res?.data?.orderId}`);
-            } else if (paymentMethod?.code === "STP") {
-              router.push("https://buy.stripe.com/test_dR65kw86e3B8cGTdp6");
             } else {
               router.push(res?.data?.returnURL ? res?.data?.returnURL : "");
             }
