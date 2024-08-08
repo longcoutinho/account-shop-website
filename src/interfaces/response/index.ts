@@ -40,6 +40,7 @@ export interface IOrderHistory {
   createDate: string;
   price: number;
   status: string;
+  currency: string;
 }
 
 export interface Course {
