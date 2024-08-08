@@ -223,33 +223,39 @@ const Payment = () => {
             </p>
             <div className=" w-full flex justify-center flex-wrap gap-3">
               {listPaymentMethod &&
-                listPaymentMethod
-                  ?.filter((a) =>
-                    listOder[0]?.price?.some(
-                      (b) => a.currency === b.paymentCode
-                    )
-                  )
-                  ?.map((g) => (
-                    <div
-                      key={g?.id}
-                      onClick={() => {
+                listPaymentMethod?.map((g) => (
+                  <div
+                    key={g?.id}
+                    onClick={() => {
+                      if (
+                        listOder[0]?.price?.some(
+                          (b) => g?.currency === b?.paymentCode
+                        )
+                      ) {
                         setPaymentMethod(g);
-                      }}
-                      className={` p-0.5 max-w-36 rounded-lg cursor-pointer hover:scale-105  hover:shadow-lg transition-all ${
-                        g.id === paymentMethod?.id
-                          ? " border-[#f3a44a] shadow-md border-2"
-                          : " border-[#1b1b1b1f] border-2 opacity-50"
-                      }`}
-                    >
-                      <Image
-                        src={g?.image ? g?.image : ""}
-                        alt="card"
-                        width={150}
-                        height={100}
-                        className=" mx-auto h-[100px] "
-                      />
-                    </div>
-                  ))}
+                      }
+                    }}
+                    className={` p-0.5 max-w-36 rounded-lg ${
+                      g.id === paymentMethod?.id
+                        ? " border-[#f3a44a] shadow-md border-2"
+                        : " border-[#1b1b1b1f] border-2 opacity-50"
+                    } ${
+                      listOder[0]?.price?.some(
+                        (b) => g?.currency === b?.paymentCode
+                      )
+                        ? "cursor-pointer hover:shadow-lg transition-all hover:scale-105"
+                        : "cursor-not-allowed"
+                    }`}
+                  >
+                    <Image
+                      src={g?.image ? g?.image : ""}
+                      alt="card"
+                      width={150}
+                      height={100}
+                      className=" mx-auto h-[100px] "
+                    />
+                  </div>
+                ))}
             </div>
             <div className="w-full flex justify-center mt-4">
               <Button

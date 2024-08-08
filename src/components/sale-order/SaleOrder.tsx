@@ -87,7 +87,8 @@ export default function AllSaleOrder() {
                       >
                         <TableCell>{request.id}</TableCell>
                         <TableCell>
-                          {request.price.toLocaleString("vi-VN")}đ
+                          {request.price.toLocaleString("vi-VN")}
+                          {request?.currency}
                         </TableCell>
                         <TableCell>{request.createDate}</TableCell>
                         <TableCell>
