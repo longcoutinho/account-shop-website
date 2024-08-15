@@ -15,6 +15,7 @@ import { useTranslation } from "next-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { PATH_PAGE } from "@/routes/path";
 import { ITotalPriceWithPayment } from "../BuyCard/RightInfo";
+import { PAYMENT_METHOD_CODE } from "@/constants/payment";
 export interface IListOrder {
   item: {
     id: number;
@@ -235,7 +236,7 @@ const Payment = () => {
                         setPaymentMethod(g);
                       }
                     }}
-                    className={` p-0.5 max-w-36 rounded-lg ${
+                    className={` p-0.5 w-52 py-2 rounded-lg ${
                       g.id === paymentMethod?.id
                         ? " border-[#f3a44a] shadow-md border-2"
                         : " border-[#1b1b1b1f] border-2 opacity-50"
@@ -252,8 +253,11 @@ const Payment = () => {
                       alt="card"
                       width={150}
                       height={100}
-                      className=" mx-auto h-[100px] "
+                      className=" mx-auto h-20 w-24 mb-3"
                     />
+                    <p className="px-1 text-center">
+                      ({g?.currency}) {PAYMENT_METHOD_CODE[g.code]}
+                    </p>
                   </div>
                 ))}
             </div>

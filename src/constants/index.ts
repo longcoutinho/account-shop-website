@@ -3,7 +3,7 @@ import { PATH_PAGE } from "@/routes/path";
 
 export enum Backend {
   BASE_URL = "https://elitagame.online",
-  // BASE_URL = "http://42.113.20.197:8989",
+  // BASE_URL = "http://42.96.35.69:8989",
   // BASE_URL = 'http://localhost:8989',
   USER_SERVICE = BASE_URL + "/user",
   GAME_SERVICE = BASE_URL + "/game",
@@ -104,35 +104,6 @@ export enum ItemService {
 }
 
 export const HOME_PAGE_DISPLAY_ITEM = 3;
-
-export const listItems = [
-  {
-    titleImageUrlStream:
-      "https://images.pexels.com/photos/1486861/pexels-photo-1486861.jpeg?cs=srgb&dl=pexels-engin-akyurt-1486861.jpg&fm=jpg",
-    title: "Cá chép hóa rồng",
-    id: 1,
-    price: 3500000,
-    introduction: "abc",
-  },
-];
-
-export const listCourse: Course[] = [
-  {
-    title: "Lớp 1",
-    teacher: "Kim ca",
-    titleImageUrlStream:
-      "https://images.pexels.com/photos/1486861/pexels-photo-1486861.jpeg?cs=srgb&dl=pexels-engin-akyurt-1486861.jpg&fm=jpg",
-    videoTime: 20,
-  },
-];
-
-export const listServicesTitle = [
-  {
-    img: "https://www.kimca.net/wp-content/uploads/2022/02/163418138042938300_a640x364-1-364x363.jpg",
-    title: "Làm viên chức",
-    content: "Bạn muốn biết hôn nhân mình ra sao?",
-  },
-];
 
 export enum PageURL {
   HOME = "/",

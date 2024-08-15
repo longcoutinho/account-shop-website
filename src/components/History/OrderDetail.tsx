@@ -71,6 +71,7 @@ const OrderDetail = ({ isDetail }: IProps) => {
       navigator.clipboard.writeText(text ? text : "");
     }
   };
+
   return (
     <>
       {!isDone && !isDetail ? (
@@ -92,8 +93,11 @@ const OrderDetail = ({ isDetail }: IProps) => {
                   {c?.cards?.length} {t("CARD")}
                 </p>
                 <div className="flex gap-2 flex-wrap">
-                  {c?.cards?.map((e) => (
-                    <div className="flex flex-col shadow-xl border border-gray-300 px-4 py-4 rounded-md w-full sm:w-[calc((100%-8px)/2)] lg:w-[calc((100%-16px)/3)] xl:w-[calc((100%-24px)/4)] items-start">
+                  {c?.cards?.map((e, index) => (
+                    <div className="relative flex flex-col shadow-xl border border-gray-300 px-4 py-4 rounded-md w-full sm:w-[calc((100%-8px)/2)] lg:w-[calc((100%-16px)/3)] xl:w-[calc((100%-24px)/4)] items-start">
+                      <div className="absolute -top-2 -left-2 border rounded-full bg-blue-800 w-7 h-7 flex items-center justify-center text-white font-bold">
+                        {index < 10 ? `0${index + 1}` : index + 1}
+                      </div>
                       <p>
                         Code: <span className="font-bold">{e?.code}</span>{" "}
                         <CopyToClipboard

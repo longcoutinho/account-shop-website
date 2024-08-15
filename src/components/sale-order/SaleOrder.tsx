@@ -82,8 +82,17 @@ export default function AllSaleOrder() {
                     )
                     ?.map((request, index) => (
                       <TableRow
-                        sx={{ cursor: "pointer" }}
-                        onClick={() => handleClickDetail(request.id)}
+                        sx={{
+                          cursor:
+                            request.status === "SUCCESS"
+                              ? "pointer"
+                              : "default",
+                        }}
+                        onClick={() => {
+                          if (request.status === "SUCCESS") {
+                            handleClickDetail(request.id);
+                          }
+                        }}
                       >
                         <TableCell>{request.id}</TableCell>
                         <TableCell>
@@ -113,7 +122,7 @@ export default function AllSaleOrder() {
                           )}
                         </TableCell>
                         <TableCell>
-                          <Visibility />
+                          {request.status === "SUCCESS" && <Visibility />}
                         </TableCell>
                       </TableRow>
                     ))}

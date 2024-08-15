@@ -31,8 +31,15 @@ const Footer = () => {
             </span>
           </p>
           <Box>
-            <a href="/terms-of-service" style={{fontWeight: 500}}>Term of Services</a>
-            <a href="/privacy-policy" style={{marginLeft: "20px", fontWeight: 500}}>Privacy Policy</a>
+            <a href="/terms-of-service" style={{ fontWeight: 500 }}>
+              {t("TERM_OF_SERVICES")}
+            </a>
+            <a
+              href="/privacy-policy"
+              style={{ marginLeft: "20px", fontWeight: 500 }}
+            >
+              {t("PRIVACY_POLICY")}
+            </a>
           </Box>
         </div>
         <div className=" w-full md:w-1/3 flex-col gap-1">
@@ -40,8 +47,7 @@ const Footer = () => {
             Hotline: <span className="font-semibold">0396595014</span>
           </p>
           <p>
-            Email:{" "}
-            <span className="font-semibold">support@lordspremium.com</span>
+            Email: <span className="font-semibold">support@elitagame.com</span>
           </p>
         </div>
       </div>
