@@ -20,18 +20,20 @@ export default function AllSaleOrder() {
   const { t } = useTranslation("common");
   const router = useRouter();
   const [listOrderHistory, setOrderHistory] = useState<IOrderHistory[]>([]);
+  const [total, setTotal] = useState<number>();
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     renderListSaleOrder();
-  }, []);
+  }, [page]);
 
   const renderListSaleOrder = () => {
     setLoading(true);
-    getAllSaleOrders()
+    getAllSaleOrders(page - 1, pageSize)
       .then((res) => {
         if (res.status == HTTP_STATUS.OK) {
+          setTotal(res?.data?.count);
           setOrderHistory(res.data?.listData);
           setLoading(false);
         }
@@ -73,59 +75,51 @@ export default function AllSaleOrder() {
                     <TableCell>{t("ACTION")}</TableCell>
                   </TableRow>
                 </TableHead>
-
                 <TableBody>
-                  {listOrderHistory
-                    ?.slice(
-                      (page - 1) * pageSize,
-                      (page - 1) * pageSize + pageSize
-                    )
-                    ?.map((request, index) => (
-                      <TableRow
-                        sx={{
-                          cursor:
-                            request.status === "SUCCESS"
-                              ? "pointer"
-                              : "default",
-                        }}
-                        onClick={() => {
-                          if (request.status === "SUCCESS") {
-                            handleClickDetail(request.id);
-                          }
-                        }}
-                      >
-                        <TableCell>{request.id}</TableCell>
-                        <TableCell>
-                          {request.price.toLocaleString("vi-VN")}
-                          {request?.currency}
-                        </TableCell>
-                        <TableCell>{request.createDate}</TableCell>
-                        <TableCell>
-                          {request.status === "SUCCESS" ? (
-                            <Chip
-                              label="Thành công"
-                              color="success"
-                              variant="outlined"
-                            />
-                          ) : request.status === "FAILED" ? (
-                            <Chip
-                              label="Thất bại"
-                              color="error"
-                              variant="outlined"
-                            />
-                          ) : (
-                            <Chip
-                              label="Đang tiến hành"
-                              color="warning"
-                              variant="outlined"
-                            />
-                          )}
-                        </TableCell>
-                        <TableCell>
-                          {request.status === "SUCCESS" && <Visibility />}
-                        </TableCell>
-                      </TableRow>
-                    ))}
+                  {listOrderHistory?.map((request, index) => (
+                    <TableRow
+                      sx={{
+                        cursor:
+                          request.status === "SUCCESS" ? "pointer" : "default",
+                      }}
+                      onClick={() => {
+                        if (request.status === "SUCCESS") {
+                          handleClickDetail(request.id);
+                        }
+                      }}
+                    >
+                      <TableCell>{request.id}</TableCell>
+                      <TableCell>
+                        {request.price.toLocaleString("vi-VN")}
+                        {request?.currency}
+                      </TableCell>
+                      <TableCell>{request.createDate}</TableCell>
+                      <TableCell>
+                        {request.status === "SUCCESS" ? (
+                          <Chip
+                            label="Thành công"
+                            color="success"
+                            variant="outlined"
+                          />
+                        ) : request.status === "FAILED" ? (
+                          <Chip
+                            label="Thất bại"
+                            color="error"
+                            variant="outlined"
+                          />
+                        ) : (
+                          <Chip
+                            label="Đang tiến hành"
+                            color="warning"
+                            variant="outlined"
+                          />
+                        )}
+                      </TableCell>
+                      <TableCell>
+                        {request.status === "SUCCESS" && <Visibility />}
+                      </TableCell>
+                    </TableRow>
+                  ))}
                 </TableBody>
               </Table>
             </TableContainer>
@@ -144,9 +138,9 @@ export default function AllSaleOrder() {
               </Button>
             </div>
           )}
-          {listOrderHistory && listOrderHistory?.length > pageSize && (
+          {listOrderHistory && total && total > pageSize && (
             <Pagination
-              count={Math.ceil(listOrderHistory?.length / pageSize)}
+              count={Math.ceil(total / pageSize)}
               page={page}
               onChange={handleChange}
               className="custom-pagination"

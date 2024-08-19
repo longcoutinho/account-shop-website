@@ -4,12 +4,13 @@ import {
   requestGetOrderInfo,
 } from "@/services/rechargeGameCard";
 import { useRouter } from "next/router";
-import { HTTP_STATUS } from "@/constants";
+import { HTTP_STATUS, PageURL } from "@/constants";
 import CopyToClipboard from "react-copy-to-clipboard";
-import { IconButton, Tooltip } from "@mui/material";
+import { Button, IconButton, Tooltip } from "@mui/material";
 import Iconify from "../Iconify";
 import ResultTransaction from "./ResultTransaction";
 import { useTranslation } from "next-i18next";
+import { ArrowBack } from "@mui/icons-material";
 
 interface IOrderDetail {
   cardItemId: string;
@@ -84,6 +85,23 @@ const OrderDetail = ({ isDetail }: IProps) => {
         </>
       ) : (
         <div className="flex flex-col  w-full gap-4 items-center justify-center">
+          <div className="w-full flex justify-between items-center">
+            <div
+              onClick={() => router.push(PageURL.HISTORY)}
+              className="flex gap-2 cursor-pointer"
+            >
+              <ArrowBack />
+              <p className="hover:underline">Back</p>
+            </div>
+            <Button
+              onClick={() => {
+                router.push(PageURL.BUY_CARD);
+              }}
+              className={`!w-[200px] !bg-[#052d75] !text-white !min-h-11 cursor-pointer !hover:bg-[#30466b] !capitalize`}
+            >
+              {t("CONTINUE_SHOPPING")}
+            </Button>
+          </div>
           {data &&
             data?.length > 0 &&
             data?.map((c, index) => (

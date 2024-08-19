@@ -7,7 +7,10 @@ export const createOrder = async (request: Order): Promise<any> => {
   return doFileRequest(url, request);
 };
 
-export const getAllSaleOrders = async (): Promise<any> => {
-  const url = Backend.CARD_SERVICE + "/order";
+export const getAllSaleOrders = async (
+  page: number,
+  pageSize: number
+): Promise<any> => {
+  const url = Backend.CARD_SERVICE + `/order?page=${page}&pageSize=${pageSize}`;
   return doGetRequest(url, null);
 };
