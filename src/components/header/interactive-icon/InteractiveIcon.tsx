@@ -63,7 +63,7 @@ export default function InteractiveIcon() {
             {" "}
             {isLogin && !isUndefined(user) ? (
               <>
-                {/* <div
+                <div
                   className="relative cursor-pointer mr-5"
                   onClick={handleGoToCart}
                 >
@@ -73,7 +73,7 @@ export default function InteractiveIcon() {
                       {itemInCart > 99 ? "99+" : itemInCart}
                     </p>
                   )}
-                </div> */}
+                </div>
                 <Button
                   id="basic-button"
                   aria-controls={open ? "basic-menu" : undefined}

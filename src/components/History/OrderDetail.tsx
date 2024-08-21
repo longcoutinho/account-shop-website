@@ -170,7 +170,7 @@ const OrderDetail = ({ isDetail }: IProps) => {
                       <p className="mt-1">
                         Value:{" "}
                         <span className="font-bold">
-                          {e?.value?.toLocaleString("en-US")}
+                          {e?.value?.toLocaleString("vi-VN")}
                         </span>
                       </p>
                       <p className="mt-2">

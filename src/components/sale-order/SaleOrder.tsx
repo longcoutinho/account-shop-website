@@ -2,7 +2,6 @@ import { Box, Button, Chip, Pagination, Skeleton } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { IOrderHistory } from "@/interfaces/response";
 import { HTTP_STATUS, PageURL } from "@/constants";
-import { formatDateTime } from "@/constants/FnCommon";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import Table from "@mui/material/Table";
@@ -90,7 +89,8 @@ export default function AllSaleOrder() {
                     >
                       <TableCell>{request.id}</TableCell>
                       <TableCell>
-                        {request.price.toLocaleString("vi-VN")} {request?.currency}
+                        {request.price.toLocaleString("vi-VN")}{" "}
+                        {request?.currency}
                       </TableCell>
                       <TableCell>{request.createDate}</TableCell>
                       <TableCell>
@@ -137,14 +137,14 @@ export default function AllSaleOrder() {
               </Button>
             </div>
           )}
-          {/*{listOrderHistory && total && total > pageSize && (*/}
-          {/*  <Pagination*/}
-          {/*    count={Math.ceil(total / pageSize)}*/}
-          {/*    page={page}*/}
-          {/*    onChange={handleChange}*/}
-          {/*    className="custom-pagination"*/}
-          {/*  />*/}
-          {/*)}*/}
+          {listOrderHistory && total && total > pageSize && (
+            <Pagination
+              count={Math.ceil(total / pageSize)}
+              page={page}
+              onChange={handleChange}
+              className="custom-pagination"
+            />
+          )}
         </>
       )}
     </Box>
