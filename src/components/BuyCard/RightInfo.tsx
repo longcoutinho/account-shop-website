@@ -66,7 +66,7 @@ const RightInfo = ({ id, card }: IProps) => {
         );
       }
     }
-  }, [currency, priceItem]);
+  }, [currency, priceItem, amount]);
 
   useEffect(() => {
     const data = priceItem?.listFees?.map((e) => {
@@ -220,7 +220,7 @@ const RightInfo = ({ id, card }: IProps) => {
           <div className="flex items-center justify-between">
             <p>{t("PRICE")}</p>
             <div className="flex items-center gap-3">
-              <p>{displayPrice?.toLocaleString()}</p>
+              <p>{displayPrice?.toLocaleString("vi-VN")}</p>
               <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
                 <NativeSelect
                   defaultValue={currency}
@@ -242,16 +242,15 @@ const RightInfo = ({ id, card }: IProps) => {
       </div>
       <div className=" w-full flex gap-6">
         <Button
-          // onClick={handleAddtoCart}
+          onClick={handleAddtoCart}
           style={{ border: "1px solid #0e1522" }}
-          className="!opacity-50 !cursor-not-allowed w-full  !text-[#052d75] !min-h-11 !mt-4 !capitalize"
-          // className={`w-full  !text-[#052d75] !min-h-11 !mt-4 !capitalize
-          //      ${
-          //        amount && item?.id
-          //          ? "!cursor-pointer !hover:bg-[#052d751f]"
-          //          : "!cursor-not-allowed !opacity-50 !hover:bg-white"
-          //      }
-          //   `}
+          className={`w-full  !text-[#052d75] !min-h-11 !mt-4 !capitalize
+               ${
+                 amount && item?.id
+                   ? "!cursor-pointer !hover:bg-[#052d751f]"
+                   : "!cursor-not-allowed !opacity-50 !hover:bg-white"
+               }
+            `}
         >
           {t("ADD_TO_CART")}
         </Button>

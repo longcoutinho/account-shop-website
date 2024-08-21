@@ -18,7 +18,7 @@ const ListGames = () => {
     },
     {
       id: 9999999,
-      name: t("PRODUCT"),
+      name: t("ELITA_SHOP"),
       image: "/img/buy_card.png",
       router: PageURL.PRODUCTS,
     },

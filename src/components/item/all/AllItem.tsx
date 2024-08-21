@@ -1,8 +1,4 @@
 import { Box, Button, Pagination } from "@mui/material";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
 import "@/constants/FnCommon";
 import React, { useEffect, useState } from "react";
 import { Item } from "@/interfaces/response";
@@ -87,7 +83,7 @@ export default function AllItem(props: any) {
                 Số lượng còn lại: {item.amount}
               </p>
               <p className="text-black text-center text-bold mt-2">
-                Đơn giá: {item.price.toLocaleString("en-US")} đ
+                Đơn giá: {item.price.toLocaleString("vi-VN")} đ
               </p>
               <Button
                 variant="contained"

@@ -65,7 +65,9 @@ const Payment = () => {
             (pric) => pric?.paymentCode === paymentMethod?.currency
           )?.totalPrice || 0;
       });
-      setTotalPrice(totalCost?.toLocaleString() + paymentMethod?.currency);
+      setTotalPrice(
+        totalCost?.toLocaleString("vi-VN") + " " + paymentMethod?.currency
+      );
     }
     setListOrder(list);
   }, [buyNow, orderDetail, paymentMethod]);
@@ -143,7 +145,9 @@ const Payment = () => {
           o?.price?.find((pric) => pric?.paymentCode === paymentMethod?.code)
             ?.totalPrice || 0;
       });
-      setTotalPrice(totalCost?.toLocaleString() + paymentMethod?.currency);
+      setTotalPrice(
+        totalCost?.toLocaleString("vi-VN") + paymentMethod?.currency
+      );
       localStorage.setItem(
         LOCALSTORAGE_KEY.SHOPPING_CART,
         JSON.stringify(newList)
@@ -152,6 +156,7 @@ const Payment = () => {
       dispatch(setItemInCart(newList?.length));
     }
   };
+
   return (
     <div className="flex flex-col w-full gap-4">
       {listOder && listOder?.length > 0 ? (
@@ -188,7 +193,7 @@ const Payment = () => {
                                 (pric) =>
                                   pric?.paymentCode === paymentMethod?.currency
                               )?.totalPrice || 0
-                            ).toLocaleString()}
+                            ).toLocaleString("vi-VN")}{" "}
                             {
                               o?.price?.find(
                                 (pric) =>
@@ -229,23 +234,27 @@ const Payment = () => {
                     key={g?.id}
                     onClick={() => {
                       if (
-                        listOder[0]?.price?.some(
-                          (b) => g?.currency === b?.paymentCode
+                        listOder?.every((item) =>
+                          item?.price?.some(
+                            (price) => price?.paymentCode === g?.currency
+                          )
                         )
                       ) {
                         setPaymentMethod(g);
                       }
                     }}
                     className={` p-0.5 w-52 py-2 rounded-lg ${
-                      g.id === paymentMethod?.id
-                        ? " border-[#f3a44a] shadow-md border-2"
-                        : " border-[#1b1b1b1f] border-2 opacity-50"
+                      g?.id === paymentMethod?.id
+                        ? " border-[#f3a44a] shadow-md border-2 text-[#f3a144]"
+                        : " border-[#1414141f] border-2"
                     } ${
-                      listOder[0]?.price?.some(
-                        (b) => g?.currency === b?.paymentCode
+                      listOder?.every((item) =>
+                        item?.price?.some(
+                          (price) => price?.paymentCode === g?.currency
+                        )
                       )
                         ? "cursor-pointer hover:shadow-lg transition-all hover:scale-105"
-                        : "cursor-not-allowed"
+                        : "cursor-not-allowed opacity-50"
                     }`}
                   >
                     <Image
