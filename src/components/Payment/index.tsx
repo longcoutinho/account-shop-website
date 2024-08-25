@@ -16,6 +16,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { PATH_PAGE } from "@/routes/path";
 import { ITotalPriceWithPayment } from "../BuyCard/RightInfo";
 import { PAYMENT_METHOD_CODE } from "@/constants/payment";
+import { LoadingButton } from "@mui/lab";
+
 export interface IListOrder {
   item: {
     id: number;
@@ -84,6 +86,7 @@ const Payment = () => {
   };
 
   const handleBuyCard = async () => {
+    setLoading(true);
     try {
       if (paymentMethod) {
         if (
@@ -94,7 +97,6 @@ const Payment = () => {
         ) {
           toast.error("Not enough balance");
         } else {
-          setLoading(true);
           const res = await requestCreateOrder({
             cardInfo: listOder?.map((o) => {
               return { cardId: o?.cardId, quantity: o.amount };
@@ -122,6 +124,7 @@ const Payment = () => {
           }
         }
       }
+      setLoading(false);
     } catch (e: any) {
       setLoading(false);
       if (e?.response?.status === HTTP_STATUS.UNAUTH) {
@@ -271,23 +274,18 @@ const Payment = () => {
                 ))}
             </div>
             <div className="w-full flex justify-center mt-4">
-              <Button
+              <LoadingButton
+                loading={loading}
+                loadingPosition="start"
                 onClick={handleBuyCard}
-                className={`!w-[120px] !mx-auto !bg-[#052d75] !text-white !min-h-11 !mt-4 !capitalize ${
+                className={`!w-[124px] !mx-auto !bg-[#052d75] !text-white !min-h-11 !mt-4 !capitalize !whitespace-nowrap ${
                   paymentMethod
                     ? "!cursor-pointer !hover:bg-[#30466b]"
                     : "!cursor-not-allowed !opacity-50 !hover:bg-[#052d75] !hover:text-white"
                 }`}
               >
-                {loading && (
-                  <CircularProgress
-                    size={20}
-                    color="inherit"
-                    className="mr-2"
-                  />
-                )}
                 {t("PAYMENT")}
-              </Button>
+              </LoadingButton>
             </div>
           </div>
         </>
