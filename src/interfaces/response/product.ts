@@ -16,6 +16,7 @@ export interface IPaymentMethodRes {
   name: string;
   image: string;
   code: string;
+  currency: string;
 }
 export interface IProductDetailRes {
   name: string;

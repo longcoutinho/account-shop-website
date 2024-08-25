@@ -60,5 +60,13 @@
   "REMAINING": "Remaining",
   "ELITA_SHOP": "Elita Shop",
   "PRIVACY_POLICY": "Privacy Policy",
-  "TERM_OF_SERVICES": "Term of Services"
+  "TERM_OF_SERVICES": "Term of Services",
+  "DELIVERY_INFORMATION": "Delivery information",
+  "RECIPIENT_NAME": "Recipient name",
+  "NO_STREET": "No, street ...",
+  "DISTRICT": "District",
+  "CITY": "City",
+  "COUNTRY": "Country",
+  "SUBMIT": "Submit",
+  "ENTER_ALL_INFORMATION": "Please enter all of the information above"
 }

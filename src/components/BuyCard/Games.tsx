@@ -255,7 +255,7 @@ const SelectGame = ({ auto }: IProps) => {
   );
 };
 export default SelectGame;
-const style = {
+export const style = {
   position: "absolute" as "absolute",
   top: "50%",
   left: "50%",

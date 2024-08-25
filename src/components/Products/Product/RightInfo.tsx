@@ -10,6 +10,7 @@ import {
 import { useTranslation } from "next-i18next";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import ModalAddress from "./ModalAddress";
 
 const RightInfo = () => {
   const { t } = useTranslation("common");
@@ -18,9 +19,16 @@ const RightInfo = () => {
   const [amount, setAmount] = useState<number | null>(0);
   const [category, setCategory] = useState<number>();
   const [method, setMethod] = useState("");
+  const [isOpenAddress, setIsOpenAddress] = useState<boolean>(false);
 
   const handleChangeMethod = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMethod((event.target as HTMLInputElement).value);
+  };
+
+  const handleClickBuyNow = () => {
+    if (amount && category && method !== "") {
+      setIsOpenAddress(true);
+    }
   };
 
   return (
@@ -88,15 +96,20 @@ const RightInfo = () => {
                           : e?.paymentCode
                       }
                     />
-                    <p>{e?.price?.toLocaleString("vi-VN") + " VND"}</p>
+                    <p>
+                      {e?.price?.toLocaleString("vi-VN") +
+                        " " +
+                        paymentMethods?.find((p) => p?.code === e?.paymentCode)
+                          ?.currency}
+                    </p>
                   </div>
                 ))}
             </RadioGroup>
           </FormControl>
         </div>
       </div>
-      <div className=" w-full flex gap-6">
-        <Button
+      <div className=" w-full flex gap-6 justify-center">
+        {/* <Button
           //   onClick={handleAddtoCart}
           style={{ border: "1px solid #0e1522" }}
           className={`w-full  !text-[#052d75] !min-h-11 !mt-4 !capitalize
@@ -108,10 +121,10 @@ const RightInfo = () => {
             `}
         >
           {t("ADD_TO_CART")}
-        </Button>
+        </Button> */}
         <Button
-          //   onClick={handleClickBuyNow}
-          className={`w-full !bg-[#052d75] !text-white !min-h-11 !mt-4 !capitalize ${
+          onClick={handleClickBuyNow}
+          className={`w-1/2 !bg-[#052d75] !text-white !min-h-11 !mt-4 !capitalize ${
             amount && category && method !== ""
               ? "!cursor-pointer !hover:bg-[#30466b]"
               : "!cursor-not-allowed !opacity-50 !hover:bg-[#052d75] !hover:text-white"
@@ -120,6 +133,12 @@ const RightInfo = () => {
           {t("BUY_NOW")}
         </Button>
       </div>
+      {isOpenAddress && (
+        <ModalAddress
+          open={isOpenAddress}
+          onClose={() => setIsOpenAddress(false)}
+        />
+      )}
     </div>
   );
 };

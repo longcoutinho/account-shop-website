@@ -60,5 +60,13 @@
   "REMAINING": "Còn lại",
   "ELITA_SHOP": "Xưởng Elita",
   "PRIVACY_POLICY": "Privacy Policy",
-  "TERM_OF_SERVICES": "Term of Services"
+  "TERM_OF_SERVICES": "Term of Services",
+  "DELIVERY_INFORMATION": "Thông tin giao hàng",
+  "RECIPIENT_NAME": "Tên người nhận",
+  "NO_STREET": "Số nhà, tên đường ...",
+  "DISTRICT": "Quận, huyện",
+  "CITY": "Thành phố",
+  "COUNTRY": "Quốc gia",
+  "SUBMIT": "Đặt hàng",
+  "ENTER_ALL_INFORMATION": "Hãy nhập đầy đủ các thông tin bên trên"
 }
