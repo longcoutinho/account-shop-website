@@ -4,17 +4,19 @@ import { PAGE_TITLE, PageURL } from "@/constants";
 import Page from "@/layouts";
 import { fetchListPaymentMethod } from "@/redux/slices/payment";
 import { fetchDetailProduct } from "@/redux/slices/product";
-import { AppDispatch } from "@/redux/store";
+import { AppDispatch, RootState } from "@/redux/store";
 import { ArrowBack } from "@mui/icons-material";
+import { Skeleton } from "@mui/material";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const DetailProduct = () => {
   const router = useRouter();
   const { id } = router.query;
   const dispatch = useDispatch<AppDispatch>();
+  const { loading } = useSelector((state: RootState) => state.product);
 
   useEffect(() => {
     if (id) {
@@ -31,10 +33,19 @@ const DetailProduct = () => {
         <ArrowBack />
         <p className="hover:underline">Back</p>
       </div>
-      <div className="flex gap-8 flex-col mg:flex-row">
-        <LeftInfo />
-        <RightInfo />
-      </div>
+      {loading ? (
+        <Skeleton
+          variant="rounded"
+          width={1700}
+          height={200}
+          animation="wave"
+        />
+      ) : (
+        <div className="flex gap-8 flex-col mg:flex-row">
+          <LeftInfo />
+          <RightInfo />
+        </div>
+      )}
     </Page>
   );
 };
