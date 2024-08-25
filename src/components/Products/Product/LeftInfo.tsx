@@ -21,6 +21,7 @@ const LeftInfo = () => {
     setOpen(false);
     setSelectedPreview(null);
   };
+
   return (
     <>
       {productDetail && (
