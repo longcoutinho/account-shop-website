@@ -104,12 +104,11 @@ const Payment = () => {
             paymentMethodCode: paymentMethod?.code,
           });
           if (res?.status === HTTP_STATUS.OK) {
-            setLoading(false);
-            toast.success("Mua thành công");
             if (!buyNow) {
               localStorage.removeItem(LOCALSTORAGE_KEY.SHOPPING_CART);
             }
             if (paymentMethod?.code === "EP") {
+              toast.success("Mua thành công");
               router.push(PATH_PAGE.history.root + `/${res?.data?.orderId}`);
             } else {
               router.push(res?.data?.returnURL ? res?.data?.returnURL : "");
@@ -241,7 +240,8 @@ const Payment = () => {
                           item?.price?.some(
                             (price) => price?.paymentCode === g?.currency
                           )
-                        )
+                        ) &&
+                        g?.isActive === 1
                       ) {
                         setPaymentMethod(g);
                       }
@@ -255,7 +255,7 @@ const Payment = () => {
                         item?.price?.some(
                           (price) => price?.paymentCode === g?.currency
                         )
-                      )
+                      ) && g?.isActive === 1
                         ? "cursor-pointer hover:shadow-lg transition-all hover:scale-105"
                         : "cursor-not-allowed opacity-50"
                     }`}
