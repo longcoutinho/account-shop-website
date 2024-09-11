@@ -1,6 +1,6 @@
 import { Menu, MenuItem } from "@mui/material";
 import React from "react";
-import { History, Logout, Person } from "@mui/icons-material";
+import { AddBoxOutlined, History, Logout, Person } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import { PageURL } from "@/constants";
 import { useTranslation } from "next-i18next";
@@ -9,6 +9,7 @@ interface IProps {
   anchorEl: HTMLElement | null;
   handleClose: () => void;
   handleLogout: () => void;
+  handleDeposit: () => void;
 }
 
 export default function DropDownUser({
@@ -16,6 +17,7 @@ export default function DropDownUser({
   anchorEl,
   handleClose,
   handleLogout,
+  handleDeposit,
 }: IProps) {
   const { t } = useTranslation("common");
   const router = useRouter();
@@ -33,6 +35,10 @@ export default function DropDownUser({
         <MenuItem onClick={() => router.push(PageURL.PROFILE)}>
           <Person fontSize="small" className="mr-2" />
           {t("ACCOUNT_DETAIL")}
+        </MenuItem>
+        <MenuItem onClick={handleDeposit}>
+          <AddBoxOutlined fontSize="small" className="mr-2" />
+          {t("DEPOSIT_EP")}
         </MenuItem>
         <MenuItem onClick={() => router.push(PageURL.HISTORY)}>
           <History fontSize="small" className="mr-2" />

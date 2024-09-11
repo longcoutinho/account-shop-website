@@ -22,7 +22,6 @@ const DetailProduct = () => {
     if (id) {
       dispatch(fetchDetailProduct(id as string));
     }
-    dispatch(fetchListPaymentMethod());
   }, [id]);
   return (
     <Page title={PAGE_TITLE.PRODUCTS} menuIndex={1}>
