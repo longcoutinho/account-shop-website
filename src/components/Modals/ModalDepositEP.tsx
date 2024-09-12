@@ -9,6 +9,10 @@ import { useSelector } from "react-redux";
 import Image from "next/image";
 import { PAYMENT_METHOD_CODE } from "@/constants/payment";
 import { IPaymentMethodRes } from "@/interfaces/response/product";
+import { toast } from "react-toastify";
+import { requestDepositEP } from "@/services/userService";
+import { HTTP_STATUS } from "@/constants";
+import { useRouter } from "next/router";
 
 interface IProps {
   open: boolean;
@@ -17,7 +21,7 @@ interface IProps {
 const ModalDepositEP = ({ open, onClose }: IProps) => {
   const { t } = useTranslation("common");
   const { paymentMethods } = useSelector((state: RootState) => state.payment);
-
+  const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedPayment, setSelectedPayment] = useState<IPaymentMethodRes>();
   const {
@@ -27,12 +31,31 @@ const ModalDepositEP = ({ open, onClose }: IProps) => {
   } = useForm({});
 
   const onSubmitForm = async (data: any) => {
-    //   console.log(data);
-    setLoading(true);
-    // setTimeout(() => {
-    //   setLoading(false);
-    //   setIsDone(true);
-    // }, 1500);
+    try {
+      if (data && selectedPayment) {
+        const res = await requestDepositEP({
+          amount: Number(data?.amount),
+          paymentMethodCode: selectedPayment?.code,
+        });
+        console.log(res);
+        if (res?.status === HTTP_STATUS.OK) {
+          toast.success("Successfully");
+          router.push(res?.data?.returnURL ? res?.data?.returnURL : "");
+          setLoading(false);
+        } else {
+          setLoading(false);
+          if (res?.response?.status === HTTP_STATUS.UNAUTH) {
+            toast.error("Bạn chưa đăng nhập");
+          } else {
+            toast.error("Mua không thành công");
+          }
+        }
+      }
+    } catch (e) {
+      toast.error("Failed");
+      setLoading(false);
+      console.log(e);
+    }
   };
 
   return (
@@ -77,36 +100,38 @@ const ModalDepositEP = ({ open, onClose }: IProps) => {
             </p>
             <div className=" w-full flex justify-center flex-wrap gap-3">
               {paymentMethods &&
-                paymentMethods?.map((g) => (
-                  <div
-                    key={g?.id}
-                    onClick={() => {
-                      if (g?.isActive === 1) {
-                        setSelectedPayment(g);
-                      }
-                    }}
-                    className={` p-0.5 w-52 py-2 rounded-lg ${
-                      g === selectedPayment
-                        ? " border-[#f3a44a] shadow-md border-2 text-[#f3a144]"
-                        : " border-[#1414141f] border-2"
-                    } ${
-                      g?.isActive === 1
-                        ? "cursor-pointer hover:shadow-lg transition-all hover:scale-105"
-                        : "cursor-not-allowed opacity-50"
-                    }`}
-                  >
-                    <Image
-                      src={g?.image ? g?.image : ""}
-                      alt="card"
-                      width={150}
-                      height={100}
-                      className=" mx-auto h-20 w-24 mb-3"
-                    />
-                    <p className="px-1 text-center">
-                      ({g?.currency}) {PAYMENT_METHOD_CODE[g.code]}
-                    </p>
-                  </div>
-                ))}
+                paymentMethods
+                  ?.filter((e) => e?.code !== "EP")
+                  ?.map((g) => (
+                    <div
+                      key={g?.id}
+                      onClick={() => {
+                        if (g?.isActive === 1) {
+                          setSelectedPayment(g);
+                        }
+                      }}
+                      className={` p-0.5 w-52 py-2 rounded-lg ${
+                        g === selectedPayment
+                          ? " border-[#f3a44a] shadow-md border-2 text-[#f3a144]"
+                          : " border-[#1414141f] border-2"
+                      } ${
+                        g?.isActive === 1
+                          ? "cursor-pointer hover:shadow-lg transition-all hover:scale-105"
+                          : "cursor-not-allowed opacity-50"
+                      }`}
+                    >
+                      <Image
+                        src={g?.image ? g?.image : ""}
+                        alt="card"
+                        width={150}
+                        height={100}
+                        className=" mx-auto h-20 w-24 mb-3"
+                      />
+                      <p className="px-1 text-center">
+                        ({g?.currency}) {PAYMENT_METHOD_CODE[g.code]}
+                      </p>
+                    </div>
+                  ))}
             </div>
           </div>
           <LoadingButton
