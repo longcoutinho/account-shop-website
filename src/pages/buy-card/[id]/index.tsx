@@ -24,7 +24,6 @@ const DetailCardGame = () => {
   const getData = () => {
     try {
       dispatch(fetchListCard());
-      dispatch(fetchListPaymentMethod());
     } catch (e) {
       console.log(e);
     }

@@ -1,11 +1,13 @@
-import { Box, Button, Drawer } from "@mui/material";
-import React from "react";
+import { Box, Drawer } from "@mui/material";
+import React, { useEffect } from "react";
 import HorizonHeader from "../horiHeader/HorizonHeader";
 import { MenuOutlined } from "@mui/icons-material";
-import Link from "next/link";
 import { PageURL } from "@/constants";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/redux/store";
+import { fetchListPaymentMethod } from "@/redux/slices/payment";
 const InteractiveIcon = dynamic(
   () => import("@/components/header/interactive-icon/InteractiveIcon"),
   {
@@ -16,6 +18,12 @@ const InteractiveIcon = dynamic(
 export default function Header() {
   const [open, setOpen] = React.useState(false);
   const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(fetchListPaymentMethod());
+  }, []);
+
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };

@@ -16,3 +16,18 @@ export const getUserBalance = async (id: string): Promise<any> => {
   const url = Backend.USER_SERVICE + "/" + id;
   return doGetRequest(url, null);
 };
+
+export const requestDepositEP = async (data: {
+  amount: number;
+  paymentMethodCode: string;
+}): Promise<any> => {
+  const url = Backend.BASE_URL + "/top-up/create";
+  return doPostRequest(url, data);
+};
+
+export const requestCheckDepositEP = async (data: {
+  orderId: string;
+}): Promise<any> => {
+  const url = Backend.BASE_URL + "/top-up/info";
+  return doPostRequest(url, data);
+};

@@ -1,18 +1,19 @@
 import { Box, Button, Skeleton } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { deleteUserInfo } from "@/constants/FnCommon";
 import { LOCALSTORAGE_KEY, PageURL } from "@/constants";
 import Image from "next/image";
 import { isUndefined } from "lodash";
 import DropDownUser from "../dropdownUser";
-import { ShoppingCart } from "@mui/icons-material";
+import { AddBoxOutlined, ShoppingCart } from "@mui/icons-material";
 import { AppDispatch, RootState } from "@/redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { IListOrder } from "@/components/Payment";
 import { setBuyNow, setItemInCart } from "@/redux/slices/cart";
 import { useTranslation } from "next-i18next";
 import { setIsLogin } from "@/redux/slices/user";
+import ModalDepositEP from "@/components/Modals/ModalDepositEP";
 
 export default function InteractiveIcon() {
   const { t } = useTranslation("common");
@@ -24,6 +25,7 @@ export default function InteractiveIcon() {
   const { user, loading, isLogin } = useSelector(
     (state: RootState) => state.user
   );
+  const [isOpenDeposit, setIsOpenDeposit] = useState(false);
 
   useEffect(() => {
     const list: IListOrder[] = JSON.parse(
@@ -47,6 +49,9 @@ export default function InteractiveIcon() {
   const handleGoToCart = () => {
     dispatch(setBuyNow(false));
     router.push(PageURL.PAYMENT);
+  };
+  const handleClickDepositEP = () => {
+    setIsOpenDeposit(true);
   };
   return (
     <Box className="w-fit flex justify-center items-center">
@@ -93,12 +98,19 @@ export default function InteractiveIcon() {
                     {Number(user?.balance)?.toLocaleString("vi-VN") || 0} EP
                   </p>
                 </Button>
+                <Button onClick={handleClickDepositEP} className="ml-2">
+                  <AddBoxOutlined
+                    sx={{ color: "white", width: "32px", height: "32px" }}
+                  />
+                </Button>
+
                 {open && (
                   <DropDownUser
                     open={open}
                     anchorEl={anchorEl}
                     handleClose={handleClose}
                     handleLogout={handleLogout}
+                    handleDeposit={handleClickDepositEP}
                   />
                 )}
               </>
@@ -122,6 +134,12 @@ export default function InteractiveIcon() {
           </>
         )}
       </>
+      {isOpenDeposit && (
+        <ModalDepositEP
+          open={isOpenDeposit}
+          onClose={() => setIsOpenDeposit(false)}
+        />
+      )}
     </Box>
   );
 }

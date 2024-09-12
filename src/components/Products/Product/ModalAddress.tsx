@@ -43,7 +43,10 @@ const ModalAddress = ({ open, onClose }: IProps) => {
         },
       }}
     >
-      <Box sx={style} className="!w-[600px]">
+      <Box
+        sx={style}
+        className="!w-[600px] !max-h-[80dvh] !h-fit !overflow-y-auto"
+      >
         {!isDone ? (
           <form
             onSubmit={handleSubmit((data) => onSubmitForm(data))}
