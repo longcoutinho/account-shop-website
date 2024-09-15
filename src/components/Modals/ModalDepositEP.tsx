@@ -3,11 +3,11 @@ import { RootState } from "@/redux/store";
 import { LoadingButton } from "@mui/lab";
 import { Backdrop, Box, Input, Modal } from "@mui/material";
 import { useTranslation } from "next-i18next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import Image from "next/image";
-import { PAYMENT_METHOD_CODE } from "@/constants/payment";
+import { EXCHANGE_RATE_EP, PAYMENT_METHOD_CODE } from "@/constants/payment";
 import { IPaymentMethodRes } from "@/interfaces/response/product";
 import { toast } from "react-toastify";
 import { requestDepositEP } from "@/services/userService";
@@ -28,16 +28,25 @@ const ModalDepositEP = ({ open, onClose }: IProps) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({});
+    watch,
+  } = useForm({ defaultValues: { amount: 1 } });
+  const values = watch();
+
+  useEffect(() => {
+    setSelectedPayment(paymentMethods?.find((e) => e?.currency === "VND"));
+  }, [paymentMethods]);
 
   const onSubmitForm = async (data: any) => {
+    setLoading(true);
     try {
       if (data && selectedPayment) {
         const res = await requestDepositEP({
-          amount: Number(data?.amount),
+          amount: Math.round(
+            Number(values?.amount) / EXCHANGE_RATE_EP[selectedPayment?.currency]
+          ),
           paymentMethodCode: selectedPayment?.code,
         });
-        console.log(res);
+
         if (res?.status === HTTP_STATUS.OK) {
           toast.success("Successfully");
           router.push(res?.data?.returnURL ? res?.data?.returnURL : "");
@@ -86,12 +95,26 @@ const ModalDepositEP = ({ open, onClose }: IProps) => {
               {t("YOUR_BALANCE")}: {0} EP
             </p>
             <Input
+              type="number"
               className="border border-gray-300 rounded h-10 w-full pl-2 pr-10"
               placeholder={t("AMOUNT")}
               {...register("amount", { required: true })}
             />
             {errors.amount && (
               <p className="text-red-500">{t("ENTER_ALL_INFORMATION")}</p>
+            )}
+            {selectedPayment && (
+              <p className="text-end">
+                {Number(values?.amount).toLocaleString("en-US") +
+                  " " +
+                  selectedPayment?.currency}{" "}
+                ={" "}
+                {Math.round(
+                  Number(values?.amount) /
+                    EXCHANGE_RATE_EP[selectedPayment?.currency]
+                ).toLocaleString("en-US")}{" "}
+                EP
+              </p>
             )}
           </div>
           <div className=" w-full">
