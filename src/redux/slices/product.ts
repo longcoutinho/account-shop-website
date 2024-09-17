@@ -56,7 +56,7 @@ const slice = createSlice({
         state.product = [];
       }
     );
-    // list
+    // detail
     builder.addCase(
       fetchDetailProduct.pending,
       (state: WritableDraft<IState>) => {
