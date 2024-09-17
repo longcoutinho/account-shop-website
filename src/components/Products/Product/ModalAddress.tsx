@@ -1,10 +1,25 @@
 import { style } from "@/components/BuyCard/Games";
 import ResultTransaction from "@/components/History/ResultTransaction";
+import {
+  fetchListDistricts,
+  fetchListProvinces,
+  fetchListWards,
+} from "@/redux/slices/address";
+import { AppDispatch, RootState } from "@/redux/store";
 import { LoadingButton } from "@mui/lab";
-import { Backdrop, Box, Button, Input, Modal } from "@mui/material";
+import {
+  Autocomplete,
+  Backdrop,
+  Box,
+  Button,
+  Input,
+  Modal,
+  TextField,
+} from "@mui/material";
 import { useTranslation } from "next-i18next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 
 interface IProps {
   open: boolean;
@@ -14,14 +29,59 @@ const ModalAddress = ({ open, onClose }: IProps) => {
   const { t } = useTranslation("common");
   const [isDone, setIsDone] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const dispatch = useDispatch<AppDispatch>();
+  const { provinces, districts, wards } = useSelector(
+    (state: RootState) => state.address
+  );
+
   const {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
+    setValue,
   } = useForm({});
 
+  const values: any = watch();
+
+  useEffect(() => {
+    handleFetchData();
+  }, []);
+
+  useEffect(() => {
+    if (values?.province?.id) handleFetchDistrict();
+  }, [values?.province?.id]);
+
+  useEffect(() => {
+    if (values?.district?.id) handleFetchWard();
+  }, [values?.district?.id]);
+
+  const handleFetchData = async () => {
+    try {
+      dispatch(fetchListProvinces());
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const handleFetchDistrict = async () => {
+    try {
+      dispatch(fetchListDistricts(values?.province?.id));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const handleFetchWard = async () => {
+    try {
+      dispatch(fetchListWards(values?.district?.id));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const onSubmitForm = async (data: any) => {
-    //   console.log(data);
+    console.log(data);
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
@@ -60,36 +120,81 @@ const ModalAddress = ({ open, onClose }: IProps) => {
                 {...register("name", { required: true })}
               />
               <Input
+                type="number"
                 className="border border-gray-300 rounded h-10 w-full pl-2 pr-10"
                 placeholder={t("PHONE_NUMBER")}
                 {...register("phoneNumber", { required: true })}
               />
+              <Input
+                type="email"
+                className="border border-gray-300 rounded h-10 w-full pl-2 pr-10"
+                placeholder={"Email"}
+                {...register("email", { required: true })}
+              />
               <p>{t("ADDRESS")}</p>
+
+              <Autocomplete
+                disablePortal
+                options={
+                  provinces
+                    ? provinces?.map((e) => {
+                        return { label: e?.name, id: e?.id };
+                      })
+                    : []
+                }
+                onChange={(event: any, newValue) => {
+                  setValue("province", newValue);
+                }}
+                sx={{ width: "100%" }}
+                renderInput={(params) => (
+                  <TextField {...params} label="Provinces" />
+                )}
+              />
+              <Autocomplete
+                disablePortal
+                options={
+                  districts
+                    ? districts?.map((e) => {
+                        return { label: e?.name, id: e?.id };
+                      })
+                    : []
+                }
+                onChange={(event: any, newValue) => {
+                  setValue("district", newValue);
+                }}
+                sx={{ width: "100%" }}
+                renderInput={(params) => (
+                  <TextField {...params} label={t("DISTRICT")} />
+                )}
+              />
+              <Autocomplete
+                disablePortal
+                options={
+                  wards
+                    ? wards?.map((e) => {
+                        return { label: e?.name, id: e?.id };
+                      })
+                    : []
+                }
+                onChange={(event: any, newValue) => {
+                  setValue("ward", newValue);
+                }}
+                sx={{ width: "100%" }}
+                renderInput={(params) => (
+                  <TextField {...params} label={t("Wards")} />
+                )}
+              />
               <Input
                 className="border border-gray-300 rounded h-10 w-full pl-2 pr-10"
                 placeholder={t("NO_STREET")}
                 {...register("street", { required: true })}
               />
-              <Input
-                className="border border-gray-300 rounded h-10 w-full pl-2 pr-10"
-                placeholder={t("DISTRICT")}
-                {...register("district", { required: true })}
-              />
-              <Input
-                className="border border-gray-300 rounded h-10 w-full pl-2 pr-10"
-                placeholder={t("CITY")}
-                {...register("city", { required: true })}
-              />
-              <Input
-                className="border border-gray-300 rounded h-10 w-full pl-2 pr-10"
-                placeholder={t("COUNTRY")}
-                {...register("country", { required: true })}
-              />
-              {(errors.country ||
-                errors.city ||
+              {(errors.province ||
+                errors.ward ||
                 errors.district ||
                 errors.street ||
                 errors.phoneNumber ||
+                errors.email ||
                 errors.name) && (
                 <p className="text-red-500">{t("ENTER_ALL_INFORMATION")}</p>
               )}
