@@ -4,6 +4,7 @@ import {
   Button,
   FormControl,
   FormControlLabel,
+  NativeSelect,
   Radio,
   RadioGroup,
 } from "@mui/material";
@@ -20,6 +21,8 @@ const RightInfo = () => {
   const [category, setCategory] = useState<number>();
   const [method, setMethod] = useState("");
   const [isOpenAddress, setIsOpenAddress] = useState<boolean>(false);
+  const [currency, setCurrency] = useState<string>("");
+  const [displayPrice, setDisplayPrice] = useState(0);
 
   const handleChangeMethod = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMethod((event.target as HTMLInputElement).value);
@@ -31,8 +34,18 @@ const RightInfo = () => {
     }
   };
 
+  const handleChangeCurrency = (event: any) => {
+    setCurrency(event.target.value);
+    const selected = productDetail?.feeList?.find(
+      (e) => e?.paymentCode?.toString() === event.target.value?.toString()
+    );
+    if (selected && amount) {
+      setDisplayPrice(selected?.price * amount);
+    }
+  };
+
   return (
-    <div className="w-full mg:w-1/2 flex flex-col gap-3 xs:gap-6">
+    <div className="w-full flex flex-col gap-3 xs:gap-6">
       <div className=" w-full border rounded-2xl shadow-md h-fit flex flex-col p-3 xs:p-6 gap-6">
         <div>
           <p>{t("CATEGORY")}</p>
@@ -54,25 +67,43 @@ const RightInfo = () => {
           </div>
         </div>
       </div>
-      <div className=" w-full border rounded-2xl shadow-md h-fit flex flex-col p-3 xs:p-6 gap-6">
-        <div className="flex items-center justify-between">
-          <p>{t("QUANTITY")}</p>
-          <NumberInput
-            defaultValue={1}
-            value={amount}
-            min={1}
-            onChange={(event, newValue) => setAmount(newValue)}
-          />
+      <div className="flex gap-4 flex-col sm:flex-row">
+        <div className=" w-full border rounded-2xl shadow-md flex flex-col p-3 xs:p-6 gap-6 h-[106px] justify-center">
+          <div className="flex items-center justify-between">
+            <p>{t("QUANTITY")}</p>
+            <NumberInput
+              defaultValue={1}
+              value={amount}
+              min={1}
+              onChange={(event, newValue) => setAmount(newValue)}
+            />
+          </div>
+        </div>
+        <div className=" w-full border rounded-2xl shadow-md flex flex-col p-3 xs:p-6 gap-6 h-[106px] justify-center">
+          <div className="flex items-center justify-between">
+            <p>{t("PRICE")}</p>
+            <div className="flex items-center gap-3">
+              <p>{displayPrice?.toLocaleString("vi-VN")}</p>
+              <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+                <NativeSelect
+                  defaultValue={currency}
+                  onChange={handleChangeCurrency}
+                  inputProps={{
+                    name: "currency",
+                    id: "uncontrolled-native",
+                  }}
+                >
+                  {productDetail?.feeList &&
+                    productDetail?.feeList?.map((e) => (
+                      <option value={e?.paymentCode}>{e?.paymentCode}</option>
+                    ))}
+                </NativeSelect>
+              </FormControl>
+            </div>
+          </div>
         </div>
       </div>
       {/* <div className=" w-full border rounded-2xl shadow-md h-fit flex flex-col p-3 xs:p-6 gap-6">
-        <div className="flex items-center justify-between">
-          <p>{t("REMAINING")}</p>
-          <p>{item?.remaining + " " + t("PRODUCT")}</p>
-        </div>
-      </div> */}
-
-      <div className=" w-full border rounded-2xl shadow-md h-fit flex flex-col p-3 xs:p-6 gap-6">
         <div className="">
           <p>{t("PRICE")}</p>
           <FormControl className="w-full">
@@ -107,7 +138,7 @@ const RightInfo = () => {
             </RadioGroup>
           </FormControl>
         </div>
-      </div>
+      </div> */}
       <div className=" w-full flex gap-6 justify-center">
         {/* <Button
           //   onClick={handleAddtoCart}

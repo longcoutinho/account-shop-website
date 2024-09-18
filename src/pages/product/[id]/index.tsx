@@ -40,7 +40,7 @@ const DetailProduct = () => {
           animation="wave"
         />
       ) : (
-        <div className="flex gap-8 flex-col mg:flex-row">
+        <div className="flex gap-8 flex-col">
           <LeftInfo />
           <RightInfo />
         </div>

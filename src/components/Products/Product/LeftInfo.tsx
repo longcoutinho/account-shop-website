@@ -25,7 +25,7 @@ const LeftInfo = () => {
   return (
     <>
       {productDetail && (
-        <div className=" w-full mg:w-1/2 border rounded-2xl shadow-md h-fit flex flex-col p-6 gap-2">
+        <div className=" w-full border rounded-2xl shadow-md h-fit flex flex-col p-6 gap-2">
           <div className=" flex gap-6">
             {/* {productDetail?.imagePathList && (
               <Box
