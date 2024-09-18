@@ -72,5 +72,7 @@
   "DEPOSIT_EP": "Deposit EP",
   "DEPOSIT": "Deposit",
   "YOUR_BALANCE": "Your balance",
-  "BACK_TO_HOME_PAGE": "Back to home page"
+  "BACK_TO_HOME_PAGE": "Back to home page",
+  "NOTE_STATUS_ORDER": "Order status will be updated and notified via transaction history on the website, email or your phone number.",
+  "CONTACT_SUPPORT": "Need help, please contact:"
 }

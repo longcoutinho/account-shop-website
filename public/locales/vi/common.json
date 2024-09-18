@@ -72,5 +72,7 @@
   "DEPOSIT_EP": "Nạp EP",
   "DEPOSIT": "Nạp",
   "YOUR_BALANCE": "Số dư của bạn",
-  "BACK_TO_HOME_PAGE": "Trở về trang chủ"
+  "BACK_TO_HOME_PAGE": "Trở về trang chủ",
+  "NOTE_STATUS_ORDER": "Trạng thái đơn hàng sẽ được cập nhật, thông báo qua lịch sử giao dịch trên trang web, email hoặc số điện thoại của quý khách.",
+  "CONTACT_SUPPORT": "Cần trợ giúp, vui lòng liên hệ:"
 }

@@ -17,6 +17,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useTranslation } from "next-i18next";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -211,9 +212,20 @@ const ModalAddress = ({ open, onClose }: IProps) => {
         ) : (
           <div className="flex items-center flex-col">
             <ResultTransaction isSuccess />
+            <p>{t("NOTE_STATUS_ORDER")}</p>
+            <p className="mt-4 font-semibold text-xs text-gray-500">
+              {t("CONTACT_SUPPORT")}{" "}
+              <Link
+                href={"https://zalo.me/0396595014"}
+                target="_blank"
+                className="text-blue-500 hover:underline text-base"
+              >
+                https://zalo.me/0396595014
+              </Link>
+            </p>
             <Button
               onClick={onClose}
-              className={`!w-fit !px-10 !mx-auto !bg-[#052d75] !text-white !min-h-11 !mt-6 !capitalize !cursor-pointer !hover:bg-[#30466b]`}
+              className={`!w-fit !px-10 !mx-auto !bg-[#052d75] !text-white !min-h-11 !mt-4 !capitalize !cursor-pointer !hover:bg-[#30466b]`}
             >
               {t("CONTINUE_SHOPPING")}
             </Button>
