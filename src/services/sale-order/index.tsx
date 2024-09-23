@@ -17,9 +17,13 @@ export const getAllSaleOrders = async (
 
 export const requestGetListProductOrders = async (
   page: number,
-  pageSize: number
+  pageSize: number,
+  transId?: string
 ): Promise<any> => {
   const url =
-    Backend.BASE_URL + `/product/order?page=${page}&pageSize=${pageSize}`;
+    Backend.BASE_URL +
+    `/product/order?page=${page}&pageSize=${pageSize}${
+      transId && transId !== "" ? `&transId=${transId}` : ""
+    }`;
   return doGetRequest(url, null);
 };

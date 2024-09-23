@@ -1,44 +1,38 @@
 import { Box, Button, Chip, Pagination, Skeleton } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { IProductOrderHistory } from "@/interfaces/response";
-import { HTTP_STATUS, PageURL } from "@/constants";
+import { PageURL } from "@/constants";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import Table from "@mui/material/Table";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import TableBody from "@mui/material/TableBody";
-import { requestGetListProductOrders } from "@/services/sale-order";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { Visibility } from "@mui/icons-material";
 import { PATH_PAGE } from "@/routes/path";
 import { STATUS_ORDER } from "@/constants/order";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/redux/store";
+import { fetchListProductOder } from "@/redux/slices/product";
 
 export default function ProductOrders() {
   const pageSize = 15;
   const { t } = useTranslation("common");
   const router = useRouter();
-  const [listOrderHistory, setOrderHistory] = useState<IProductOrderHistory[]>(
-    []
+  const { productOrder, loading } = useSelector(
+    (state: RootState) => state.product
   );
-  const [total, setTotal] = useState<number>();
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     renderListSaleOrder();
   }, [page]);
 
   const renderListSaleOrder = async () => {
-    setLoading(true);
     try {
-      const res = await requestGetListProductOrders(page - 1, pageSize);
-      if (res.status == HTTP_STATUS.OK) {
-        setTotal(res?.data?.count);
-        setOrderHistory(res.data?.listData);
-        setLoading(false);
-      }
+      dispatch(fetchListProductOder({ page: page - 1, pageSize: pageSize }));
     } catch (e) {
       console.log(e);
     }
@@ -49,7 +43,7 @@ export default function ProductOrders() {
   };
 
   const handleClickDetail = (id: string) => {
-    router.push(PATH_PAGE.history.detail + `/${id}`);
+    router.push(PATH_PAGE.history.product + `/${id}`);
   };
 
   return (
@@ -63,20 +57,22 @@ export default function ProductOrders() {
         />
       ) : (
         <>
-          {listOrderHistory && listOrderHistory?.length > 0 ? (
+          {productOrder &&
+          productOrder?.listData &&
+          productOrder?.listData?.length > 0 ? (
             <TableContainer>
               <Table>
                 <TableHead>
                   <TableRow>
                     <TableCell>{t("TRANSACTION_CODE")}</TableCell>
-                    <TableCell>{t("AMOUNT")}</TableCell>
+                    <TableCell>{t("PRODUCT")}</TableCell>
                     <TableCell>{t("CREATED_AT")}</TableCell>
                     <TableCell>{t("STATUS")}</TableCell>
-                    {/* <TableCell>{t("ACTION")}</TableCell> */}
+                    <TableCell>{t("ACTION")}</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {listOrderHistory?.map((request, index) => (
+                  {productOrder?.listData?.map((request, index) => (
                     <TableRow
                       sx={{
                         cursor:
@@ -92,8 +88,9 @@ export default function ProductOrders() {
                     >
                       <TableCell>{request.id}</TableCell>
                       <TableCell>
-                        {request.price.toLocaleString("vi-VN")}{" "}
-                        {request?.currency}
+                        {/* {request.price.toLocaleString("vi-VN")}{" "}
+                        {request?.currency} */}
+                        {request?.productName}
                       </TableCell>
                       <TableCell>{request.createDate}</TableCell>
                       <TableCell>
@@ -135,11 +132,11 @@ export default function ProductOrders() {
                           />
                         )}
                       </TableCell>
-                      {/* <TableCell>
+                      <TableCell>
                         {request.status !== STATUS_ORDER.FAILED && (
                           <Visibility />
                         )}
-                      </TableCell> */}
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -160,14 +157,16 @@ export default function ProductOrders() {
               </Button>
             </div>
           )}
-          {listOrderHistory && total && total > pageSize && (
-            <Pagination
-              count={Math.ceil(total / pageSize)}
-              page={page}
-              onChange={handleChange}
-              className="custom-pagination"
-            />
-          )}
+          {productOrder &&
+            productOrder?.count &&
+            productOrder?.count > pageSize && (
+              <Pagination
+                count={Math.ceil(productOrder?.count / pageSize)}
+                page={page}
+                onChange={handleChange}
+                className="custom-pagination"
+              />
+            )}
         </>
       )}
     </Box>

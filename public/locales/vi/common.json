@@ -81,5 +81,6 @@
   "RECEIVED": "Đã tiếp nhận",
   "PREPARING": "Đang chuẩn bị",
   "DELIVERING": "Đang giao hàng",
-  "CONFIRMING": "Đang xác nhận"
+  "CONFIRMING": "Đang xác nhận",
+  "CREATED_DATE": "Ngày tạo"
 }
