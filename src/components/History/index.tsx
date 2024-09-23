@@ -3,6 +3,7 @@ import AllSaleOrder from "../sale-order/SaleOrder";
 import { Box, Tab } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { useTranslation } from "next-i18next";
+import ProductOrders from "../sale-order/ProductOrders";
 
 const HistoryList = () => {
   const { t } = useTranslation("common");
@@ -32,7 +33,7 @@ const HistoryList = () => {
             <AllSaleOrder />
           </TabPanel>
           <TabPanel value="2" className="px-0">
-            <AllSaleOrder />
+            <ProductOrders />
           </TabPanel>
         </TabContext>
       </Box>

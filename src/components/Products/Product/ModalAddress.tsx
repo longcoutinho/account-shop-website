@@ -1,11 +1,13 @@
 import { style } from "@/components/BuyCard/Games";
 import ResultTransaction from "@/components/History/ResultTransaction";
+import { HTTP_STATUS } from "@/constants";
 import {
   fetchListDistricts,
   fetchListProvinces,
   fetchListWards,
 } from "@/redux/slices/address";
 import { AppDispatch, RootState } from "@/redux/store";
+import { PATH_PAGE } from "@/routes/path";
 import { createProductOrder } from "@/services/product";
 import { LoadingButton } from "@mui/lab";
 import {
@@ -19,6 +21,7 @@ import {
 } from "@mui/material";
 import { useTranslation } from "next-i18next";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,6 +33,7 @@ interface IProps {
 }
 const ModalAddress = ({ open, onClose, category }: IProps) => {
   const { t } = useTranslation("common");
+  const router = useRouter();
   const [isDone, setIsDone] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
@@ -84,7 +88,6 @@ const ModalAddress = ({ open, onClose, category }: IProps) => {
   };
 
   const onSubmitForm = async (data: any) => {
-    console.log(data);
     setLoading(true);
     try {
       const body = {
@@ -98,19 +101,16 @@ const ModalAddress = ({ open, onClose, category }: IProps) => {
           ", " +
           data?.province?.label,
         phoneNumber: data?.phoneNumber,
-        username: data?.name,
-        // email: data?.email,
+        email: data?.email,
       };
       const res = await createProductOrder(body);
-      console.log(res);
+      if (res?.status === HTTP_STATUS.OK) {
+        setIsDone(true);
+      }
+      setLoading(false);
     } catch (e) {
       console.log(e);
     }
-
-    setTimeout(() => {
-      setLoading(false);
-      // setIsDone(true);
-    }, 1500);
   };
 
   return (
@@ -246,10 +246,10 @@ const ModalAddress = ({ open, onClose, category }: IProps) => {
               </Link>
             </p>
             <Button
-              onClick={onClose}
+              onClick={() => router.push(PATH_PAGE.history.root)}
               className={`!w-fit !px-10 !mx-auto !bg-[#052d75] !text-white !min-h-11 !mt-4 !capitalize !cursor-pointer !hover:bg-[#30466b]`}
             >
-              {t("CONTINUE_SHOPPING")}
+              {t("VIEW_TRANSACTION_HISTORY")}
             </Button>
           </div>
         )}

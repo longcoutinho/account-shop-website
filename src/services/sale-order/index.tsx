@@ -14,3 +14,12 @@ export const getAllSaleOrders = async (
   const url = Backend.CARD_SERVICE + `/order?page=${page}&pageSize=${pageSize}`;
   return doGetRequest(url, null);
 };
+
+export const requestGetListProductOrders = async (
+  page: number,
+  pageSize: number
+): Promise<any> => {
+  const url =
+    Backend.BASE_URL + `/product/order?page=${page}&pageSize=${pageSize}`;
+  return doGetRequest(url, null);
+};

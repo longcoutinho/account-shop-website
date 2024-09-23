@@ -2,15 +2,16 @@ import { NumberInput } from "@/components/NumberInput";
 import { RootState } from "@/redux/store";
 import {
   Button,
-  FormControl,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
 } from "@mui/material";
 import { useTranslation } from "next-i18next";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import ModalAddress from "./ModalAddress";
+import { WalletOutlined } from "@mui/icons-material";
 
 const RightInfo = () => {
   const { t } = useTranslation("common");
@@ -18,15 +19,10 @@ const RightInfo = () => {
   const { paymentMethods } = useSelector((state: RootState) => state.payment);
   const [amount, setAmount] = useState<number | null>(0);
   const [category, setCategory] = useState<number>();
-  const [method, setMethod] = useState("");
   const [isOpenAddress, setIsOpenAddress] = useState<boolean>(false);
 
-  const handleChangeMethod = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setMethod((event.target as HTMLInputElement).value);
-  };
-
   const handleClickBuyNow = () => {
-    if (amount && category && method !== "") {
+    if (amount && category) {
       setIsOpenAddress(true);
     }
   };
@@ -75,37 +71,35 @@ const RightInfo = () => {
       <div className=" w-full border rounded-2xl shadow-md h-fit flex flex-col p-3 xs:p-6 gap-6">
         <div className="">
           <p>{t("PRICE")}</p>
-          <FormControl className="w-full">
-            <RadioGroup
-              aria-labelledby="demo-radio-buttons-group-label"
-              name="radio-buttons-group"
-              onChange={handleChangeMethod}
-            >
-              {productDetail?.feeList &&
-                productDetail?.feeList?.map((e) => (
-                  <div className="flex items-center justify-between w-full">
-                    <FormControlLabel
-                      value={e?.paymentCode}
-                      control={<Radio />}
-                      label={
-                        paymentMethods &&
-                        paymentMethods?.find((p) => p?.code === e?.paymentCode)
-                          ? paymentMethods?.find(
-                              (p) => p?.code === e?.paymentCode
-                            )?.name
-                          : e?.paymentCode
-                      }
-                    />
-                    <p>
-                      {e?.price?.toLocaleString("vi-VN") +
-                        " " +
-                        paymentMethods?.find((p) => p?.code === e?.paymentCode)
-                          ?.currency}
-                    </p>
-                  </div>
-                ))}
-            </RadioGroup>
-          </FormControl>
+          <List>
+            {productDetail?.feeList &&
+              productDetail?.feeList?.map((e) => (
+                <ListItem>
+                  <ListItemIcon>
+                    <WalletOutlined />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={
+                      paymentMethods &&
+                      paymentMethods?.find((p) => p?.code === e?.paymentCode)
+                        ? paymentMethods?.find(
+                            (p) => p?.code === e?.paymentCode
+                          )?.name
+                        : e?.paymentCode
+                    }
+                  />
+                  <ListItemText
+                    className="text-end"
+                    primary={
+                      e?.price?.toLocaleString("vi-VN") +
+                      " " +
+                      paymentMethods?.find((p) => p?.code === e?.paymentCode)
+                        ?.currency
+                    }
+                  />
+                </ListItem>
+              ))}
+          </List>
         </div>
       </div>
       <div className=" w-full flex gap-6 justify-center">
@@ -125,7 +119,7 @@ const RightInfo = () => {
         <Button
           onClick={handleClickBuyNow}
           className={`w-1/2 !bg-[#052d75] !text-white !min-h-11 !mt-4 !capitalize ${
-            amount && category && method !== ""
+            amount && category
               ? "!cursor-pointer !hover:bg-[#30466b]"
               : "!cursor-not-allowed !opacity-50 !hover:bg-[#052d75] !hover:text-white"
           }`}
