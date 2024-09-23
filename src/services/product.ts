@@ -1,5 +1,5 @@
 import { Backend } from "@/constants";
-import { doGetRequest } from "@/constants/FnCommon";
+import { doGetRequest, doPostRequest } from "@/constants/FnCommon";
 
 export const getListCategory = async (): Promise<any> => {
   const url = Backend.BASE_URL + "/product-type";
@@ -19,4 +19,10 @@ export const requestGetDetailProduct = async (
   const url = Backend.BASE_URL + `/product/${productId} `;
 
   return doGetRequest(url, null);
+};
+
+export const createProductOrder = async (data: any): Promise<any> => {
+  const url = Backend.BASE_URL + "/product/order";
+  const request = data;
+  return doPostRequest(url, request);
 };

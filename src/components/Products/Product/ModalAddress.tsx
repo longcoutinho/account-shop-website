@@ -6,6 +6,7 @@ import {
   fetchListWards,
 } from "@/redux/slices/address";
 import { AppDispatch, RootState } from "@/redux/store";
+import { createProductOrder } from "@/services/product";
 import { LoadingButton } from "@mui/lab";
 import {
   Autocomplete,
@@ -24,9 +25,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 interface IProps {
   open: boolean;
+  category?: number;
   onClose: () => void;
 }
-const ModalAddress = ({ open, onClose }: IProps) => {
+const ModalAddress = ({ open, onClose, category }: IProps) => {
   const { t } = useTranslation("common");
   const [isDone, setIsDone] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -84,9 +86,30 @@ const ModalAddress = ({ open, onClose }: IProps) => {
   const onSubmitForm = async (data: any) => {
     console.log(data);
     setLoading(true);
+    try {
+      const body = {
+        productCategoriesList: [category],
+        address:
+          data?.street +
+          ", " +
+          data?.ward?.label +
+          ", " +
+          data?.district?.label +
+          ", " +
+          data?.province?.label,
+        phoneNumber: data?.phoneNumber,
+        username: data?.name,
+        // email: data?.email,
+      };
+      const res = await createProductOrder(body);
+      console.log(res);
+    } catch (e) {
+      console.log(e);
+    }
+
     setTimeout(() => {
       setLoading(false);
-      setIsDone(true);
+      // setIsDone(true);
     }, 1500);
   };
 
@@ -114,7 +137,7 @@ const ModalAddress = ({ open, onClose }: IProps) => {
             className="flex items-center flex-col"
           >
             <div className="w-full flex flex-col justify-center gap-3">
-              <p>{t("DELIVERY_INFORMATION")}</p>
+              <p className="text-xl font-medium">{t("DELIVERY_INFORMATION")}</p>
               <Input
                 className="border border-gray-300 rounded h-10 w-full pl-2 pr-10"
                 placeholder={t("RECIPIENT_NAME")}
@@ -132,8 +155,7 @@ const ModalAddress = ({ open, onClose }: IProps) => {
                 placeholder={"Email"}
                 {...register("email", { required: true })}
               />
-              <p>{t("ADDRESS")}</p>
-
+              <p className="text-xl font-medium">{t("ADDRESS")}</p>
               <Autocomplete
                 disablePortal
                 options={
