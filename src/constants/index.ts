@@ -2,7 +2,7 @@ import { PATH_PAGE } from "@/routes/path";
 
 export enum Backend {
   BASE_URL = "https://elitagame.online",
-  // BASE_URL = "http://42.96.35.69:8989",
+  // BASE_URL = "http://183.80.22.21:8989",
   // BASE_URL = 'http://localhost:8989',
   USER_SERVICE = BASE_URL + "/user",
   GAME_SERVICE = BASE_URL + "/game",

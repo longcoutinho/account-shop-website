@@ -136,6 +136,7 @@ const RightInfo = () => {
       {isOpenAddress && (
         <ModalAddress
           open={isOpenAddress}
+          category={category}
           onClose={() => setIsOpenAddress(false)}
         />
       )}
