@@ -123,6 +123,18 @@ const ProductOrderDetail = () => {
                   </p>
                   <p>
                     <span className="text-gray-500 text-sm">
+                      {t("PHONE_NUMBER")}:
+                    </span>{" "}
+                    {c?.phoneNumber}
+                  </p>
+                  {c?.email && (
+                    <p>
+                      <span className="text-gray-500 text-sm">Email:</span>{" "}
+                      {c?.email}
+                    </p>
+                  )}
+                  <p>
+                    <span className="text-gray-500 text-sm">
                       {t("CREATED_DATE")}:
                     </span>{" "}
                     {c?.createDate}

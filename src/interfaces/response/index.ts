@@ -53,6 +53,8 @@ export interface IProductOrderHistory {
   productName: string;
   categoriesName: string;
   address: string;
+  phoneNumber: string;
+  email: string;
   imageList: string[];
 }
 
