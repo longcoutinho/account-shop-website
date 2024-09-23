@@ -81,5 +81,6 @@
   "RECEIVED": "Received",
   "PREPARING": "Preparing",
   "DELIVERING": "Delivering",
-  "CONFIRMING": "Confirming"
+  "CONFIRMING": "Confirming",
+  "CREATED_DATE": "Created Date"
 }

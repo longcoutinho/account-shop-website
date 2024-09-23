@@ -50,6 +50,16 @@ export interface IProductOrderHistory {
   price: number;
   status: number;
   currency: string;
+  productName: string;
+  categoriesName: string;
+  address: string;
+  imageList: string[];
+}
+
+export interface IProductOrderHistoryRes {
+  count: number;
+  listData: IProductOrderHistory[];
+  totalRevenue: number;
 }
 
 export interface Course {
