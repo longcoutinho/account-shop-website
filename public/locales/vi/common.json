@@ -26,6 +26,7 @@
   "EMPTY_CART": "Giỏ hàng trống",
   "ACCOUNT_DETAIL": " Thông tin tài khoản",
   "TRANSACTION_HISTORY": "Lịch sử giao dịch",
+  "VIEW_TRANSACTION_HISTORY": "Xem lịch sử giao dịch",
   "LOG_OUT": "Đăng xuất",
   "CONTINUE_SHOPPING": "Tiếp tục mua sắm",
   "WARNING_SENT_OTP": "OTP sẽ được gửi thông qua ID của bạn",
@@ -74,5 +75,11 @@
   "YOUR_BALANCE": "Số dư của bạn",
   "BACK_TO_HOME_PAGE": "Trở về trang chủ",
   "NOTE_STATUS_ORDER": "Trạng thái đơn hàng sẽ được cập nhật, thông báo qua lịch sử giao dịch trên trang web, email hoặc số điện thoại của quý khách.",
-  "CONTACT_SUPPORT": "Cần trợ giúp, vui lòng liên hệ:"
+  "CONTACT_SUPPORT": "Cần trợ giúp, vui lòng liên hệ:",
+  "SUCCESS": "Thành công",
+  "FAILED": "Thất bạu",
+  "RECEIVED": "Đã tiếp nhận",
+  "PREPARING": "Đang chuẩn bị",
+  "DELIVERING": "Đang giao hàng",
+  "CONFIRMING": "Đang xác nhận"
 }

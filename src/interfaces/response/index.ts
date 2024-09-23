@@ -43,6 +43,15 @@ export interface IOrderHistory {
   currency: string;
 }
 
+export interface IProductOrderHistory {
+  id: string;
+  createUser: string;
+  createDate: string;
+  price: number;
+  status: number;
+  currency: string;
+}
+
 export interface Course {
   title: string;
   teacher: string;
