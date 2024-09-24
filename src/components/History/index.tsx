@@ -31,12 +31,16 @@ const HistoryList = () => {
             >
               <Tab label={t("GAME_CARD")} value="1" />
               <Tab label={t("ELITA_SHOP")} value="2" />
+              <Tab label={"E - Point"} value="3" disabled />
             </TabList>
           </Box>
           <TabPanel value="1" className="px-0">
             <AllSaleOrder />
           </TabPanel>
           <TabPanel value="2" className="px-0">
+            <ProductOrders />
+          </TabPanel>
+          <TabPanel value="3" className="px-0">
             <ProductOrders />
           </TabPanel>
         </TabContext>
