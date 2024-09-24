@@ -15,6 +15,7 @@ import { STATUS_ORDER } from "@/constants/order";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
 import { fetchListProductOder } from "@/redux/slices/product";
+import { isUndefined } from "lodash";
 
 export default function ProductOrders() {
   const pageSize = 15;
@@ -149,7 +150,7 @@ export default function ProductOrders() {
               </div>
               <Button
                 onClick={() => {
-                  router.push(PageURL.BUY_CARD);
+                  router.push(PageURL.PRODUCTS);
                 }}
                 className={`!w-[200px] !bg-[#052d75] !text-white !min-h-11 !mt-4 !mx-auto !cursor-pointer !hover:bg-[#30466b] !capitalize`}
               >
@@ -158,7 +159,7 @@ export default function ProductOrders() {
             </div>
           )}
           {productOrder &&
-            productOrder?.count &&
+            !isUndefined(productOrder?.count) &&
             productOrder?.count > pageSize && (
               <Pagination
                 count={Math.ceil(productOrder?.count / pageSize)}
