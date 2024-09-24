@@ -130,7 +130,7 @@ const ModalAddress = ({ open, onClose, category }: IProps) => {
     >
       <Box
         sx={style}
-        className="!w-[600px] !max-h-[80dvh] !h-fit !overflow-y-auto"
+        className="!w-[600px] !max-h-[80dvh] !h-fit !overflow-y-auto !max-w-[90dvw]"
       >
         {!isDone ? (
           <form
@@ -138,7 +138,9 @@ const ModalAddress = ({ open, onClose, category }: IProps) => {
             className="flex items-center flex-col"
           >
             <div className="w-full flex flex-col justify-center gap-3">
-              <p className="text-xl font-medium">{t("DELIVERY_INFORMATION")}</p>
+              <p className="text-xl font-medium text-black">
+                {t("DELIVERY_INFORMATION")}
+              </p>
               <Input
                 className="border border-gray-300 rounded h-10 w-full pl-2 pr-10"
                 placeholder={t("RECIPIENT_NAME")}
@@ -156,7 +158,7 @@ const ModalAddress = ({ open, onClose, category }: IProps) => {
                 placeholder={"Email"}
                 {...register("email", { required: true })}
               />
-              <p className="text-xl font-medium">{t("ADDRESS")}</p>
+              <p className="text-xl font-medium text-black">{t("ADDRESS")}</p>
               <Autocomplete
                 disablePortal
                 options={
@@ -171,7 +173,7 @@ const ModalAddress = ({ open, onClose, category }: IProps) => {
                 }}
                 sx={{ width: "100%" }}
                 renderInput={(params) => (
-                  <TextField {...params} label="Provinces" />
+                  <TextField {...params} label={t("PROVINCES")} />
                 )}
               />
               <Autocomplete
@@ -205,7 +207,7 @@ const ModalAddress = ({ open, onClose, category }: IProps) => {
                 }}
                 sx={{ width: "100%" }}
                 renderInput={(params) => (
-                  <TextField {...params} label={t("Wards")} />
+                  <TextField {...params} label={t("WARDS")} />
                 )}
               />
               <Input

@@ -66,6 +66,8 @@
   "RECIPIENT_NAME": "Recipient name",
   "NO_STREET": "No, street ...",
   "DISTRICT": "District",
+  "PROVINCES": "Provinces",
+  "WARDS": "Wards",
   "CITY": "City",
   "COUNTRY": "Country",
   "SUBMIT": "Submit",
