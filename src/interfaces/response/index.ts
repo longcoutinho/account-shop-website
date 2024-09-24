@@ -48,7 +48,7 @@ export interface IProductOrderHistory {
   createUser: string;
   createDate: string;
   price: number;
-  status: number;
+  status: string;
   currency: string;
   productName: string;
   categoriesName: string;

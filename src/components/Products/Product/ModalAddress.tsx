@@ -6,6 +6,7 @@ import {
   fetchListProvinces,
   fetchListWards,
 } from "@/redux/slices/address";
+import { setTabHistory } from "@/redux/slices/state";
 import { AppDispatch, RootState } from "@/redux/store";
 import { PATH_PAGE } from "@/routes/path";
 import { createProductOrder } from "@/services/product";
@@ -246,7 +247,10 @@ const ModalAddress = ({ open, onClose, category }: IProps) => {
               </Link>
             </p>
             <Button
-              onClick={() => router.push(PATH_PAGE.history.root)}
+              onClick={() => {
+                router.push(PATH_PAGE.history.root);
+                dispatch(setTabHistory("2"));
+              }}
               className={`!w-fit !px-10 !mx-auto !bg-[#052d75] !text-white !min-h-11 !mt-4 !capitalize !cursor-pointer !hover:bg-[#30466b]`}
             >
               {t("VIEW_TRANSACTION_HISTORY")}

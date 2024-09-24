@@ -3,10 +3,12 @@ import { WritableDraft } from "immer/dist/internal";
 
 interface IState {
   state: boolean;
+  tabHistory: string;
 }
 
 const initialState: IState = {
   state: false,
+  tabHistory: "1",
 };
 
 const slicer = createSlice({
@@ -19,9 +21,15 @@ const slicer = createSlice({
     ) => {
       state.state = action.payload;
     },
+    setTabHistory: (
+      state: WritableDraft<IState>,
+      action: PayloadAction<string>
+    ) => {
+      state.tabHistory = action.payload;
+    },
   },
 });
 
-export const { setState } = slicer.actions;
+export const { setState, setTabHistory } = slicer.actions;
 
 export default slicer.reducer;
