@@ -32,7 +32,7 @@ const ListGames = () => {
     try {
       const res = await requestGetListGames();
       if (res?.status === HTTP_STATUS.OK) {
-        setListGames(res?.data);
+        // setListGames(res?.data);
       }
     } catch (e) {
       console.log(e);

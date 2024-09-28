@@ -22,19 +22,19 @@ export const menuBar = [
     icon: faCartShopping,
     url: PageURL.BUY_CARD,
   },
-  {
-    title: "GAME_TOP_UP",
-    icon: faCreditCard,
-    // url: PageURL.GAME_TOP_UP,
-    child: [
-      {
-        title: "Lords mobile",
-        url: PageURL.LORDS_MOBILE,
-      },
-      {
-        title: "Castle clash",
-        url: PageURL.CASTLE_CLASH,
-      },
-    ],
-  },
+  // {
+  //   title: "GAME_TOP_UP",
+  //   icon: faCreditCard,
+  //   // url: PageURL.GAME_TOP_UP,
+  //   child: [
+  //     {
+  //       title: "Lords mobile",
+  //       url: PageURL.LORDS_MOBILE,
+  //     },
+  //     {
+  //       title: "Castle clash",
+  //       url: PageURL.CASTLE_CLASH,
+  //     },
+  //   ],
+  // },
 ];
