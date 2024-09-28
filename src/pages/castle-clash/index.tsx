@@ -9,10 +9,11 @@ const TopupTab = dynamic(() => import("@/components/LordsMobile/TopupTab"), {
 
 const CastleClashPage = () => {
   return (
-    <Page title={PAGE_TITLE.CASTLE_CLASH} menuIndex={1}>
-      <p className="font-bold text-2xl mb-4">{PAGE_TITLE.CASTLE_CLASH}</p>
-      <TopupTab />
-    </Page>
+    <></>
+    // <Page title={PAGE_TITLE.CASTLE_CLASH} menuIndex={1}>
+    //   <p className="font-bold text-2xl mb-4">{PAGE_TITLE.CASTLE_CLASH}</p>
+    //   <TopupTab />
+    // </Page>
   );
 };
 export default CastleClashPage;

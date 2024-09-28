@@ -30,7 +30,7 @@ export default function Menu() {
         </div>
         {!menuElement?.url && <KeyboardArrowDownOutlined />}
       </div>
-      {menuElement?.child &&
+      {/* {menuElement?.child &&
         menuElement?.child?.map((menuChild, index2) => (
           <Box
             className={`menu-element-child-container mb-1 ${
@@ -41,7 +41,7 @@ export default function Menu() {
           >
             <Link href={menuChild.url}>{menuChild.title}</Link>
           </Box>
-        ))}
+        ))} */}
     </Box>
   ));
   return <Box className="big-menu">{listMenu}</Box>;

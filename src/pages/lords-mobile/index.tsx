@@ -8,10 +8,11 @@ const LordsMobile = dynamic(() => import("@/components/LordsMobile"), {
 });
 const LordsMobilePage = () => {
   return (
-    <Page title={PAGE_TITLE.LORDS_MOBILE} menuIndex={1}>
-      <p className="font-bold text-2xl mb-4">{PAGE_TITLE.LORDS_MOBILE}</p>
-      <LordsMobile />
-    </Page>
+    <></>
+    // <Page title={PAGE_TITLE.LORDS_MOBILE} menuIndex={1}>
+    //   <p className="font-bold text-2xl mb-4">{PAGE_TITLE.LORDS_MOBILE}</p>
+    //   <LordsMobile />
+    // </Page>
   );
 };
 export default LordsMobilePage;
