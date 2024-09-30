@@ -7,7 +7,7 @@ import { List, ListItem } from "@mui/material";
 export default function WarrantyPolicy() {
   return (
     <Page title={PAGE_TITLE.POLICY} menuIndex={1}>
-      <div>
+      <div className="text-black">
         <p className="font-bold text-xl">CHÍNH SÁCH BẢO HÀNH</p>
         <p className="font-bold">I. Điều kiện bảo hành</p>
         <p>Sản phẩm phải đáp ứng các điều kiện sau đây:</p>

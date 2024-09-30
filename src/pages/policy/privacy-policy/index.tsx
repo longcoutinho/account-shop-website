@@ -7,7 +7,7 @@ import { List, ListItem } from "@mui/material";
 export default function PrivacyPolicy() {
   return (
     <Page title={PAGE_TITLE.POLICY} menuIndex={1}>
-      <div>
+      <div className="text-black">
         <p className="font-bold text-xl">CHÍNH SÁCH BẢO MẬT</p>
         <p className="font-bold"> Mục đích và phạm vi thu thập</p>
         <List
