@@ -84,5 +84,9 @@
   "PREPARING": "Preparing",
   "DELIVERING": "Delivering",
   "CONFIRMING": "Confirming",
-  "CREATED_DATE": "Created Date"
+  "CREATED_DATE": "Created Date",
+  "DELIVERY_POLICY": "Delivery policy",
+  "INSPECTION_RETURN": "Product inspection and return policy",
+  "WARRANTY_POLICY": "Warranty policy",
+  "PAYMENT_POLICY": "Payment policy"
 }
