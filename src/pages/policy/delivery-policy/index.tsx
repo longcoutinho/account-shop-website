@@ -7,7 +7,7 @@ import { List, ListItem } from "@mui/material";
 export default function DeliveryPolicy() {
   return (
     <Page title={PAGE_TITLE.POLICY} menuIndex={1}>
-      <div>
+      <div className="text-black">
         <p className="font-bold text-xl">
           CHÍNH SÁCH GIAO NHẬN VÀ VẬN CHUYỂN HÀNG HÓA
         </p>

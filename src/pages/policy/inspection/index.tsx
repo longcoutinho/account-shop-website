@@ -7,7 +7,7 @@ import { List, ListItem } from "@mui/material";
 export default function Inspection() {
   return (
     <Page title={PAGE_TITLE.POLICY} menuIndex={1}>
-      <div>
+      <div className="text-black">
         <p className="font-bold text-xl">CHÍNH SÁCH KIỂM HÀNG</p>
         <p>
           Để quyền lợi của khách hàng được bảo vệ tối đa khi tham gia mua sắm

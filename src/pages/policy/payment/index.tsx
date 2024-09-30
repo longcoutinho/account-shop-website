@@ -7,7 +7,7 @@ import { List, ListItem } from "@mui/material";
 export default function PaymentPolicy() {
   return (
     <Page title={PAGE_TITLE.POLICY} menuIndex={1}>
-      <div>
+      <div className="text-black">
         <p className="font-bold text-xl">PHƯƠNG THỨC THANH TOÁN</p>
         Cám ơn Quý khách đã đặt hàng tại chúng tôi. Quý khách thanh toán theo
         các hình thức sau:
