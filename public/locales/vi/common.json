@@ -60,8 +60,8 @@
   "CATEGORY": "Phân loại",
   "REMAINING": "Còn lại",
   "ELITA_SHOP": "Xưởng Elita",
-  "PRIVACY_POLICY": "Privacy Policy",
-  "TERM_OF_SERVICES": "Term of Services",
+  "PRIVACY_POLICY": "Chính sách bảo mật",
+  "TERM_OF_SERVICES": "Điều khoản dịch vụ",
   "DELIVERY_INFORMATION": "Thông tin giao hàng",
   "RECIPIENT_NAME": "Tên người nhận",
   "NO_STREET": "Số nhà, tên đường ...",
@@ -84,5 +84,9 @@
   "PREPARING": "Đang chuẩn bị",
   "DELIVERING": "Đang giao hàng",
   "CONFIRMING": "Đang xác nhận",
-  "CREATED_DATE": "Ngày tạo"
+  "CREATED_DATE": "Ngày tạo",
+  "DELIVERY_POLICY": "Chính sách giao nhận",
+  "INSPECTION_RETURN": "Chính sách kiểm hàng, đổi trả",
+  "WARRANTY_POLICY": "Chính sách bảo hành",
+  "PAYMENT_POLICY": "Chính sách thanh toán"
 }

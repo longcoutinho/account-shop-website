@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import Container from "@mui/system/Container";
 import { useTranslation } from "next-i18next";
+import Link from "next/link";
 
 const Footer = () => {
   const { t } = useTranslation("common");
@@ -19,8 +20,12 @@ const Footer = () => {
       <div className="flex w-full gap-1 md:gap-6 text-[#000000DE] flex-col md:flex-row">
         <div className=" w-full md:w-2/3 flex flex-col gap-1">
           <p>
-            {t("BUSINESS_REGISTER")}:{" "}
-            <span className="font-semibold">4900896509</span>
+            MST:{" "}
+            <span className="font-semibold">
+              {" "}
+              4900896509, cấp ngày 14/08/2023, cấp bởi Sở Kế Hoạch Và Đầu Tư
+              Tỉnh Lạng Sơn - Phòng Đăng Ký Kinh Doanh
+            </span>
           </p>
           <p>
             {t("ADDRESS")} :{" "}
@@ -30,17 +35,43 @@ const Footer = () => {
               Sơn, Việt Nam
             </span>
           </p>
-          <Box>
-            <a href="/terms-of-service" style={{ fontWeight: 500 }}>
-              {t("TERM_OF_SERVICES")}
-            </a>
-            <a
-              href="/privacy-policy"
-              style={{ marginLeft: "20px", fontWeight: 500 }}
+          <div className="grid grid-cols-1 mg:grid-cols-2 mt-4">
+            <Link
+              href="/policy/privacy-policy"
+              style={{ fontWeight: 500 }}
+              className="hover:underline"
             >
-              {t("PRIVACY_POLICY")}
-            </a>
-          </Box>
+              * {t("PRIVACY_POLICY")}
+            </Link>
+            <Link
+              href="/policy/delivery-policy"
+              style={{ fontWeight: 500 }}
+              className="hover:underline"
+            >
+              * {t("DELIVERY_POLICY")}
+            </Link>
+            <Link
+              href="/policy/inspection"
+              style={{ fontWeight: 500 }}
+              className="hover:underline"
+            >
+              * {t("INSPECTION_RETURN")}
+            </Link>
+            <Link
+              href="/policy/payment"
+              style={{ fontWeight: 500 }}
+              className="hover:underline"
+            >
+              * {t("PAYMENT_POLICY")}
+            </Link>
+            <Link
+              href="/policy/warranty"
+              style={{ fontWeight: 500 }}
+              className="hover:underline"
+            >
+              * {t("WARRANTY_POLICY")}
+            </Link>
+          </div>
         </div>
         <div className=" w-full md:w-1/3 flex-col gap-1">
           <p>
@@ -49,6 +80,12 @@ const Footer = () => {
           <p>
             Email: <span className="font-semibold">support@elitagame.com</span>
           </p>
+          <a href="/terms-of-service" className="hover:underline">
+            Term of Services
+          </a>
+          <a href="/privacy-policy" className="hover:underline">
+            Privacy Policy
+          </a>
         </div>
       </div>
     </Container>

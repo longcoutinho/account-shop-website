@@ -41,6 +41,7 @@ export enum PAGE_TITLE {
   ORDER = "Order",
   PRODUCTS = "Products",
   ELITA_SHOP = "ELITA_SHOP",
+  POLICY = "Policy",
 }
 
 export const HomePage = {
