@@ -88,5 +88,11 @@
   "DELIVERY_POLICY": "Delivery policy",
   "INSPECTION_RETURN": "Product inspection and return policy",
   "WARRANTY_POLICY": "Warranty policy",
-  "PAYMENT_POLICY": "Payment policy"
+  "PAYMENT_POLICY": "Payment policy",
+  "DESCRIPTION": "Description",
+  "REVIEWS": "Reviews",
+  "PRODUCT_REVIEWS": "Product reviews",
+  "GIVE_REVIEW": "Please review this product!",
+  "SEND": "Send",
+  "VALIDATE_COMMENT": "Reviews contain a maximum of 300 characters"
 }

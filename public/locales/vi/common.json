@@ -88,5 +88,11 @@
   "DELIVERY_POLICY": "Chính sách giao nhận",
   "INSPECTION_RETURN": "Chính sách kiểm hàng, đổi trả",
   "WARRANTY_POLICY": "Chính sách bảo hành",
-  "PAYMENT_POLICY": "Chính sách thanh toán"
+  "PAYMENT_POLICY": "Chính sách thanh toán",
+  "DESCRIPTION": "Mô tả",
+  "REVIEWS": "Đánh giá",
+  "PRODUCT_REVIEWS": "Đánh giá sản phẩm",
+  "GIVE_REVIEW": "Hãy nhận xét cho sản phẩm này bạn nhé!",
+  "SEND": "Gửi",
+  "VALIDATE_COMMENT": "Đánh giá chứa tối đa 300 kí tự"
 }
