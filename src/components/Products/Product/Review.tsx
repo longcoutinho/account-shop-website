@@ -2,67 +2,91 @@ import { RootState } from "@/redux/store";
 import { AccountCircle } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import { TextareaAutosize } from "@mui/material";
+import { isUndefined } from "lodash";
 import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
-const list = [
-  {
-    userName: "Phuong Mai",
-    comment:
-      "hãy nhận xét cho sản phẩm này bạn nhé hãy nhận xét cho sản phẩm này bạn nhé hãy nhận xét cho sản phẩm này bạn nhé hãy nhận xét cho sản phẩm này bạn nhé hãy nhận xét cho sản phẩm này bạn nhé",
-    time: "09/10/2024",
-  },
-  {
-    userName: "Phuong Mai1",
-    comment: "hãy nhận xét cho sản phẩm này bạn nhé",
-    time: "09/10/2024",
-  },
-  {
-    userName: "Phuong Mai2",
-    comment: "hãy nhận xét cho sản phẩm này bạn nhé",
-    time: "09/10/2024",
-  },
-  {
-    userName: "Phuong Mai3",
-    comment: "hãy nhận xét cho sản phẩm này bạn nhé",
-    time: "09/10/2024",
-  },
-];
 const Review = () => {
+  const router = useRouter();
+  const { id } = router.query;
   const { t } = useTranslation("common");
   const { user } = useSelector((state: RootState) => state.user);
+  const { productDetail, productOrder } = useSelector(
+    (state: RootState) => state.product
+  );
   const [loading, setLoading] = useState<boolean>(false);
   const [comment, setComment] = useState<string>("");
   const [listReview, setListReview] = useState<
     {
+      id?: string;
       userName: string;
       comment: string;
-      time: string;
+      time?: number;
+      productId: string;
     }[]
   >([]);
 
   useEffect(() => {
-    setListReview(list);
-  }, [list]);
+    handleGetListReviews();
+  }, []);
+
+  const handleGetListReviews = async () => {
+    try {
+      const response = await fetch("/api/reviews", {
+        method: "GET",
+      });
+      const data = await response.json();
+      setListReview(data?.comments);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const handleSubmit = async () => {
-    setLoading(true);
-    const newComment = {
-      userName: user?.username || "Default name",
-      comment: comment,
-      time: new Date().toLocaleDateString(),
-    };
-    setListReview([newComment, ...listReview]);
-    setComment("");
-    setLoading(false);
+    if (
+      productOrder &&
+      productDetail &&
+      !isUndefined(
+        productOrder?.listData?.find(
+          (o) => o?.productName === productDetail?.name
+        )
+      )
+    ) {
+      setLoading(true);
+      const newComment = {
+        userName: user?.username || "Default name",
+        comment: comment,
+        productId: id as string,
+      };
+
+      const response = await fetch("/api/reviews", {
+        method: "POST",
+        body: JSON.stringify(newComment),
+      });
+      const data = await response.json();
+      if (data?.statusCode === 401) {
+        toast.error("Đã đánh giá");
+      } else if (data?.statusCode === 200) {
+        setListReview([newComment, ...listReview]);
+        setComment("");
+      }
+      setLoading(false);
+    } else {
+      toast.error("Bạn chưa mua sản phẩm này");
+    }
   };
 
   return (
     <>
       <div className="w-full flex justify-between items-center">
         <p className="text-xl">
-          {t("PRODUCT_REVIEWS") + ` (${listReview?.length || 0})`}{" "}
+          {t("PRODUCT_REVIEWS") +
+            ` (${
+              listReview?.filter((item) => item?.productId === id)?.length || 0
+            })`}{" "}
         </p>
         <LoadingButton
           loading={loading}
@@ -87,16 +111,20 @@ const Review = () => {
 
       {listReview && listReview?.length > 0 ? (
         <>
-          {listReview?.map((e) => (
-            <div className="flex border-b-2 mb-4 gap-4 last:border-none mt-4">
-              <AccountCircle className="w-9 h-9" />
-              <div>
-                <p className="font-semibold">{e?.userName}</p>
-                <p className="text-gray-500 text-xs">{e?.time}</p>
-                <p className="my-3">{e?.comment}</p>
+          {listReview
+            ?.filter((item) => item?.productId === id)
+            ?.map((e) => (
+              <div className="flex border-b-2 mb-4 gap-4 last:border-none mt-4">
+                <AccountCircle className="w-9 h-9" />
+                <div>
+                  <p className="font-semibold">{e?.userName}</p>
+                  <p className="text-gray-500 text-xs">
+                    {new Date(e?.time || 0).toLocaleString()}
+                  </p>
+                  <p className="my-3">{e?.comment}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
         </>
       ) : (
         <p className="text-center mt-4">

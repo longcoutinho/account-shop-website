@@ -2,8 +2,10 @@ import LeftInfo from "@/components/Products/Product/LeftInfo";
 import RightInfo from "@/components/Products/Product/RightInfo";
 import { PAGE_TITLE, PageURL } from "@/constants";
 import Page from "@/layouts";
-import { fetchListPaymentMethod } from "@/redux/slices/payment";
-import { fetchDetailProduct } from "@/redux/slices/product";
+import {
+  fetchDetailProduct,
+  fetchListProductOder,
+} from "@/redux/slices/product";
 import { AppDispatch, RootState } from "@/redux/store";
 import { ArrowBack } from "@mui/icons-material";
 import { Skeleton } from "@mui/material";
@@ -23,6 +25,9 @@ const DetailProduct = () => {
       dispatch(fetchDetailProduct(id as string));
     }
   }, [id]);
+  useEffect(() => {
+    dispatch(fetchListProductOder({ page: 0, pageSize: 1000 }));
+  }, []);
   return (
     <Page title={PAGE_TITLE.PRODUCTS} menuIndex={1}>
       <div
