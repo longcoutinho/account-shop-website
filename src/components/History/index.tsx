@@ -7,6 +7,7 @@ import ProductOrders from "../sale-order/ProductOrders";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
 import { setTabHistory } from "@/redux/slices/state";
+import AllTopUpRequest from "../topup/all/TopUpRequest";
 
 const HistoryList = () => {
   const { t } = useTranslation("common");
@@ -31,7 +32,7 @@ const HistoryList = () => {
             >
               <Tab label={t("GAME_CARD")} value="1" />
               <Tab label={t("ELITA_SHOP")} value="2" />
-              <Tab label={"E - Point"} value="3" disabled />
+              <Tab label={"E - Point"} value="3" />
             </TabList>
           </Box>
           <TabPanel value="1" className="px-0">
@@ -41,7 +42,7 @@ const HistoryList = () => {
             <ProductOrders />
           </TabPanel>
           <TabPanel value="3" className="px-0">
-            <ProductOrders />
+            <AllTopUpRequest />
           </TabPanel>
         </TabContext>
       </Box>

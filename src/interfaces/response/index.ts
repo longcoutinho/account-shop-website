@@ -27,7 +27,7 @@ export interface Item {
 export interface TopUpRequest {
   id: number;
   createDate: string;
-  status: number;
+  status: string | number;
   amount: number;
   username: string;
   password: string;

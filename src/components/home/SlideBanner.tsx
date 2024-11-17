@@ -1,18 +1,33 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Scrollbar, Pagination, A11y, Autoplay } from "swiper";
-import { useRouter } from "next/router";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getListBanner } from "@/services/product";
+import { Backend, HTTP_STATUS } from "@/constants";
 
-const slideData = [
-  { key: 0, redirectURL: "", imageURL: "/img/banner.png" },
-  { key: 1, redirectURL: "", imageURL: "/img/banner-2.jpg" },
-  { key: 2, redirectURL: "", imageURL: "/img/banner.png" },
-  { key: 3, redirectURL: "", imageURL: "/img/banner-2.jpg" },
-  { key: 4, redirectURL: "", imageURL: "/img/banner.png" },
-];
+interface ISliceData {
+  id: number;
+  url: string;
+  idx: number;
+}
 export default function SlideBanner() {
-  const route = useRouter();
+  const [slideData, setSlideData] = useState<ISliceData[]>([]);
+
+  useEffect(() => {
+    handleFetchData();
+  }, []);
+
+  const handleFetchData = () => {
+    getListBanner()
+      .then((res) => {
+        if (res.status == HTTP_STATUS.OK) {
+          setSlideData(res.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <Swiper
@@ -27,13 +42,13 @@ export default function SlideBanner() {
     >
       {slideData &&
         slideData?.map((e) => (
-          <SwiperSlide onClick={() => route.push(e.redirectURL)} key={e.key}>
+          <SwiperSlide key={e.id}>
             <Image
-              src={e.imageURL}
+              src={Backend.BASE_URL + e.url}
               alt="banner-home"
               width={1000}
               height={500}
-              className="w-full h-full"
+              className="w-full h-full max-h-[500px]"
             />
           </SwiperSlide>
         ))}
