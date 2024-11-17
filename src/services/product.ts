@@ -1,6 +1,11 @@
 import { Backend } from "@/constants";
 import { doGetRequest, doPostRequest } from "@/constants/FnCommon";
 
+export const getListBanner = async (): Promise<any> => {
+  const url = Backend.BASE_URL + "/product/home-page/images";
+  return doGetRequest(url, null);
+};
+
 export const getListCategory = async (): Promise<any> => {
   const url = Backend.BASE_URL + "/product-type";
 

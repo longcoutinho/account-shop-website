@@ -1,9 +1,4 @@
-import { Box, Pagination } from "@mui/material";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
-import "@/constants/FnCommon";
+import { Box, Chip, Pagination } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { TopUpRequest } from "@/interfaces/response";
 import { HTTP_STATUS } from "@/constants";
@@ -16,8 +11,9 @@ import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import TableBody from "@mui/material/TableBody";
 
-export default function AllTopUpRequest(props: any) {
+export default function AllTopUpRequest() {
   const [listRequestTopUp, setListRequestTopUp] = useState<TopUpRequest[]>([]);
+  const pageSize = 15;
   const [page, setPage] = React.useState(1);
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
@@ -47,40 +43,52 @@ export default function AllTopUpRequest(props: any) {
             <TableRow>
               <TableCell>STT</TableCell>
               <TableCell>Mã giao dịch</TableCell>
-              <TableCell>Số tiền</TableCell>
-              <TableCell>Phương thức nạp</TableCell>
+              <TableCell>Số lượng</TableCell>
               <TableCell>Thời gian</TableCell>
               <TableCell>Trạng thái</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {listRequestTopUp.map((request, index) => (
-              <TableRow>
-                <TableCell>{index + 1}</TableCell>
-                <TableCell>{request.id}</TableCell>
-                <TableCell>{request.amount}</TableCell>
-                <TableCell>
-                  {request.method == 1 ? "Interner Banking" : "MoMo"}
-                </TableCell>
-                <TableCell>{formatDateTime(request.createDate)}</TableCell>
-                <TableCell>
-                  {request.status == 0
-                    ? "Thất bại"
-                    : request.status == 1
-                    ? "Thành công"
-                    : "Đang xử lý"}
-                </TableCell>
-              </TableRow>
-            ))}
+            {listRequestTopUp
+              ?.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize)
+              .map((request, index) => (
+                <TableRow>
+                  <TableCell>{index + 1}</TableCell>
+                  <TableCell>{request.id}</TableCell>
+                  <TableCell>
+                    {request?.amount?.toLocaleString("en-US")}
+                  </TableCell>
+                  <TableCell>{formatDateTime(request.createDate)}</TableCell>
+                  <TableCell>
+                    {request.status === "SUCCESS" ? (
+                      <Chip
+                        label="Thành công"
+                        color="success"
+                        variant="outlined"
+                      />
+                    ) : request.status === "FAILED" ? (
+                      <Chip label="Thất bại" color="error" variant="outlined" />
+                    ) : (
+                      <Chip
+                        label="Đang tiến hành"
+                        color="warning"
+                        variant="outlined"
+                      />
+                    )}
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
-      <Pagination
-        count={10}
-        page={page}
-        onChange={handleChange}
-        className="custom-pagination"
-      />
+      {listRequestTopUp?.length > pageSize && (
+        <Pagination
+          count={Math.ceil(listRequestTopUp?.length / pageSize)}
+          page={page}
+          onChange={handleChange}
+          className="custom-pagination"
+        />
+      )}
     </Box>
   );
 }
