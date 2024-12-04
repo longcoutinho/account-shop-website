@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/redux/store";
 import { setTabHistory } from "@/redux/slices/state";
 import AllTopUpRequest from "../topup/all/TopUpRequest";
+import BalanceHistory from "./BalanceHistory";
 
 const HistoryList = () => {
   const { t } = useTranslation("common");
@@ -46,7 +47,7 @@ const HistoryList = () => {
             <AllTopUpRequest />
           </TabPanel>
           <TabPanel value="4" className="px-0">
-            <AllTopUpRequest />
+            <BalanceHistory />
           </TabPanel>
         </TabContext>
       </Box>

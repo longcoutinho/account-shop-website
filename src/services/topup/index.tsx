@@ -10,13 +10,16 @@ export const getAllTopUpRequest = async (): Promise<any> => {
   return doGetRequest(url, null);
 };
 
-export const createTopUpRequest = async (
-  amount: any,
-): Promise<any> => {
+export const getBalanceHistory = async (): Promise<any> => {
+  const url = Backend.BASE_URL + "/user/balance-history";
+  return doGetRequest(url, null);
+};
+
+export const createTopUpRequest = async (amount: any): Promise<any> => {
   const url = Backend.TOPUP_SERVICE + "/request";
   const request = {
     amount: amount,
-    method: null
+    method: null,
   };
   return doPostRequest(url, request);
 };
