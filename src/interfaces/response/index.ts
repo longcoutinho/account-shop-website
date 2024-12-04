@@ -34,6 +34,16 @@ export interface TopUpRequest {
   method: number;
 }
 
+export interface IBalanceHistory {
+  id: number;
+  userId: string;
+  username: string;
+  balanceAfter: number;
+  balanceBefore: number;
+  createDate: string;
+  actType: number;
+}
+
 export interface IOrderHistory {
   id: string;
   createUser: string;
