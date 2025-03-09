@@ -98,6 +98,7 @@ const Payment = () => {
           toast.error("Not enough balance");
         } else {
           const res = await requestCreateOrder({
+            orderId: null,
             cardInfo: listOder?.map((o) => {
               return { cardId: o?.cardId, quantity: o.amount };
             }),

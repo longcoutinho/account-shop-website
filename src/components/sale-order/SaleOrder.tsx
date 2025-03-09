@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { Visibility } from "@mui/icons-material";
 import { PATH_PAGE } from "@/routes/path";
+import { requestCreateOrder } from "@/services/rechargeGameCard";
 
 export default function AllSaleOrder() {
   const pageSize = 15;
@@ -51,6 +52,19 @@ export default function AllSaleOrder() {
     router.push(PATH_PAGE.history.detail + `/${id}`);
   };
 
+  const handlePayment = async (id: string) => {
+    try {
+      const res = await requestCreateOrder({
+        orderId: id,
+        paymentMethodCode: "QB",
+      });
+      if (res?.status === HTTP_STATUS.OK) {
+        router.push(res?.data?.returnURL ? res?.data?.returnURL : "");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <Box className="flex flex-row gap-5 flex-wrap justify-items-center bg-white rounded-2xl box-shadow p-5">
       {loading ? (
@@ -114,8 +128,17 @@ export default function AllSaleOrder() {
                           />
                         )}
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="text-center">
                         {request.status === "SUCCESS" && <Visibility />}
+                        {request.status === "PENDING" && (
+                          <Button
+                            variant="contained"
+                            className="bg-blue-500 text-white capitalize"
+                            onClick={() => handlePayment(request?.id)}
+                          >
+                            {t("PAYMENT")}
+                          </Button>
+                        )}
                       </TableCell>
                     </TableRow>
                   ))}
